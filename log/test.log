@@ -1,0 +1,1030 @@
+  [1m[35m (5.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items"[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_carts_on_user_id" ON "carts" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_categories_on_name" ON "categories" ("name")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "order_items"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "orders"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "pickup_requests"[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "products"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_products_on_active_and_category_id" ON "products" ("active", "category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_sku" ON "products" ("sku")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "provinces"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "provinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_abbreviation" ON "provinces" ("abbreviation")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_name" ON "provinces" ("name")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "repair_requests"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "repair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_repair_requests_on_pickup_request_id" ON "repair_requests" ("pickup_request_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_users_on_province_id" ON "users" ("province_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_product_id" ON "acart_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_cart_id" ON "acart_items" ("cart_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_acart_items_on_cart_id_and_product_id" ON "acart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "cart_items"[0m
+  [1m[35m (1.0ms)[0m  [1m[35mDROP TABLE "cart_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "acart_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "acart_items"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_product_id" ON "acart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_cart_id" ON "acart_items" ("cart_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_acart_items_on_cart_id_and_product_id" ON "acart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "cart_items"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "cart_items"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+, CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "cart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "acart_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "acart_items"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acarts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_acarts_on_user_id" ON "acarts" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acarts" ("id","user_id","created_at","updated_at")
+                     SELECT "id","user_id","created_at","updated_at" FROM "carts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "carts"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ea59a35211"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_carts_on_user_id" ON "carts" ("user_id")[0m
+  [1m[35m (1.6ms)[0m  [1m[32mINSERT INTO "carts" ("id","user_id","created_at","updated_at")
+                     SELECT "id","user_id","created_at","updated_at" FROM "acarts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "acarts"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorder_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_product_id" ON "aorder_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id" ON "aorder_items" ("order_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id_and_product_id" ON "aorder_items" ("order_id", "product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aorder_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "order_items"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "order_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "order_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "aorder_items"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "aorder_items"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorder_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_product_id" ON "aorder_items" ("product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id" ON "aorder_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id_and_product_id" ON "aorder_items" ("order_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aorder_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "order_items"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "order_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "order_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "aorder_items"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "aorder_items"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id" ON "aorders" ("user_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id_and_created_at" ON "aorders" ("user_id", "created_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_status" ON "aorders" ("status")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aorders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "orders"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "orders"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "orders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "aorders"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aorders"[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_user_id" ON "apickup_requests" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_status_and_scheduled_at" ON "apickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_order_id" ON "apickup_requests" ("order_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "pickup_requests"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "pickup_requests"[0m
+  [1m[35m (1.6ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_cf8bc4575f"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "pickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "apickup_requests"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "apickup_requests"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_user_id" ON "apickup_requests" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_status_and_scheduled_at" ON "apickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_order_id" ON "apickup_requests" ("order_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "apickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "pickup_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "pickup_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_cf8bc4575f"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_6d763a08ca"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "pickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "apickup_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "apickup_requests"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aproducts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aproducts_on_sku" ON "aproducts" ("sku")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "tindex_aproducts_on_category_id" ON "aproducts" ("category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aproducts_on_active_and_category_id" ON "aproducts" ("active", "category_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aproducts" ("id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at")
+                     SELECT "id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at" FROM "products"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "products"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_products_on_active_and_category_id" ON "products" ("active", "category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_sku" ON "products" ("sku")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "products" ("id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at")
+                     SELECT "id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at" FROM "aproducts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aproducts"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "arepair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_arepair_requests_on_pickup_request_id" ON "arepair_requests" ("pickup_request_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "arepair_requests" ("id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at")
+                     SELECT "id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at" FROM "repair_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "repair_requests"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "repair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_34f8003556"
+FOREIGN KEY ("pickup_request_id")
+  REFERENCES "pickup_requests" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_repair_requests_on_pickup_request_id" ON "repair_requests" ("pickup_request_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "repair_requests" ("id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at")
+                     SELECT "id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at" FROM "arepair_requests"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE "arepair_requests"[0m
+  [1m[36mTRANSACTION (4.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_ausers_on_province_id" ON "ausers" ("province_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_ausers_on_email" ON "ausers" ("email")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "ausers" ("id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at")
+                     SELECT "id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_560da4bd54"
+FOREIGN KEY ("province_id")
+  REFERENCES "provinces" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_users_on_province_id" ON "users" ("province_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "users" ("id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at")
+                     SELECT "id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at" FROM "ausers"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260716000000)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'test', '2026-07-17 02:39:32.430481', '2026-07-17 02:39:32.430487') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('schema_sha1', 'a75e96e3c953f57a70bcd2835d1ba51153fb93e3', '2026-07-17 02:39:32.434131', '2026-07-17 02:39:32.434136') RETURNING "key"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 21:39:53 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  Rendered home/index.html.erb within layouts/application (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2663.1ms | GC: 0.2ms)
+Completed 200 OK in 3873ms (Views: 2801.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.2ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_attachments"[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" integer NOT NULL, "blob_id" integer NOT NULL, "created_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_blobs"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "filename" varchar NOT NULL, "content_type" varchar, "metadata" text, "service_name" varchar NOT NULL, "byte_size" bigint NOT NULL, "checksum" varchar, "created_at" datetime(6) NOT NULL)[0m
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "active_storage_variant_records"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" integer NOT NULL, "variation_digest" varchar NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "admin_users"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar DEFAULT '' NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_email" ON "admin_users" ("email")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_reset_password_token" ON "admin_users" ("reset_password_token")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_username" ON "admin_users" ("username")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE IF EXISTS "cart_items"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "carts"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_carts_on_user_id" ON "carts" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "categories"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_categories_on_name" ON "categories" ("name")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE IF EXISTS "order_items"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "orders"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "pickup_requests"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "products"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_products_on_active_and_category_id" ON "products" ("active", "category_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_sku" ON "products" ("sku")[0m
+  [1m[35m (2.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "provinces"[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "provinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_abbreviation" ON "provinces" ("abbreviation")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_name" ON "provinces" ("name")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "repair_requests"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "repair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_repair_requests_on_pickup_request_id" ON "repair_requests" ("pickup_request_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "site_pages"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "site_pages" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "slug" varchar NOT NULL, "title" varchar NOT NULL, "body" text NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_site_pages_on_slug" ON "site_pages" ("slug")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mDROP TABLE IF EXISTS "users"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE INDEX "index_users_on_province_id" ON "users" ("province_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aactive_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" integer NOT NULL, "blob_id" integer NOT NULL, "created_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aactive_storage_attachments_uniqueness" ON "aactive_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aactive_storage_attachments_on_blob_id" ON "aactive_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "aactive_storage_attachments" ("id","name","record_type","record_id","blob_id","created_at")
+                     SELECT "id","name","record_type","record_id","blob_id","created_at" FROM "active_storage_attachments"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "active_storage_attachments"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" integer NOT NULL, "blob_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("id","name","record_type","record_id","blob_id","created_at")
+                     SELECT "id","name","record_type","record_id","blob_id","created_at" FROM "aactive_storage_attachments"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aactive_storage_attachments"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aactive_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" integer NOT NULL, "variation_digest" varchar NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aactive_storage_variant_records_uniqueness" ON "aactive_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aactive_storage_variant_records" ("id","blob_id","variation_digest")
+                     SELECT "id","blob_id","variation_digest" FROM "active_storage_variant_records"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "active_storage_variant_records"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" integer NOT NULL, "variation_digest" varchar NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "active_storage_variant_records" ("id","blob_id","variation_digest")
+                     SELECT "id","blob_id","variation_digest" FROM "aactive_storage_variant_records"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aactive_storage_variant_records"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_product_id" ON "acart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_cart_id" ON "acart_items" ("cart_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_acart_items_on_cart_id_and_product_id" ON "acart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "acart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "cart_items"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "cart_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "acart_items"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "acart_items"[0m
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_product_id" ON "acart_items" ("product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_acart_items_on_cart_id" ON "acart_items" ("cart_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_acart_items_on_cart_id_and_product_id" ON "acart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "acart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "cart_items"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE "cart_items"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+, CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "cart_items" ("id","cart_id","product_id","quantity","created_at","updated_at")
+                     SELECT "id","cart_id","product_id","quantity","created_at","updated_at" FROM "acart_items"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "acart_items"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "acarts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_acarts_on_user_id" ON "acarts" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "acarts" ("id","user_id","created_at","updated_at")
+                     SELECT "id","user_id","created_at","updated_at" FROM "carts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "carts"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ea59a35211"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_carts_on_user_id" ON "carts" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "carts" ("id","user_id","created_at","updated_at")
+                     SELECT "id","user_id","created_at","updated_at" FROM "acarts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "acarts"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorder_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_product_id" ON "aorder_items" ("product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id" ON "aorder_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id_and_product_id" ON "aorder_items" ("order_id", "product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aorder_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "order_items"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "order_items"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "order_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "aorder_items"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aorder_items"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorder_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_product_id" ON "aorder_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id" ON "aorder_items" ("order_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorder_items_on_order_id_and_product_id" ON "aorder_items" ("order_id", "product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aorder_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "order_items"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE "order_items"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "order_items" ("id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at")
+                     SELECT "id","order_id","product_id","product_name","sku","quantity","unit_price","line_total","created_at","updated_at" FROM "aorder_items"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aorder_items"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id" ON "aorders" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id_and_created_at" ON "aorders" ("user_id", "created_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_status" ON "aorders" ("status")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aorders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "orders"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "orders"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "orders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "aorders"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aorders"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_user_id" ON "apickup_requests" ("user_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_status_and_scheduled_at" ON "apickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_order_id" ON "apickup_requests" ("order_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "apickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "pickup_requests"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "pickup_requests"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_cf8bc4575f"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "pickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "apickup_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "apickup_requests"[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "apickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_user_id" ON "apickup_requests" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_status_and_scheduled_at" ON "apickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_apickup_requests_on_order_id" ON "apickup_requests" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "apickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "pickup_requests"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "pickup_requests"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_cf8bc4575f"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_6d763a08ca"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "pickup_requests" ("id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at")
+                     SELECT "id","user_id","order_id","pickup_type","status","scheduled_at","address","city","postal_code","notes","created_at","updated_at" FROM "apickup_requests"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "apickup_requests"[0m
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aproducts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aproducts_on_sku" ON "aproducts" ("sku")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aproducts_on_category_id" ON "aproducts" ("category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aproducts_on_active_and_category_id" ON "aproducts" ("active", "category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aproducts" ("id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at")
+                     SELECT "id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at" FROM "products"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "products"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_products_on_active_and_category_id" ON "products" ("active", "category_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_sku" ON "products" ("sku")[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "products" ("id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at")
+                     SELECT "id","category_id","name","description","brand","sku","price","stock_quantity","active","created_at","updated_at" FROM "aproducts"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aproducts"[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TEMPORARY TABLE "arepair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_arepair_requests_on_pickup_request_id" ON "arepair_requests" ("pickup_request_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "arepair_requests" ("id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at")
+                     SELECT "id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at" FROM "repair_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "repair_requests"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "repair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_34f8003556"
+FOREIGN KEY ("pickup_request_id")
+  REFERENCES "pickup_requests" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_repair_requests_on_pickup_request_id" ON "repair_requests" ("pickup_request_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "repair_requests" ("id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at")
+                     SELECT "id","pickup_request_id","device_type","brand","model","problem_description","estimated_price","repair_status","created_at","updated_at" FROM "arepair_requests"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "arepair_requests"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "ausers" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_ausers_on_province_id" ON "ausers" ("province_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_ausers_on_email" ON "ausers" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "ausers" ("id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at")
+                     SELECT "id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at" FROM "users"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "users"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_560da4bd54"
+FOREIGN KEY ("province_id")
+  REFERENCES "provinces" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_users_on_province_id" ON "users" ("province_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "users" ("id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at")
+                     SELECT "id","province_id","first_name","last_name","email","password_digest","phone","address","city","postal_code","role","created_at","updated_at" FROM "ausers"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "ausers"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20260717024833)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::InternalMetadata Update (0.2ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = '857c82320ec3c7f785b5df9b450e24091d34a4c0', "updated_at" = '2026-07-17 03:26:19.608251' WHERE "ar_internal_metadata"."key" = 'schema_sha1'[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Create (3.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260716010000') RETURNING "version"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:27:51 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 9.7ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 14.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2082.2ms | GC: 1.1ms)
+Completed 200 OK in 2228ms (Views: 2110.9ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 1.1ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:27:53.571145"], ["updated_at", "2026-07-17 03:27:53.571145"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:27:53.582212"], ["updated_at", "2026-07-17 03:27:53.582212"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (3.1ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:27:53.609590"], ["updated_at", "2026-07-17 03:27:53.609590"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:27:53.615429"], ["updated_at", "2026-07-17 03:27:53.615429"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:27:53 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 13ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:27:53.661202"], ["updated_at", "2026-07-17 03:27:53.661202"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:27:53.686759"], ["updated_at", "2026-07-17 03:27:53.686759"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:27:53.702840"], ["updated_at", "2026-07-17 03:27:53.702840"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:27:53.717786"], ["updated_at", "2026-07-17 03:27:53.717786"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 22:27:53 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 1.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.3ms | GC: 0.0ms)
+Completed 200 OK in 34ms (Views: 21.2ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:27:53 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.2ms | GC: 0.0ms)
+Completed 200 OK in 22ms (Views: 6.5ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (3.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:27:53.807677"], ["updated_at", "2026-07-17 03:27:53.807677"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:27:53.825062"], ["updated_at", "2026-07-17 03:27:53.825062"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:27:53.832713"], ["updated_at", "2026-07-17 03:27:53.832713"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:27:53.838555"], ["updated_at", "2026-07-17 03:27:53.838555"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:27:53 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  [1m[36mCategory Load (1.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 105.6ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 107.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 109.8ms | GC: 0.0ms)
+Completed 200 OK in 139ms (Views: 124.1ms | ActiveRecord: 2.6ms (3 queries, 0 cached) | GC: 0.0ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 22:27:53 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.7ms | GC: 0.0ms)
+Completed 200 OK in 24ms (Views: 3.4ms | ActiveRecord: 0.2ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:28:23 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 13.1ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 18.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 185.8ms | GC: 0.0ms)
+Completed 200 OK in 378ms (Views: 212.5ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (3.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:28:23.820307"], ["updated_at", "2026-07-17 03:28:23.820307"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:28:23.836932"], ["updated_at", "2026-07-17 03:28:23.836932"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (4.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.5ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:28:23.849975"], ["updated_at", "2026-07-17 03:28:23.849975"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (1.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:28:23.857881"], ["updated_at", "2026-07-17 03:28:23.857881"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 22:28:23 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 5.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.2ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 27.6ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:28:23 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.1ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.3ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 1.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:28:23.946243"], ["updated_at", "2026-07-17 03:28:23.946243"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (1.1ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:28:23.949102"], ["updated_at", "2026-07-17 03:28:23.949102"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:28:23.957237"], ["updated_at", "2026-07-17 03:28:23.957237"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:28:23.961018"], ["updated_at", "2026-07-17 03:28:23.961018"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:28:23 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 95.9ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 98.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 99.5ms | GC: 0.0ms)
+Completed 200 OK in 122ms (Views: 110.5ms | ActiveRecord: 1.7ms (3 queries, 0 cached) | GC: 0.0ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 22:28:24 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.3ms | GC: 0.0ms)
+Completed 200 OK in 15ms (Views: 2.9ms | ActiveRecord: 0.2ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:28:24.120536"], ["updated_at", "2026-07-17 03:28:24.120536"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:28:24.124651"], ["updated_at", "2026-07-17 03:28:24.124651"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:28:24.128820"], ["updated_at", "2026-07-17 03:28:24.128820"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:28:24.131826"], ["updated_at", "2026-07-17 03:28:24.131826"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:28:24 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 9ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m

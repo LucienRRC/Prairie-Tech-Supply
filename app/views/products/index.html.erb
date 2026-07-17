@@ -1,0 +1,13 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">PRAIRIE TECH INVENTORY</p>
+    <h1>Products</h1>
+    <p>Electronics selected for work, study, gaming, and connected homes.</p>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="product-grid">
+    <%= render partial: "product_card", collection: @products, as: :product %>
+  </div>
+</section>

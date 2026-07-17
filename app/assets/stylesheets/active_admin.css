@@ -1,0 +1,15 @@
+body.active_admin { margin: 0; color: #172033; background: #f5f7fb; font-family: Arial, sans-serif; }
+body.active_admin a { color: #155eef; }
+body.active_admin header, body.active_admin #header { padding: 14px 24px; color: white; background: #172033; }
+body.active_admin #title_bar, body.active_admin .title_bar { padding: 20px 28px; border-bottom: 1px solid #dce2eb; background: white; }
+body.active_admin #active_admin_content, body.active_admin .active_admin_content { padding: 28px; }
+body.active_admin table { width: 100%; border-collapse: collapse; background: white; }
+body.active_admin th, body.active_admin td { padding: 12px; border: 1px solid #dfe5ee; text-align: left; }
+body.active_admin form fieldset { margin-bottom: 20px; padding: 20px; border: 1px solid #dce2eb; background: white; }
+body.active_admin form li { margin-bottom: 14px; list-style: none; }
+body.active_admin form label { display: block; margin-bottom: 5px; font-weight: bold; }
+body.active_admin input, body.active_admin textarea, body.active_admin select { max-width: 720px; width: 100%; padding: 9px; border: 1px solid #aeb8c8; border-radius: 5px; }
+body.active_admin input[type="checkbox"], body.active_admin input[type="submit"] { width: auto; }
+body.active_admin input[type="submit"], body.active_admin .action_item a { padding: 9px 14px; border: 0; border-radius: 5px; color: white; background: #155eef; cursor: pointer; }
+.admin-product-thumb { width: 64px; height: 48px; object-fit: contain; }
+.admin-product-preview { max-width: 260px; max-height: 220px; object-fit: contain; }

@@ -1,0 +1,1434 @@
+  [1m[35m (10.0ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2026-07-17 02:32:53.425593', '2026-07-17 02:32:53.425601') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (18.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateCommerceCore (20260716000000)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "provinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_name" ON "provinces" ("name")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_abbreviation" ON "provinces" ("abbreviation")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "province_id" integer NOT NULL, "first_name" varchar NOT NULL, "last_name" varchar NOT NULL, "email" varchar NOT NULL, "password_digest" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "role" varchar DEFAULT 'customer' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_560da4bd54"
+FOREIGN KEY ("province_id")
+  REFERENCES "provinces" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_users_on_province_id" ON "users" ("province_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "categories" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "description" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_categories_on_name" ON "categories" ("name")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "products" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "name" varchar NOT NULL, "description" text, "brand" varchar, "sku" varchar NOT NULL, "price" decimal(10,2) NOT NULL, "stock_quantity" integer DEFAULT 0 NOT NULL, "active" boolean DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_fb915499a4"
+FOREIGN KEY ("category_id")
+  REFERENCES "categories" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_products_on_sku" ON "products" ("sku")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_products_on_active_and_category_id" ON "products" ("active", "category_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "carts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ea59a35211"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_carts_on_user_id" ON "carts" ("user_id")[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "cart_id" integer NOT NULL, "product_id" integer NOT NULL, "quantity" integer DEFAULT 1 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6cdb1f0139"
+FOREIGN KEY ("cart_id")
+  REFERENCES "carts" ("id")
+, CONSTRAINT "fk_rails_681a180e84"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_cart_id" ON "cart_items" ("cart_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_product_id" ON "cart_items" ("product_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_cart_items_on_cart_id_and_product_id" ON "cart_items" ("cart_id", "product_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "order_id" integer NOT NULL, "product_id" integer NOT NULL, "product_name" varchar NOT NULL, "sku" varchar NOT NULL, "quantity" integer NOT NULL, "unit_price" decimal(10,2) NOT NULL, "line_total" decimal(10,2) NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id" ON "order_items" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_product_id" ON "order_items" ("product_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_order_items_on_order_id_and_product_id" ON "order_items" ("order_id", "product_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "pickup_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer NOT NULL, "order_id" integer, "pickup_type" varchar NOT NULL, "status" varchar DEFAULT 'requested' NOT NULL, "scheduled_at" datetime(6) NOT NULL, "address" varchar, "city" varchar, "postal_code" varchar, "notes" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_6d763a08ca"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_cf8bc4575f"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_user_id" ON "pickup_requests" ("user_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_order_id" ON "pickup_requests" ("order_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_pickup_requests_on_status_and_scheduled_at" ON "pickup_requests" ("status", "scheduled_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "repair_requests" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "pickup_request_id" integer NOT NULL, "device_type" varchar NOT NULL, "brand" varchar, "model" varchar, "problem_description" text NOT NULL, "estimated_price" decimal(10,2), "repair_status" varchar DEFAULT 'submitted' NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_34f8003556"
+FOREIGN KEY ("pickup_request_id")
+  REFERENCES "pickup_requests" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_repair_requests_on_pickup_request_id" ON "repair_requests" ("pickup_request_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260716000000') RETURNING "version"[0m
+  [1m[36mTRANSACTION (4.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Computer Components"], ["description", "Computer parts, storage, memory, and upgrades."], ["created_at", "2026-07-17 02:37:08.683140"], ["updated_at", "2026-07-17 02:37:08.683140"]]
+  [1m[36mTRANSACTION (6.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (7.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Gaming"], ["description", "Gaming keyboards, mice, monitors, and accessories."], ["created_at", "2026-07-17 02:37:08.743255"], ["updated_at", "2026-07-17 02:37:08.743255"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (19.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mCategory Create (2.0ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Audio"], ["description", "Headphones, speakers, microphones, and audio accessories."], ["created_at", "2026-07-17 02:37:08.829709"], ["updated_at", "2026-07-17 02:37:08.829709"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (16.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Networking"], ["description", "Routers, switches, adapters, and network accessories."], ["created_at", "2026-07-17 02:37:08.892308"], ["updated_at", "2026-07-17 02:37:08.892308"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (14.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mCategory Create (1.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Mobile Accessories"], ["description", "Chargers, cables, power banks, and phone accessories."], ["created_at", "2026-07-17 02:37:08.951434"], ["updated_at", "2026-07-17 02:37:08.951434"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (14.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Smart Home"], ["description", "Cameras, sensors, and connected home devices."], ["created_at", "2026-07-17 02:37:09.004493"], ["updated_at", "2026-07-17 02:37:09.004493"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "categories"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateSitePagesAndActiveStorage (20260716010000)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (12.1ms)[0m  [1m[35mCREATE TABLE "site_pages" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "slug" varchar NOT NULL, "title" varchar NOT NULL, "body" text NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_site_pages_on_slug" ON "site_pages" ("slug")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "key" varchar NOT NULL, "filename" varchar NOT NULL, "content_type" varchar, "metadata" text, "service_name" varchar NOT NULL, "byte_size" bigint NOT NULL, "checksum" varchar, "created_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "record_type" varchar NOT NULL, "record_id" integer NOT NULL, "blob_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "blob_id" integer NOT NULL, "variation_digest" varchar NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260716010000') RETURNING "version"[0m
+  [1m[36mTRANSACTION (5.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to DeviseCreateAdminUsers (20260717024833)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (4.5ms)[0m  [1m[35mCREATE TABLE "admin_users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar DEFAULT '' NOT NULL, "email" varchar DEFAULT '' NOT NULL, "encrypted_password" varchar DEFAULT '' NOT NULL, "reset_password_token" varchar, "reset_password_sent_at" datetime(6), "remember_created_at" datetime(6), "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_email" ON "admin_users" ("email")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_username" ON "admin_users" ("username")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_admin_users_on_reset_password_token" ON "admin_users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260717024833') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (6.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Computer Components"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (7.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Gaming"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (11.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Audio"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (10.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Networking"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (7.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (5.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Smart Home"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (15.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.5ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Samsung 990 PRO 2TB NVMe SSD"], ["description", "High-performance PCIe 4.0 NVMe solid-state drive with fast read and write speeds for gaming PCs and professional workstations."], ["brand", "Samsung"], ["sku", "CMP-SSD-001"], ["price", 249.99], ["stock_quantity", 18], ["active", 1], ["created_at", "2026-07-17 02:59:38.695517"], ["updated_at", "2026-07-17 02:59:38.695517"]]
+  [1m[36mTRANSACTION (5.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.5ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Corsair Vengeance 32GB DDR5 Memory Kit"], ["description", "A 32GB dual-channel DDR5 memory kit designed for dependable multitasking, content creation, and modern PC gaming."], ["brand", "Corsair"], ["sku", "CMP-RAM-002"], ["price", 139.99], ["stock_quantity", 24], ["active", 1], ["created_at", "2026-07-17 02:59:38.749958"], ["updated_at", "2026-07-17 02:59:38.749958"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (11.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Keychron K8 Pro Wireless Mechanical Keyboard"], ["description", "A tenkeyless mechanical keyboard with wireless connectivity, hot-swappable switches, and customizable RGB backlighting."], ["brand", "Keychron"], ["sku", "GAM-KEY-003"], ["price", 149.99], ["stock_quantity", 15], ["active", 1], ["created_at", "2026-07-17 02:59:38.800920"], ["updated_at", "2026-07-17 02:59:38.800920"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (2.0ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Logitech G502 X Gaming Mouse"], ["description", "A lightweight wired gaming mouse with a precise HERO sensor, adjustable controls, and redesigned hybrid optical-mechanical switches."], ["brand", "Logitech"], ["sku", "GAM-MSE-004"], ["price", 109.99], ["stock_quantity", 21], ["active", 1], ["created_at", "2026-07-17 02:59:38.853174"], ["updated_at", "2026-07-17 02:59:38.853174"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.6ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 3], ["name", "Sony WH-1000XM5 Wireless Headphones"], ["description", "Premium wireless headphones featuring adaptive noise cancellation, clear hands-free calling, and long battery life."], ["brand", "Sony"], ["sku", "AUD-HDP-005"], ["price", 499.99], ["stock_quantity", 9], ["active", 1], ["created_at", "2026-07-17 02:59:38.896388"], ["updated_at", "2026-07-17 02:59:38.896388"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 3], ["name", "Blue Yeti USB Microphone"], ["description", "A versatile USB condenser microphone with multiple pickup patterns for streaming, podcasts, meetings, and voice recording."], ["brand", "Logitech G"], ["sku", "AUD-MIC-006"], ["price", 169.99], ["stock_quantity", 13], ["active", 1], ["created_at", "2026-07-17 02:59:38.928134"], ["updated_at", "2026-07-17 02:59:38.928134"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (23.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "NET-RTR-007"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 4], ["name", "TP-Link Archer AX55 Wi-Fi 6 Router"], ["description", "A dual-band Wi-Fi 6 router offering reliable coverage, improved capacity, and gigabit wired connections for busy homes."], ["brand", "TP-Link"], ["sku", "NET-RTR-007"], ["price", 129.99], ["stock_quantity", 17], ["active", 1], ["created_at", "2026-07-17 02:59:38.986753"], ["updated_at", "2026-07-17 02:59:38.986753"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (11.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.5ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 5], ["name", "Anker 737 24,000mAh Power Bank"], ["description", "A high-capacity portable charger with fast USB-C charging and a digital display for laptops, tablets, and mobile phones."], ["brand", "Anker"], ["sku", "MOB-PWR-008"], ["price", 199.99], ["stock_quantity", 12], ["active", 1], ["created_at", "2026-07-17 02:59:39.036501"], ["updated_at", "2026-07-17 02:59:39.036501"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (6.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 6], ["name", "Google Nest Cam Indoor Wired"], ["description", "A wired indoor security camera with intelligent alerts, clear video, night vision, and convenient Google Home integration."], ["brand", "Google"], ["sku", "SMT-CAM-009"], ["price", 129.99], ["stock_quantity", 14], ["active", 1], ["created_at", "2026-07-17 02:59:39.079437"], ["updated_at", "2026-07-17 02:59:39.079437"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 6], ["name", "Kasa Smart Wi-Fi Plug Mini 4-Pack"], ["description", "Compact smart plugs that add app control, schedules, timers, and voice control to lamps and small household appliances."], ["brand", "Kasa"], ["sku", "SMT-PLG-010"], ["price", 44.99], ["stock_quantity", 30], ["active", 1], ["created_at", "2026-07-17 02:59:39.114312"], ["updated_at", "2026-07-17 02:59:39.114312"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 5], ["name", "Belkin BoostCharge Pro 3-in-1 Wireless Charger"], ["description", "A compact charging stand designed to charge compatible phones, wireless earbuds, and smartwatches from one location."], ["brand", "Belkin"], ["sku", "MOB-CHG-011"], ["price", 189.99], ["stock_quantity", 11], ["active", 1], ["created_at", "2026-07-17 02:59:39.156727"], ["updated_at", "2026-07-17 02:59:39.156727"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (10.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "NET-SWT-012"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 4], ["name", "NETGEAR GS308 8-Port Gigabit Ethernet Switch"], ["description", "A quiet unmanaged eight-port gigabit switch for expanding reliable wired network connections at home or in a small office."], ["brand", "NETGEAR"], ["sku", "NET-SWT-012"], ["price", 39.99], ["stock_quantity", 26], ["active", 1], ["created_at", "2026-07-17 02:59:39.200027"], ["updated_at", "2026-07-17 02:59:39.200027"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (5.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Computer Components"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (9.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Gaming"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (6.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Audio"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (8.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Networking"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (9.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (9.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Smart Home"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (11.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (6.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (16.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (38.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (10.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (6.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSitePage Exists? (5.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Prairie Tech Supply"], ["body", "Prairie Tech Supply is a locally owned electronics retailer serving Winnipeg for eight years. Our twelve-person team includes sales associates, warehouse staff, repair technicians, and customer service specialists.\n\nWe help students, gamers, remote workers, families, and small businesses find dependable technology without losing the personal support of a neighbourhood store."], ["created_at", "2026-07-17 03:00:17.105556"], ["updated_at", "2026-07-17 03:00:17.105556"]]
+  [1m[36mTRANSACTION (5.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mSitePage Exists? (19.8ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Us"], ["body", "Questions about a product, local delivery, or a repair pickup? Our Winnipeg team is ready to help.\n\nEmail: support@prairietech.example\nPhone: 204-555-0148\nHours: Monday to Saturday, 9:00 AM to 6:00 PM"], ["created_at", "2026-07-17 03:00:17.158136"], ["updated_at", "2026-07-17 03:00:17.158136"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Exists? (7.3ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.3ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 03:00:17.544685"], ["updated_at", "2026-07-17 03:00:17.544685"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:04:47 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+Completed 406 Not Acceptable in 165ms (ActiveRecord: 6.2ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+  
+ActionController::MissingExactTemplate (HomeController#index is missing a template for request formats: text/html):
+  
+actionpack (7.2.3) lib/action_controller/metal/implicit_render.rb:49:in `default_render'
+actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:9:in `send_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:215:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (7.2.3) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.23) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.2.3) lib/action_text/rendering.rb:25:in `with_renderer'
+actiontext (7.2.3) lib/action_text/engine.rb:71:in `block (4 levels) in <class:Engine>'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.2.3) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in `block in process_action'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:152:in `process'
+actionview (7.2.3) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (7.2.3) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.2.3) lib/active_record/migration.rb:674:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+puma (8.0.2) lib/puma/configuration.rb:305:in `call'
+puma (8.0.2) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in `process_client'
+puma (8.0.2) lib/puma/server.rb:263:in `block in run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:04:48 -0500
+Processing by ProductsController#index as HTML
+Completed 406 Not Acceptable in 5ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::MissingExactTemplate (ProductsController#index is missing a template for request formats: text/html):
+  
+actionpack (7.2.3) lib/action_controller/metal/implicit_render.rb:49:in `default_render'
+actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:9:in `send_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:215:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (7.2.3) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.23) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.2.3) lib/action_text/rendering.rb:25:in `with_renderer'
+actiontext (7.2.3) lib/action_text/engine.rb:71:in `block (4 levels) in <class:Engine>'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.2.3) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in `block in process_action'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:152:in `process'
+actionview (7.2.3) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (7.2.3) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.2.3) lib/active_record/migration.rb:674:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+puma (8.0.2) lib/puma/configuration.rb:305:in `call'
+puma (8.0.2) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in `process_client'
+puma (8.0.2) lib/puma/server.rb:263:in `block in run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/about" for 127.0.0.1 at 2026-07-16 22:04:49 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  ↳ app/controllers/site_pages_controller.rb:3:in `show'
+Completed 406 Not Acceptable in 41ms (ActiveRecord: 2.1ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::MissingExactTemplate (SitePagesController#show is missing a template for request formats: text/html):
+  
+actionpack (7.2.3) lib/action_controller/metal/implicit_render.rb:49:in `default_render'
+actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:9:in `send_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:215:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (7.2.3) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.23) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.2.3) lib/action_text/rendering.rb:25:in `with_renderer'
+actiontext (7.2.3) lib/action_text/engine.rb:71:in `block (4 levels) in <class:Engine>'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.2.3) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in `block in process_action'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:152:in `process'
+actionview (7.2.3) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (7.2.3) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.2.3) lib/active_record/migration.rb:674:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+puma (8.0.2) lib/puma/configuration.rb:305:in `call'
+puma (8.0.2) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in `process_client'
+puma (8.0.2) lib/puma/server.rb:263:in `block in run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:04:49 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  ↳ app/controllers/site_pages_controller.rb:3:in `show'
+Completed 406 Not Acceptable in 13ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::MissingExactTemplate (SitePagesController#show is missing a template for request formats: text/html):
+  
+actionpack (7.2.3) lib/action_controller/metal/implicit_render.rb:49:in `default_render'
+actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:9:in `send_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:215:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (7.2.3) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.23) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.2.3) lib/action_text/rendering.rb:25:in `with_renderer'
+actiontext (7.2.3) lib/action_text/engine.rb:71:in `block (4 levels) in <class:Engine>'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.2.3) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in `block in process_action'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:152:in `process'
+actionview (7.2.3) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (7.2.3) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.2.3) lib/active_record/migration.rb:674:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+puma (8.0.2) lib/puma/configuration.rb:305:in `call'
+puma (8.0.2) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in `process_client'
+puma (8.0.2) lib/puma/server.rb:263:in `block in run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/admin/login" for 127.0.0.1 at 2026-07-16 22:04:50 -0500
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+Completed 500 Internal Server Error in 114ms (ActiveRecord: 0.8ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionView::MissingTemplate (Missing template active_admin/devise/sessions/new, devise/sessions/new, devise/new, application/new with {:locale=>[:en], :formats=>[:html], :variants=>[], :handlers=>[:raw, :erb, :html, :builder, :ruby, :jbuilder, :arb]}.
+
+Searched in:
+  * "C:/Users/user/Ruby2026/Prairie-Tech-Supply/app/views"
+  * "C:/Users/user/.local/share/gem/ruby/3.3.0/gems/devise-5.0.4/app/views"
+  * "C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views"
+  * "C:/Users/user/.local/share/gem/ruby/3.3.0/gems/kaminari-core-1.2.2/app/views"
+  * "C:/Users/user/.local/share/gem/ruby/3.3.0/gems/turbo-rails-2.0.23/app/views"
+  * "C:/Users/user/.local/share/gem/ruby/3.3.0/gems/actiontext-7.2.3/app/views"
+  * "C:/Users/user/.local/share/gem/ruby/3.3.0/gems/actionmailbox-7.2.3/app/views"
+):
+  
+actionview (7.2.3) lib/action_view/path_set.rb:42:in `find'
+actionview (7.2.3) lib/action_view/lookup_context.rb:131:in `find'
+actionview (7.2.3) lib/action_view/renderer/template_renderer.rb:49:in `determine_template'
+actionview (7.2.3) lib/action_view/renderer/template_renderer.rb:7:in `render'
+actionview (7.2.3) lib/action_view/renderer/renderer.rb:58:in `render_template_to_object'
+actionview (7.2.3) lib/action_view/renderer/renderer.rb:31:in `render_to_object'
+actionview (7.2.3) lib/action_view/rendering.rb:135:in `block in _render_template'
+actionview (7.2.3) lib/action_view/base.rb:305:in `in_rendering_context'
+actionview (7.2.3) lib/action_view/rendering.rb:134:in `_render_template'
+actionpack (7.2.3) lib/action_controller/metal/streaming.rb:258:in `_render_template'
+actionview (7.2.3) lib/action_view/rendering.rb:121:in `render_to_body'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:186:in `render_to_body'
+actionpack (7.2.3) lib/action_controller/metal/renderers.rb:142:in `render_to_body'
+actionpack (7.2.3) lib/abstract_controller/rendering.rb:29:in `render'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:167:in `render'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:32:in `block (2 levels) in render'
+benchmark (0.5.0) lib/benchmark.rb:337:in `ms'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:32:in `block in render'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:101:in `cleanup_view_runtime'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:46:in `cleanup_view_runtime'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:31:in `render'
+responders (3.2.0) lib/action_controller/responder.rb:245:in `default_render'
+responders (3.2.0) lib/action_controller/responder.rb:175:in `to_html'
+responders (3.2.0) lib/action_controller/responder.rb:168:in `respond'
+responders (3.2.0) lib/action_controller/responder.rb:161:in `call'
+responders (3.2.0) lib/action_controller/respond_with.rb:216:in `respond_with'
+devise (5.0.4) app/controllers/devise/sessions_controller.rb:14:in `new'
+actionpack (7.2.3) lib/action_controller/metal/basic_implicit_render.rb:8:in `send_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:215:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rendering.rb:193:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:261:in `block in process_action'
+activesupport (7.2.3) lib/active_support/callbacks.rb:121:in `block in run_callbacks'
+turbo-rails (2.0.23) lib/turbo-rails.rb:24:in `with_request_id'
+turbo-rails (2.0.23) app/controllers/concerns/turbo/request_id_tracking.rb:10:in `turbo_tracking_request_id'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+actiontext (7.2.3) lib/action_text/rendering.rb:25:in `with_renderer'
+actiontext (7.2.3) lib/action_text/engine.rb:71:in `block (4 levels) in <class:Engine>'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `instance_exec'
+activesupport (7.2.3) lib/active_support/callbacks.rb:130:in `block in run_callbacks'
+activesupport (7.2.3) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in `block in process_action'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:152:in `process'
+actionview (7.2.3) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (7.2.3) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/mapper.rb:32:in `block in <class:Constraints>'
+actionpack (7.2.3) lib/action_dispatch/routing/mapper.rb:62:in `serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.2.3) lib/active_record/migration.rb:674:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+puma (8.0.2) lib/puma/configuration.rb:305:in `call'
+puma (8.0.2) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in `process_client'
+puma (8.0.2) lib/puma/server.rb:263:in `block in run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:23:09 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (1.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (1.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (2.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 640.1ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 668.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2944.3ms | GC: 1.3ms)
+Completed 200 OK in 3135ms (Views: 2966.0ms | ActiveRecord: 15.7ms (3 queries, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:23:13 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (7.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?, ?, ?)[0m  [["id", 5], ["id", 3], ["id", 1], ["id", 6], ["id", 2], ["id", 4]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 11], ["record_id", 6], ["record_id", 2], ["record_id", 9], ["record_id", 10], ["record_id", 3], ["record_id", 4], ["record_id", 12], ["record_id", 1], ["record_id", 5], ["record_id", 7]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered collection of products/_product_card.html.erb [12 times] (Duration: 28.0ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 46.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 60.1ms | GC: 0.0ms)
+Completed 200 OK in 88ms (Views: 67.6ms | ActiveRecord: 7.8ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/about" for 127.0.0.1 at 2026-07-16 22:23:13 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  ↳ app/controllers/site_pages_controller.rb:3:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 14.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 21.3ms | GC: 0.0ms)
+Completed 200 OK in 67ms (Views: 35.5ms | ActiveRecord: 1.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:23:14 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  ↳ app/controllers/site_pages_controller.rb:3:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 6.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 18.1ms | GC: 0.0ms)
+Completed 200 OK in 37ms (Views: 19.6ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2026-07-16 22:23:14 -0500
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/shared/_links.erb (Duration: 1.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 375.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 224.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb (Duration: 643.2ms | GC: 0.0ms)
+Completed 200 OK in 699ms (Views: 667.4ms | ActiveRecord: 0.7ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2026-07-16 22:23:26 -0500
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/shared/_links.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 7.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 11.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb (Duration: 21.5ms | GC: 0.0ms)
+Completed 200 OK in 35ms (Views: 23.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2026-07-16 22:23:36 -0500
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/shared/_links.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 6.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 7.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb (Duration: 16.2ms | GC: 0.0ms)
+Completed 200 OK in 27ms (Views: 18.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/admin/login" for 127.0.0.1 at 2026-07-16 22:23:37 -0500
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin_user"=>{"username"=>"admin", "password"=>"[FILTERED]"}, "commit"=>"Login"}
+  [1m[36mAdminUser Load (0.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/admin
+Completed 303 See Other in 587ms (ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:23:38 -0500
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 1.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 5.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 3.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 4.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 13.7ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 77.7ms | GC: 0.0ms)
+Completed 200 OK in 143ms (Views: 96.0ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 22:23:39 -0500
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 2.3ms | GC: 0.0ms)
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?, ?, ?)[0m  [["id", 4], ["id", 5], ["id", 6], ["id", 3], ["id", 2], ["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 12], ["record_id", 11], ["record_id", 10], ["record_id", 9], ["record_id", 8], ["record_id", 7], ["record_id", 6], ["record_id", 5], ["record_id", 4], ["record_id", 3], ["record_id", 2], ["record_id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_download_format_links.html.erb (Duration: 2.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 5.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 2.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 192.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 11.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 4.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 1.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 13.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 288.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 297.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 305.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 540.4ms | GC: 0.0ms)
+Completed 200 OK in 643ms (Views: 560.5ms | ActiveRecord: 1.3ms (5 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/site_pages" for 127.0.0.1 at 2026-07-16 22:23:40 -0500
+Processing by Admin::SitePagesController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mSitePage Load (1.0ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" ORDER BY "site_pages"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 30], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_download_format_links.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 44.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 7.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 75.5ms | GC: 0.0ms)
+Completed 200 OK in 122ms (Views: 97.2ms | ActiveRecord: 1.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (14.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Computer Components"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (10.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Gaming"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (12.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Audio"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (7.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Networking"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (15.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (8.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Smart Home"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (6.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (10.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (1.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (5.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (5.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (10.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (20.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mCACHE Product Exists? (0.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveStorage::Blob Load (9.8ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (1.9ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "q3srk8o42jww0qth5dj2s79d0wqs"], ["filename", "keychron-k8-pro-sample.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:25:24.477606"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 3], ["blob_id", 1], ["created_at", "2026-07-17 03:25:24.493238"]]
+  [1m[36mProduct Update (0.5ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:25:24.504766"], ["id", 3]]
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (18.5ms) [0m[32mUploaded file to key: q3srk8o42jww0qth5dj2s79d0wqs (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 48187e55-5f3f-4123-80d5-73112f122d7a) to Async(default) with arguments: #<GlobalID:0x0000021bf75c02a0 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [48187e55-5f3f-4123-80d5-73112f122d7a]   [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [48187e55-5f3f-4123-80d5-73112f122d7a] Performing ActiveStorage::AnalyzeJob (Job ID: 48187e55-5f3f-4123-80d5-73112f122d7a) from Async(default) enqueued at 2026-07-17T03:25:24.735203700Z with arguments: #<GlobalID:0x0000021bf866f970 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Exists? (6.5ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) AND "admin_users"."id" != ? LIMIT ?[0m  [["username", "admin"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAdminUser Update (0.2ms)[0m  [1m[33mUPDATE "admin_users" SET "encrypted_password" = ?, "updated_at" = ? WHERE "admin_users"."id" = ?[0m  [["encrypted_password", "[FILTERED]"], ["updated_at", "2026-07-17 03:25:25.238553"], ["id", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [48187e55-5f3f-4123-80d5-73112f122d7a] Performed ActiveStorage::AnalyzeJob (Job ID: 48187e55-5f3f-4123-80d5-73112f122d7a) from Async(default) in 335.93ms
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:25:37 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 371.2ms | GC: 0.2ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 382.6ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 396.6ms | GC: 0.2ms)
+Completed 200 OK in 409ms (Views: 395.2ms | ActiveRecord: 2.3ms (4 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:25:47 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 33.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 45.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 54.2ms | GC: 0.0ms)
+Completed 200 OK in 66ms (Views: 56.8ms | ActiveRecord: 1.0ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:25:56 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 30.6ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 44.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 52.4ms | GC: 0.0ms)
+Completed 200 OK in 66ms (Views: 52.3ms | ActiveRecord: 0.9ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--503bc11d8aeeb7ff83279992c1f2f86b1b72775e/keychron-k8-pro-sample.png" for 127.0.0.1 at 2026-07-16 22:25:57 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--503bc11d8aeeb7ff83279992c1f2f86b1b72775e", "filename"=>"keychron-k8-pro-sample"}
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[36m  Disk Storage (1.3ms) [0m[34mGenerated URL for file at key: q3srk8o42jww0qth5dj2s79d0wqs (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzA6NTcuNTYwWiIsInB1ciI6ImJsb2Jfa2V5In19--935b56dfe07fc953dc0a75918771b9e650f839a5/keychron-k8-pro-sample.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzA6NTcuNTYwWiIsInB1ciI6ImJsb2Jfa2V5In19--935b56dfe07fc953dc0a75918771b9e650f839a5/keychron-k8-pro-sample.png
+Completed 302 Found in 70ms (ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzA6NTcuNTYwWiIsInB1ciI6ImJsb2Jfa2V5In19--935b56dfe07fc953dc0a75918771b9e650f839a5/keychron-k8-pro-sample.png" for 127.0.0.1 at 2026-07-16 22:25:57 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"keychron-k8-pro-sample"}
+Completed 200 OK in 20ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mProduct Count (7.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mSitePage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  [1m[36mAdminUser Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "admin_users"[0m
+  [1m[36mActiveStorage::Attachment Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "active_storage_attachments"[0m
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:29:20 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (1.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 33.4ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 45.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 108.6ms | GC: 0.0ms)
+Completed 200 OK in 170ms (Views: 155.1ms | ActiveRecord: 2.6ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:31:27 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (4.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 110.2ms | GC: 0.5ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 130.8ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 150.1ms | GC: 0.6ms)
+Completed 200 OK in 171ms (Views: 146.4ms | ActiveRecord: 5.4ms (4 queries, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 22:31:28 -0500
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--503bc11d8aeeb7ff83279992c1f2f86b1b72775e/keychron-k8-pro-sample.png" for 127.0.0.1 at 2026-07-16 22:31:28 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--503bc11d8aeeb7ff83279992c1f2f86b1b72775e", "filename"=>"keychron-k8-pro-sample"}
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[36m  Disk Storage (7.1ms) [0m[34mGenerated URL for file at key: q3srk8o42jww0qth5dj2s79d0wqs (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzY6MjkuMjY5WiIsInB1ciI6ImJsb2Jfa2V5In19--bf2a9d5060af91aed0a19a1cc4b660c7936090e1/keychron-k8-pro-sample.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzY6MjkuMjY5WiIsInB1ciI6ImJsb2Jfa2V5In19--bf2a9d5060af91aed0a19a1cc4b660c7936090e1/keychron-k8-pro-sample.png
+Completed 302 Found in 49ms (ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzY6MjkuMjY5WiIsInB1ciI6ImJsb2Jfa2V5In19--bf2a9d5060af91aed0a19a1cc4b660c7936090e1/keychron-k8-pro-sample.png" for 127.0.0.1 at 2026-07-16 22:31:29 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"keychron-k8-pro-sample"}
+Completed 200 OK in 30ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 1.7ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 8.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:31:44 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 15ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2026-07-16 22:31:45 -0500
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/shared/_links.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 28.3ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 13.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb (Duration: 67.7ms | GC: 0.2ms)
+Completed 200 OK in 164ms (Views: 98.7ms | ActiveRecord: 4.8ms (0 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-07-16 22:31:49 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/products/3" for 127.0.0.1 at 2026-07-16 22:31:57 -0500
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (10.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Computer Components"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (13.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Gaming"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mProduct Load (8.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:7:in `show'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  [1m[36mCategory Exists? (8.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Audio"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:7:in `show'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (22.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Networking"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (10.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 3]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:7:in `show'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  [1m[36mCategory Exists? (6.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Smart Home"], ["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/products_controller.rb:7:in `show'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 8.6ms | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (14.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["id", 1], ["LIMIT", 1]]
+  Rendered layout layouts/application.html.erb (Duration: 37.8ms | GC: 0.0ms)
+Completed 200 OK in 289ms (Views: 67.2ms | ActiveRecord: 12.6ms (4 queries, 0 cached) | GC: 0.3ms)
+
+
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 22:31:58 -0500
+  [1m[36mProduct Exists? (45.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzY6MjkuMjY5WiIsInB1ciI6ImJsb2Jfa2V5In19--bf2a9d5060af91aed0a19a1cc4b660c7936090e1/keychron-k8-pro-sample.png" for 127.0.0.1 at 2026-07-16 22:31:59 -0500
+  [1m[36mProduct Exists? (10.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (23.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (10.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (2.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (13.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (37.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (12.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["LIMIT", 1]]
+Processing by Rails::PwaController#manifest as JSON
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (11.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["id", 12], ["LIMIT", 1]]
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 7.3ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 14.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Exists? (13.1ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) AND "admin_users"."id" != ? LIMIT ?[0m  [["username", "admin"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAdminUser Update (0.3ms)[0m  [1m[33mUPDATE "admin_users" SET "encrypted_password" = ?, "updated_at" = ? WHERE "admin_users"."id" = ?[0m  [["encrypted_password", "[FILTERED]"], ["updated_at", "2026-07-17 03:32:00.256935"], ["id", 1]]
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"keychron-k8-pro-sample"}
+Completed 304 Not Modified in 18ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mTRANSACTION (9.5ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:32:04 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?, ?, ?)[0m  [["id", 5], ["id", 3], ["id", 1], ["id", 6], ["id", 2], ["id", 4]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 11], ["record_id", 6], ["record_id", 2], ["record_id", 9], ["record_id", 10], ["record_id", 3], ["record_id", 4], ["record_id", 12], ["record_id", 1], ["record_id", 5], ["record_id", 7]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered collection of products/_product_card.html.erb [12 times] (Duration: 42.6ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 52.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 65.0ms | GC: 0.0ms)
+Completed 200 OK in 81ms (Views: 65.1ms | ActiveRecord: 1.5ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJxM3NyazhvNDJqd3cwcXRoNWRqMnM3OWQwd3FzIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwia2V5Y2hyb24tazgtcHJvLXNhbXBsZS5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydrZXljaHJvbi1rOC1wcm8tc2FtcGxlLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6MzY6MjkuMjY5WiIsInB1ciI6ImJsb2Jfa2V5In19--bf2a9d5060af91aed0a19a1cc4b660c7936090e1/keychron-k8-pro-sample.png" for 127.0.0.1 at 2026-07-16 22:32:05 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"keychron-k8-pro-sample"}
+Completed 304 Not Modified in 23ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+

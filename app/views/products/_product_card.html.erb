@@ -1,0 +1,18 @@
+<article class="product-card">
+  <%= link_to product_path(product), class: "product-image" do %>
+    <% if product.image.attached? %>
+      <%= image_tag product.image, alt: product.name %>
+    <% else %>
+      <span>No image yet</span>
+    <% end %>
+  <% end %>
+  <div class="product-card-body">
+    <p class="product-category"><%= product.category.name %></p>
+    <h3><%= link_to product.name, product_path(product) %></h3>
+    <p class="product-brand"><%= product.brand %></p>
+    <div class="product-meta">
+      <strong><%= number_to_currency(product.price) %></strong>
+      <span><%= product.stock_quantity.positive? ? "In stock" : "Out of stock" %></span>
+    </div>
+  </div>
+</article>

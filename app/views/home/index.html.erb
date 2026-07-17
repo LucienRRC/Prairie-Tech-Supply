@@ -1,0 +1,29 @@
+<section class="hero">
+  <div class="container hero-content">
+    <p class="eyebrow">LOCAL TECH. REAL SUPPORT.</p>
+    <h1>Technology that works for Winnipeg.</h1>
+    <p>Shop reliable electronics, arrange local delivery, or book repair pickup with a team close to home.</p>
+    <%= link_to "Browse products", products_path, class: "button" %>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">FEATURED INVENTORY</p>
+      <h2>Popular products</h2>
+    </div>
+    <%= link_to "View all products", products_path %>
+  </div>
+  <div class="product-grid">
+    <%= render partial: "products/product_card", collection: @products, as: :product %>
+  </div>
+</section>
+
+<section class="services">
+  <div class="container service-grid">
+    <article><strong>In-store pickup</strong><span>Reserve online and collect locally.</span></article>
+    <article><strong>Winnipeg delivery</strong><span>Convenient delivery across the city.</span></article>
+    <article><strong>Repair pickup</strong><span>We collect your device for diagnosis.</span></article>
+  </div>
+</section>
