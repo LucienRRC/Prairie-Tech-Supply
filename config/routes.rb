@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root "home#index"
   resources :products, only: [:index, :show]
+  resources :categories, only: [:index, :show]
   get "/about", to: "site_pages#show", defaults: { slug: "about" }, as: :about
   get "/contact", to: "site_pages#show", defaults: { slug: "contact" }, as: :contact
 

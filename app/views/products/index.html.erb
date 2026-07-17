@@ -7,7 +7,52 @@
 </section>
 
 <section class="container section">
+  <form action="<%= products_path %>" method="get" class="product-search" role="search">
+    <div class="search-field search-keyword">
+      <%= label_tag :keyword, "Search products" %>
+      <%= text_field_tag :keyword, @keyword,
+        placeholder: "Search product names and descriptions",
+        autocomplete: "off" %>
+    </div>
+
+    <div class="search-field search-category">
+      <%= label_tag :category_id, "Category" %>
+      <%= select_tag :category_id,
+        options_from_collection_for_select(@categories, :id, :name, @selected_category_id),
+        include_blank: "All categories" %>
+    </div>
+
+    <div class="search-actions">
+      <%= submit_tag "Search", name: nil, class: "search-button" %>
+      <% if @keyword.present? || @selected_category_id.present? %>
+        <%= link_to "Clear search", products_path, class: "clear-search" %>
+      <% end %>
+    </div>
+  </form>
+
+  <% if @keyword.present? || @selected_category_id.present? %>
+    <p class="search-summary" role="status">
+      <strong><%= pluralize(@products.total_count, "product") %></strong> found
+      <% if @keyword.present? %>for “<%= @keyword %>”<% end %>
+      <% if @selected_category_id.present? %>
+        in <%= @categories.find { |category| category.id.to_s == @selected_category_id.to_s }&.name || "the selected category" %>
+      <% end %>
+    </p>
+  <% end %>
+
   <div class="product-grid">
     <%= render partial: "product_card", collection: @products, as: :product %>
   </div>
+
+  <% if @products.empty? %>
+    <div class="empty-products">
+      <h2>No products found</h2>
+      <p>Try another keyword, choose a different category, or search all categories.</p>
+      <%= link_to "View all products", products_path, class: "text-link" %>
+    </div>
+  <% elsif @products.total_pages > 1 %>
+    <div class="pagination-wrap">
+      <%= paginate @products %>
+    </div>
+  <% end %>
 </section>

@@ -1,0 +1,29 @@
+<section class="page-hero category-hero">
+  <div class="container">
+    <p class="eyebrow">SHOP BY DEPARTMENT</p>
+    <h1>Categories</h1>
+    <p>Browse every available product in a department without running a keyword search.</p>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="category-grid">
+    <% @categories.each do |category| %>
+      <article class="category-card">
+        <div>
+          <p class="category-count"><%= pluralize(@product_counts.fetch(category.id, 0), "product") %></p>
+          <h2><%= category.name %></h2>
+          <p><%= category.description.presence || "Explore available #{category.name.downcase} products." %></p>
+        </div>
+        <%= link_to "Browse #{category.name}", category_path(category), class: "category-link" %>
+      </article>
+    <% end %>
+  </div>
+
+  <% if @categories.empty? %>
+    <div class="empty-products">
+      <h2>No categories available</h2>
+      <p>Categories will appear here when active products are added.</p>
+    </div>
+  <% end %>
+</section>

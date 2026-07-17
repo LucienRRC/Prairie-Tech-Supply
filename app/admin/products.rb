@@ -7,13 +7,18 @@ ActiveAdmin.register Product do
 
   includes :category, image_attachment: :blob
 
-  filter :name
-  filter :brand
-  filter :sku
-  filter :category
-  filter :active
-  filter :price
-  filter :stock_quantity
+  filter :category,
+    as: :select,
+    collection: -> { Category.order(:name).pluck(:name, :id) },
+    include_blank: "All categories"
+  filter :active,
+    as: :select,
+    collection: [["Active", true], ["Inactive", false]],
+    include_blank: "Any status"
+  filter :price,
+    as: :numeric,
+    label: "Price (CAD)",
+    filters: [:eq, :gteq, :lteq]
 
   scope :all, default: true
   scope("Active") { |products| products.where(active: true) }
@@ -30,7 +35,7 @@ ActiveAdmin.register Product do
     redirect_to collection_path, notice: "Selected products are now inactive."
   end
 
-  index do
+  index download_links: false do
     selectable_column
     id_column
     column :image do |product|

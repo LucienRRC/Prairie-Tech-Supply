@@ -1,0 +1,30 @@
+<section class="page-hero category-hero">
+  <div class="container">
+    <p class="eyebrow"><%= link_to "ALL CATEGORIES", categories_path %></p>
+    <h1><%= @category.name %></h1>
+    <p><%= @category.description.presence || "Browse all available products in #{@category.name}." %></p>
+  </div>
+</section>
+
+<section class="container section">
+  <div class="category-toolbar">
+    <p><strong><%= pluralize(@products.total_count, "available product") %></strong></p>
+    <%= link_to "Back to categories", categories_path %>
+  </div>
+
+  <div class="product-grid">
+    <%= render partial: "products/product_card", collection: @products, as: :product %>
+  </div>
+
+  <% if @products.empty? %>
+    <div class="empty-products">
+      <h2>No available products</h2>
+      <p>This category does not currently contain active products.</p>
+      <%= link_to "Browse other categories", categories_path %>
+    </div>
+  <% elsif @products.total_pages > 1 %>
+    <div class="pagination-wrap">
+      <%= paginate @products %>
+    </div>
+  <% end %>
+</section>

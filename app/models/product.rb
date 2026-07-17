@@ -6,6 +6,17 @@ class Product < ApplicationRecord
 
   scope :available, -> { where(active: true).where("stock_quantity > 0") }
 
+  def self.search_by_keyword(keyword)
+    normalized_keyword = keyword.to_s.strip.downcase
+    return all if normalized_keyword.blank?
+
+    pattern = "%#{sanitize_sql_like(normalized_keyword)}%"
+    where(
+      "LOWER(products.name) LIKE :pattern OR LOWER(products.description) LIKE :pattern",
+      pattern: pattern
+    )
+  end
+
   validates :name, :sku, presence: true
   validates :sku, uniqueness: { case_sensitive: false }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
