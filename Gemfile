@@ -36,7 +36,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Keep documentation dependencies compatible with the current Windows Ruby setup.
-gem "rdoc", "7.2.0"
+gem "rdoc", "8.0.0"
 gem "minitest", "< 6"
 gem "zeitwerk", "~> 2.6.18"
 
