@@ -38,7 +38,7 @@ gem "bootsnap", require: false
 # Keep documentation dependencies compatible with the current Windows Ruby setup.
 gem "rdoc", "7.2.0"
 gem "minitest", "< 6"
-gem "zeitwerk", "~> 2.6.18"
+gem "zeitwerk", "~> 2.8.2"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
