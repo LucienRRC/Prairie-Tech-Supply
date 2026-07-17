@@ -32,7 +32,10 @@ nav a { color: #39445a; font-weight: 650; }
 .hero p:not(.eyebrow) { max-width: 650px; font-size: 1.2rem; color: #e5edff; }
 .eyebrow { margin: 0; color: #4d87ff; font-size: .78rem; font-weight: 850; letter-spacing: .16em; }
 .hero .eyebrow { color: #a9c7ff; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .button { display: inline-block; margin-top: 18px; padding: 12px 20px; border-radius: 9px; color: #0f2451; background: white; font-weight: 800; }
+.button-secondary { color: white; border: 1px solid rgba(255,255,255,.65); background: rgba(255,255,255,.08); }
+.button-secondary:hover { background: rgba(255,255,255,.16); text-decoration: none; }
 .section { padding-block: 70px; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
 .section h2 { margin: 4px 0 0; font-size: 2.1rem; letter-spacing: -.035em; }
@@ -60,12 +63,24 @@ nav a { color: #39445a; font-weight: 650; }
 .category-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 26px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 .category-toolbar p { margin: 0; }
 .category-hero .eyebrow a { color: inherit; }
+.home-categories { padding-bottom: 26px; }
+.home-category-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.home-category-link { min-width: 0; display: grid; gap: 3px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); background: white; box-shadow: 0 6px 20px rgba(28,43,70,.05); }
+.home-category-link strong { font-size: 1.02rem; }
+.home-category-link span { color: var(--muted); font-size: .82rem; }
+.home-category-link:hover { color: white; border-color: var(--brand); background: var(--brand); text-decoration: none; transform: translateY(-2px); }
+.home-category-link:hover span { color: #dfe9ff; }
+.home-products { padding-top: 42px; }
+.home-products-action { margin-top: 32px; text-align: center; }
+.catalogue-link { display: inline-block; padding: 11px 18px; border: 1px solid var(--brand); border-radius: 9px; font-weight: 800; }
+.catalogue-link:hover { color: white; background: var(--brand); text-decoration: none; }
 .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .product-card { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: 0 8px 28px rgba(28,43,70,.06); }
 .product-image { height: 220px; display: grid; place-items: center; color: #7b8799; background: linear-gradient(145deg, #f3f6fb, #e6ecf5); }
 .product-image img { width: 100%; height: 100%; object-fit: contain; padding: 22px; }
 .product-card-body { padding: 20px; }
 .product-category { margin: 0; color: var(--brand); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; }
+.product-category a { color: inherit; }
 .product-card h3 { min-height: 52px; margin: 7px 0 2px; font-size: 1.08rem; line-height: 1.35; }
 .product-card h3 a { color: var(--ink); }
 .product-brand { margin: 0 0 18px; color: var(--muted); }
@@ -102,4 +117,4 @@ nav.pagination .disabled { opacity: .45; }
 .notice { color: #12613f; background: #dff7eb; }
 .alert { color: #8e2525; background: #ffe6e6; }
 @media (max-width: 900px) { .product-search { grid-template-columns: 1fr 1fr; } .search-actions { grid-column: 1 / -1; } }
-@media (max-width: 760px) { nav { gap: 10px; font-size: .85rem; } .brand { font-size: .95rem; } .product-search, .product-grid, .category-grid, .service-grid, .product-detail { grid-template-columns: 1fr; } .search-actions { grid-column: auto; } .product-detail { gap: 28px; } .section-heading { align-items: start; flex-direction: column; } .category-toolbar { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 760px) { nav { gap: 10px; font-size: .85rem; } .brand { font-size: .95rem; } .product-search, .product-grid, .category-grid, .home-category-grid, .service-grid, .product-detail { grid-template-columns: 1fr; } .search-actions { grid-column: auto; } .product-detail { gap: 28px; } .section-heading { align-items: start; flex-direction: column; } .category-toolbar { align-items: flex-start; flex-direction: column; } }

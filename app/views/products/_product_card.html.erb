@@ -3,7 +3,7 @@
     <%= image_tag(product.image.attached? ? product.image : "computer-technology.jpg", alt: product.name) %>
   <% end %>
   <div class="product-card-body">
-    <p class="product-category"><%= product.category.name %></p>
+    <p class="product-category"><%= link_to product.category.name, category_path(product.category) %></p>
     <h3><%= link_to product.name, product_path(product) %></h3>
     <p class="product-brand"><%= product.brand %></p>
     <div class="product-meta">

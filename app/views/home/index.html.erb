@@ -3,11 +3,33 @@
     <p class="eyebrow">LOCAL TECH. REAL SUPPORT.</p>
     <h1>Technology that works for Winnipeg.</h1>
     <p>Shop reliable electronics, arrange local delivery, or book repair pickup with a team close to home.</p>
-    <%= link_to "Browse products", products_path, class: "button" %>
+    <div class="hero-actions">
+      <%= link_to "Browse products", products_path, class: "button" %>
+      <%= link_to "Shop by category", categories_path, class: "button button-secondary" %>
+    </div>
   </div>
 </section>
 
-<section class="container section">
+<section class="container section home-categories">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">SHOP YOUR WAY</p>
+      <h2>Browse by category</h2>
+    </div>
+    <%= link_to "View all categories", categories_path %>
+  </div>
+
+  <nav class="home-category-grid" aria-label="Product categories">
+    <% @categories.each do |category| %>
+      <%= link_to category_path(category), class: "home-category-link" do %>
+        <strong><%= category.name %></strong>
+        <span><%= pluralize(@category_counts.fetch(category.id, 0), "available product") %></span>
+      <% end %>
+    <% end %>
+  </nav>
+</section>
+
+<section class="container section home-products">
   <div class="section-heading">
     <div>
       <p class="eyebrow">FEATURED INVENTORY</p>
@@ -17,6 +39,9 @@
   </div>
   <div class="product-grid">
     <%= render partial: "products/product_card", collection: @products, as: :product %>
+  </div>
+  <div class="home-products-action">
+    <%= link_to "Browse the full product catalogue", products_path, class: "catalogue-link" %>
   </div>
 </section>
 
