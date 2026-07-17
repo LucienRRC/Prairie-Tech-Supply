@@ -33,7 +33,7 @@
   <% if @keyword.present? || @selected_category_id.present? %>
     <p class="search-summary" role="status">
       <strong><%= pluralize(@products.total_count, "product") %></strong> found
-      <% if @keyword.present? %>for “<%= @keyword %>”<% end %>
+      <% if @keyword.present? %>for &ldquo;<%= @keyword %>&rdquo;<% end %>
       <% if @selected_category_id.present? %>
         in <%= @categories.find { |category| category.id.to_s == @selected_category_id.to_s }&.name || "the selected category" %>
       <% end %>

@@ -6294,3 +6294,1216 @@ SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
 ----------------------------------------------------------------
   [1m[36mSitePage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:55:11.121322"], ["updated_at", "2026-07-17 04:55:11.121322"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:55:11.155741"], ["updated_at", "2026-07-17 04:55:11.155741"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:11.159620"], ["updated_at", "2026-07-17 04:55:11.159620"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:11.164626"], ["updated_at", "2026-07-17 04:55:11.164626"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:11.169955"], ["updated_at", "2026-07-17 04:55:11.169955"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:11.174243"], ["updated_at", "2026-07-17 04:55:11.174243"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:11.179080"], ["updated_at", "2026-07-17 04:55:11.179080"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:11.183879"], ["updated_at", "2026-07-17 04:55:11.183879"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:55:11.195335"], ["updated_at", "2026-07-17 04:55:11.195335"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:55:11.200474"], ["updated_at", "2026-07-17 04:55:11.200474"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 23:55:11 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (1.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6], ["record_id", 7]]
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 1212.7ms | GC: 0.3ms)
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  Rendered products/index.html.erb within layouts/application (Duration: 1324.6ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 1339.9ms | GC: 0.6ms)
+Completed 200 OK in 1505ms (Views: 1371.9ms | ActiveRecord: 3.1ms (5 queries, 0 cached) | GC: 0.6ms)
+Started GET "/products?page=2" for 127.0.0.1 at 2026-07-16 23:55:12 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], ["LIMIT", 6], ["OFFSET", 6]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 3.3ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 31.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 33.6ms | GC: 0.0ms)
+Completed 200 OK in 46ms (Views: 34.0ms | ActiveRecord: 0.4ms (4 queries, 2 cached) | GC: 0.0ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 23:55:12 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 8.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.8ms | GC: 0.0ms)
+Completed 200 OK in 27ms (Views: 11.7ms | ActiveRecord: 0.3ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:55:12.893684"], ["updated_at", "2026-07-17 04:55:12.893684"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.8ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:55:12.898555"], ["updated_at", "2026-07-17 04:55:12.898555"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:12.916131"], ["updated_at", "2026-07-17 04:55:12.916131"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:12.961899"], ["updated_at", "2026-07-17 04:55:12.961899"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:12.993262"], ["updated_at", "2026-07-17 04:55:12.993262"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.010528"], ["updated_at", "2026-07-17 04:55:13.010528"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.021461"], ["updated_at", "2026-07-17 04:55:13.021461"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.025799"], ["updated_at", "2026-07-17 04:55:13.025799"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:55:13.033119"], ["updated_at", "2026-07-17 04:55:13.033119"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:55:13.037136"], ["updated_at", "2026-07-17 04:55:13.037136"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | GC: 0.0ms)
+Completed 200 OK in 35ms (Views: 23.6ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.2ms | GC: 0.0ms)
+Completed 200 OK in 14ms (Views: 5.6ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:55:13.107075"], ["updated_at", "2026-07-17 04:55:13.107075"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:55:13.111145"], ["updated_at", "2026-07-17 04:55:13.111145"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.118276"], ["updated_at", "2026-07-17 04:55:13.118276"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.121338"], ["updated_at", "2026-07-17 04:55:13.121338"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.125153"], ["updated_at", "2026-07-17 04:55:13.125153"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.129156"], ["updated_at", "2026-07-17 04:55:13.129156"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.135641"], ["updated_at", "2026-07-17 04:55:13.135641"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.140665"], ["updated_at", "2026-07-17 04:55:13.140665"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:55:13.145314"], ["updated_at", "2026-07-17 04:55:13.145314"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:55:13.152981"], ["updated_at", "2026-07-17 04:55:13.152981"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 10ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+StorefrontTest: test_navigates_products_through_dedicated_category_pages
+------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:55:13.191407"], ["updated_at", "2026-07-17 04:55:13.191407"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:55:13.209815"], ["updated_at", "2026-07-17 04:55:13.209815"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.232572"], ["updated_at", "2026-07-17 04:55:13.232572"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.238632"], ["updated_at", "2026-07-17 04:55:13.238632"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.6ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.242694"], ["updated_at", "2026-07-17 04:55:13.242694"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.250365"], ["updated_at", "2026-07-17 04:55:13.250365"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.254422"], ["updated_at", "2026-07-17 04:55:13.254422"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.257439"], ["updated_at", "2026-07-17 04:55:13.257439"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:55:13.261803"], ["updated_at", "2026-07-17 04:55:13.261803"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:55:13.266845"], ["updated_at", "2026-07-17 04:55:13.266845"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Category Navigation Office"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Category Navigation Office"], ["description", "Office technology and accessories."], ["created_at", "2026-07-17 04:55:13.270342"], ["updated_at", "2026-07-17 04:55:13.270342"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "CATEGORY-NAV-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Category Navigation Dock"], ["description", "An active office product for testing category navigation."], ["brand", "Prairie Tech"], ["sku", "CATEGORY-NAV-001"], ["price", 89.99], ["stock_quantity", 7], ["active", 1], ["created_at", "2026-07-17 04:55:13.275409"], ["updated_at", "2026-07-17 04:55:13.275409"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (5.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "CATEGORY-INACTIVE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Inactive Category Product"], ["description", "An inactive product that must not appear on category pages."], ["brand", "Prairie Tech"], ["sku", "CATEGORY-INACTIVE-002"], ["price", 39.99], ["stock_quantity", 2], ["active", 0], ["created_at", "2026-07-17 04:55:13.285342"], ["updated_at", "2026-07-17 04:55:13.285342"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/categories" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by CategoriesController#index as HTML
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "products"."category_id" AS "products_category_id" FROM "products" WHERE "products"."active" = ? AND "products"."category_id" IN (SELECT DISTINCT "categories"."id" FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? ORDER BY "categories"."name" ASC) GROUP BY "products"."category_id"[0m  [["active", 1], ["active", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT DISTINCT "categories".* FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? ORDER BY "categories"."name" ASC[0m  [["active", 1]]
+  Rendered categories/index.html.erb within layouts/application (Duration: 2.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.7ms | GC: 0.0ms)
+Completed 200 OK in 43ms (Views: 19.2ms | ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+Started GET "/categories/1" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by CategoriesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ?[0m  [["category_id", 1], ["active", 1]]
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["category_id", 1], ["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6], ["record_id", 7]]
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 7.8ms | GC: 0.0ms)
+  Rendered categories/show.html.erb within layouts/application (Duration: 15.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | GC: 0.0ms)
+Completed 200 OK in 42ms (Views: 16.4ms | ActiveRecord: 1.3ms (4 queries, 0 cached) | GC: 0.0ms)
+Started GET "/categories/1?page=2" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by CategoriesController#show as HTML
+  Parameters: {"page"=>"2", "id"=>"1"}
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ?[0m  [["category_id", 1], ["active", 1]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["category_id", 1], ["active", 1], ["LIMIT", 6], ["OFFSET", 6]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 4.6ms | GC: 0.0ms)
+  Rendered categories/show.html.erb within layouts/application (Duration: 11.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.7ms | GC: 0.0ms)
+Completed 200 OK in 22ms (Views: 13.2ms | ActiveRecord: 0.4ms (4 queries, 2 cached) | GC: 0.0ms)
+Started GET "/categories/2" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by CategoriesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ?[0m  [["category_id", 2], ["active", 1]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["category_id", 2], ["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 2.8ms | GC: 0.0ms)
+  Rendered categories/show.html.erb within layouts/application (Duration: 6.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 7.9ms | ActiveRecord: 0.8ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------------------------
+StorefrontTest: test_searches_titles_and_descriptions_with_an_optional_category
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:55:13.470278"], ["updated_at", "2026-07-17 04:55:13.470278"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:55:13.474203"], ["updated_at", "2026-07-17 04:55:13.474203"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.5ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.478507"], ["updated_at", "2026-07-17 04:55:13.478507"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.483884"], ["updated_at", "2026-07-17 04:55:13.483884"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.5ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.488685"], ["updated_at", "2026-07-17 04:55:13.488685"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.493691"], ["updated_at", "2026-07-17 04:55:13.493691"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.498809"], ["updated_at", "2026-07-17 04:55:13.498809"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:55:13.503554"], ["updated_at", "2026-07-17 04:55:13.503554"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:55:13.507085"], ["updated_at", "2026-07-17 04:55:13.507085"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:55:13.510225"], ["updated_at", "2026-07-17 04:55:13.510225"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Office"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Office"], ["description", nil], ["created_at", "2026-07-17 04:55:13.514356"], ["updated_at", "2026-07-17 04:55:13.514356"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "SEARCH-OFFICE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Office Docking Station"], ["description", "A complete portable Thunderbolt hub for a productive workspace."], ["brand", "Prairie Tech"], ["sku", "SEARCH-OFFICE-001"], ["price", 129.99], ["stock_quantity", 8], ["active", 1], ["created_at", "2026-07-17 04:55:13.519254"], ["updated_at", "2026-07-17 04:55:13.519254"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "SEARCH-INACTIVE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Archived Thunderbolt Adapter"], ["description", "An inactive Thunderbolt product that should not appear in search."], ["brand", "Prairie Tech"], ["sku", "SEARCH-INACTIVE-002"], ["price", 59.99], ["stock_quantity", 3], ["active", 0], ["created_at", "2026-07-17 04:55:13.523091"], ["updated_at", "2026-07-17 04:55:13.523091"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products?keyword=mechanical" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"mechanical"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%mechanical%"], [nil, "%mechanical%"]]
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%mechanical%"], [nil, "%mechanical%"], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 5.7ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 12.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.9ms | GC: 0.0ms)
+Completed 200 OK in 27ms (Views: 13.7ms | ActiveRecord: 1.2ms (5 queries, 0 cached) | GC: 0.0ms)
+Started GET "/products?keyword=THUNDERBOLT" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"THUNDERBOLT"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%thunderbolt%"], [nil, "%thunderbolt%"]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%thunderbolt%"], [nil, "%thunderbolt%"], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 5.7ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 9.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | GC: 0.0ms)
+Completed 200 OK in 20ms (Views: 10.7ms | ActiveRecord: 0.7ms (5 queries, 1 cached) | GC: 0.0ms)
+Started GET "/products?keyword=complete" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"complete"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?)[0m  [["id", 2], ["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [2 times] (Duration: 5.1ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 9.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.2ms | GC: 0.0ms)
+Completed 200 OK in 24ms (Views: 12.0ms | ActiveRecord: 1.2ms (5 queries, 1 cached) | GC: 0.0ms)
+Started GET "/products?category_id=1&keyword=complete" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"category_id"=>"1", "keyword"=>"complete"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 1]]
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 3.8ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 11.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.4ms | GC: 0.0ms)
+Completed 200 OK in 20ms (Views: 12.0ms | ActiveRecord: 1.2ms (5 queries, 3 cached) | GC: 0.0ms)
+Started GET "/products?category_id=2&keyword=complete" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"category_id"=>"2", "keyword"=>"complete"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 2]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 2], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 4.5ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 8.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | GC: 0.0ms)
+Completed 200 OK in 19ms (Views: 10.9ms | ActiveRecord: 0.6ms (5 queries, 3 cached) | GC: 0.0ms)
+Started GET "/products?keyword=no-such-product" for 127.0.0.1 at 2026-07-16 23:55:13 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"no-such-product"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%no-such-product%"], [nil, "%no-such-product%"]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%no-such-product%"], [nil, "%no-such-product%"], ["LIMIT", 6], ["OFFSET", 0]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.2ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 4.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.2ms | GC: 0.0ms)
+Completed 200 OK in 29ms (Views: 7.4ms | ActiveRecord: 0.7ms (3 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------------------------
+StorefrontTest: test_searches_titles_and_descriptions_with_an_optional_category
+-------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:56:34.948877"], ["updated_at", "2026-07-17 04:56:34.948877"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:56:34.983420"], ["updated_at", "2026-07-17 04:56:34.983420"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:34.988617"], ["updated_at", "2026-07-17 04:56:34.988617"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:34.993132"], ["updated_at", "2026-07-17 04:56:34.993132"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:34.999216"], ["updated_at", "2026-07-17 04:56:34.999216"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:35.004144"], ["updated_at", "2026-07-17 04:56:35.004144"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:35.009210"], ["updated_at", "2026-07-17 04:56:35.009210"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:35.018091"], ["updated_at", "2026-07-17 04:56:35.018091"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:56:35.032661"], ["updated_at", "2026-07-17 04:56:35.032661"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:56:35.036429"], ["updated_at", "2026-07-17 04:56:35.036429"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Office"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Office"], ["description", nil], ["created_at", "2026-07-17 04:56:35.039913"], ["updated_at", "2026-07-17 04:56:35.039913"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "SEARCH-OFFICE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Office Docking Station"], ["description", "A complete portable Thunderbolt hub for a productive workspace."], ["brand", "Prairie Tech"], ["sku", "SEARCH-OFFICE-001"], ["price", 129.99], ["stock_quantity", 8], ["active", 1], ["created_at", "2026-07-17 04:56:35.044567"], ["updated_at", "2026-07-17 04:56:35.044567"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "SEARCH-INACTIVE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Archived Thunderbolt Adapter"], ["description", "An inactive Thunderbolt product that should not appear in search."], ["brand", "Prairie Tech"], ["sku", "SEARCH-INACTIVE-002"], ["price", 59.99], ["stock_quantity", 3], ["active", 0], ["created_at", "2026-07-17 04:56:35.049996"], ["updated_at", "2026-07-17 04:56:35.049996"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products?keyword=mechanical" for 127.0.0.1 at 2026-07-16 23:56:35 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"mechanical"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%mechanical%"], [nil, "%mechanical%"]]
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%mechanical%"], [nil, "%mechanical%"], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 323.8ms | GC: 0.2ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 338.1ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 351.2ms | GC: 0.2ms)
+Completed 200 OK in 492ms (Views: 381.6ms | ActiveRecord: 2.2ms (5 queries, 0 cached) | GC: 0.2ms)
+Started GET "/products?keyword=THUNDERBOLT" for 127.0.0.1 at 2026-07-16 23:56:35 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"THUNDERBOLT"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%thunderbolt%"], [nil, "%thunderbolt%"]]
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%thunderbolt%"], [nil, "%thunderbolt%"], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 8.1ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 13.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.6ms | GC: 0.0ms)
+Completed 200 OK in 25ms (Views: 15.5ms | ActiveRecord: 0.9ms (5 queries, 1 cached) | GC: 0.0ms)
+Started GET "/products?keyword=complete" for 127.0.0.1 at 2026-07-16 23:56:35 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"complete"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?)[0m  [["id", 2], ["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [2 times] (Duration: 10.1ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 15.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 19.5ms | GC: 0.0ms)
+Completed 200 OK in 32ms (Views: 19.3ms | ActiveRecord: 1.1ms (5 queries, 1 cached) | GC: 0.0ms)
+Started GET "/products?category_id=1&keyword=complete" for 127.0.0.1 at 2026-07-16 23:56:35 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"category_id"=>"1", "keyword"=>"complete"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 1]]
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 5.5ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 25.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.4ms | GC: 0.0ms)
+Completed 200 OK in 38ms (Views: 27.4ms | ActiveRecord: 0.9ms (5 queries, 3 cached) | GC: 0.0ms)
+Started GET "/products?category_id=2&keyword=complete" for 127.0.0.1 at 2026-07-16 23:56:35 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"category_id"=>"2", "keyword"=>"complete"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 2]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%complete%"], [nil, "%complete%"], ["category_id", 2], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 6.2ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 11.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 13.5ms | GC: 0.0ms)
+Completed 200 OK in 26ms (Views: 13.9ms | ActiveRecord: 0.6ms (5 queries, 3 cached) | GC: 0.0ms)
+Started GET "/products?keyword=no-such-product" for 127.0.0.1 at 2026-07-16 23:56:35 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"no-such-product"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Count (2.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%no-such-product%"], [nil, "%no-such-product%"]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%no-such-product%"], [nil, "%no-such-product%"], ["LIMIT", 6], ["OFFSET", 0]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.1ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 16.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 23.2ms | GC: 0.0ms)
+Completed 200 OK in 35ms (Views: 23.0ms | ActiveRecord: 2.7ms (3 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:56:35.897810"], ["updated_at", "2026-07-17 04:56:35.897810"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:56:35.922532"], ["updated_at", "2026-07-17 04:56:35.922532"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:35.960585"], ["updated_at", "2026-07-17 04:56:35.960585"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (37.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.082149"], ["updated_at", "2026-07-17 04:56:36.082149"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (2.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.220085"], ["updated_at", "2026-07-17 04:56:36.220085"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (7.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.245831"], ["updated_at", "2026-07-17 04:56:36.245831"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.277910"], ["updated_at", "2026-07-17 04:56:36.277910"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (3.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (1.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.303680"], ["updated_at", "2026-07-17 04:56:36.303680"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (3.8ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (4.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:56:36.328140"], ["updated_at", "2026-07-17 04:56:36.328140"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (1.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:56:36.344411"], ["updated_at", "2026-07-17 04:56:36.344411"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 14ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:56:36.387796"], ["updated_at", "2026-07-17 04:56:36.387796"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.6ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:56:36.395347"], ["updated_at", "2026-07-17 04:56:36.395347"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.401413"], ["updated_at", "2026-07-17 04:56:36.401413"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.406554"], ["updated_at", "2026-07-17 04:56:36.406554"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.411714"], ["updated_at", "2026-07-17 04:56:36.411714"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.417932"], ["updated_at", "2026-07-17 04:56:36.417932"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.422721"], ["updated_at", "2026-07-17 04:56:36.422721"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.427410"], ["updated_at", "2026-07-17 04:56:36.427410"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.7ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:56:36.435643"], ["updated_at", "2026-07-17 04:56:36.435643"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:56:36.439879"], ["updated_at", "2026-07-17 04:56:36.439879"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6], ["record_id", 7]]
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 16.2ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  Rendered products/index.html.erb within layouts/application (Duration: 66.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 68.2ms | GC: 0.0ms)
+Completed 200 OK in 85ms (Views: 68.3ms | ActiveRecord: 1.1ms (5 queries, 0 cached) | GC: 0.0ms)
+Started GET "/products?page=2" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], ["LIMIT", 6], ["OFFSET", 6]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 8.2ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 39.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 40.9ms | GC: 0.0ms)
+Completed 200 OK in 50ms (Views: 41.4ms | ActiveRecord: 0.5ms (4 queries, 2 cached) | GC: 0.0ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 2.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.1ms | GC: 0.0ms)
+Completed 200 OK in 21ms (Views: 6.3ms | ActiveRecord: 0.3ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------
+StorefrontTest: test_navigates_products_through_dedicated_category_pages
+------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:56:36.621430"], ["updated_at", "2026-07-17 04:56:36.621430"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:56:36.627018"], ["updated_at", "2026-07-17 04:56:36.627018"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.632536"], ["updated_at", "2026-07-17 04:56:36.632536"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.637159"], ["updated_at", "2026-07-17 04:56:36.637159"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.641655"], ["updated_at", "2026-07-17 04:56:36.641655"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.647279"], ["updated_at", "2026-07-17 04:56:36.647279"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.652255"], ["updated_at", "2026-07-17 04:56:36.652255"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (2.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.660212"], ["updated_at", "2026-07-17 04:56:36.660212"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:56:36.668326"], ["updated_at", "2026-07-17 04:56:36.668326"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:56:36.673464"], ["updated_at", "2026-07-17 04:56:36.673464"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Category Navigation Office"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Category Navigation Office"], ["description", "Office technology and accessories."], ["created_at", "2026-07-17 04:56:36.679315"], ["updated_at", "2026-07-17 04:56:36.679315"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "CATEGORY-NAV-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Category Navigation Dock"], ["description", "An active office product for testing category navigation."], ["brand", "Prairie Tech"], ["sku", "CATEGORY-NAV-001"], ["price", 89.99], ["stock_quantity", 7], ["active", 1], ["created_at", "2026-07-17 04:56:36.687678"], ["updated_at", "2026-07-17 04:56:36.687678"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "CATEGORY-INACTIVE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Inactive Category Product"], ["description", "An inactive product that must not appear on category pages."], ["brand", "Prairie Tech"], ["sku", "CATEGORY-INACTIVE-002"], ["price", 39.99], ["stock_quantity", 2], ["active", 0], ["created_at", "2026-07-17 04:56:36.703347"], ["updated_at", "2026-07-17 04:56:36.703347"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/categories" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by CategoriesController#index as HTML
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "products"."category_id" AS "products_category_id" FROM "products" WHERE "products"."active" = ? AND "products"."category_id" IN (SELECT DISTINCT "categories"."id" FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? ORDER BY "categories"."name" ASC) GROUP BY "products"."category_id"[0m  [["active", 1], ["active", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT DISTINCT "categories".* FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? ORDER BY "categories"."name" ASC[0m  [["active", 1]]
+  Rendered categories/index.html.erb within layouts/application (Duration: 3.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.7ms | GC: 0.0ms)
+Completed 200 OK in 41ms (Views: 19.6ms | ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+Started GET "/categories/1" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by CategoriesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ?[0m  [["category_id", 1], ["active", 1]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["category_id", 1], ["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6], ["record_id", 7]]
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 10.1ms | GC: 0.0ms)
+  Rendered categories/show.html.erb within layouts/application (Duration: 18.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.6ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 20.6ms | ActiveRecord: 1.1ms (4 queries, 0 cached) | GC: 0.0ms)
+Started GET "/categories/1?page=2" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by CategoriesController#show as HTML
+  Parameters: {"page"=>"2", "id"=>"1"}
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ?[0m  [["category_id", 1], ["active", 1]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["category_id", 1], ["active", 1], ["LIMIT", 6], ["OFFSET", 6]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 4.0ms | GC: 0.0ms)
+  Rendered categories/show.html.erb within layouts/application (Duration: 12.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.3ms | GC: 0.0ms)
+Completed 200 OK in 25ms (Views: 14.8ms | ActiveRecord: 0.5ms (4 queries, 2 cached) | GC: 0.0ms)
+Started GET "/categories/2" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by CategoriesController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/show.html.erb within layouts/application
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ?[0m  [["category_id", 2], ["active", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = ? AND "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["category_id", 2], ["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  [1m[36mActiveStorage::Attachment Load (1.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 4.8ms | GC: 0.0ms)
+  Rendered categories/show.html.erb within layouts/application (Duration: 8.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | GC: 0.0ms)
+Completed 200 OK in 20ms (Views: 8.3ms | ActiveRecord: 2.4ms (4 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.7ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:56:36.876738"], ["updated_at", "2026-07-17 04:56:36.876738"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:56:36.883108"], ["updated_at", "2026-07-17 04:56:36.883108"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 01"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-001"], ["price", 19.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.888002"], ["updated_at", "2026-07-17 04:56:36.888002"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 02"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-002"], ["price", 20.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.892931"], ["updated_at", "2026-07-17 04:56:36.892931"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-003"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 03"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-003"], ["price", 21.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.898000"], ["updated_at", "2026-07-17 04:56:36.898000"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-004"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 04"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-004"], ["price", 22.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.903758"], ["updated_at", "2026-07-17 04:56:36.903758"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-005"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 05"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-005"], ["price", 23.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.908733"], ["updated_at", "2026-07-17 04:56:36.908733"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "PAGE-006"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Pagination Product 06"], ["description", "A real product description used to verify Kaminari pagination."], ["brand", "Test Brand"], ["sku", "PAGE-006"], ["price", 24.99], ["stock_quantity", 10], ["active", 1], ["created_at", "2026-07-17 04:56:36.914877"], ["updated_at", "2026-07-17 04:56:36.914877"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:56:36.919367"], ["updated_at", "2026-07-17 04:56:36.919367"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:56:36.923326"], ["updated_at", "2026-07-17 04:56:36.923326"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 1.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.6ms | GC: 0.0ms)
+Completed 200 OK in 39ms (Views: 20.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 23:56:36 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.6ms | GC: 0.0ms)
+Completed 200 OK in 14ms (Views: 3.6ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------
+AdminDashboardTest: test_product_filters_are_limited_and_filter_the_collection
+------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdminUser Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "dashboard_admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.4ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "dashboard_admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 04:56:37.035294"], ["updated_at", "2026-07-17 04:56:37.035294"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Admin Test"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Admin Test"], ["description", "Products used by the admin integration test."], ["created_at", "2026-07-17 04:56:37.044311"], ["updated_at", "2026-07-17 04:56:37.044311"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (2.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Admin Test Product"], ["description", "A complete product used to verify the administration interface."], ["brand", "Prairie Tech"], ["sku", "ADMIN-TEST-001"], ["price", 49.99], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-07-17 04:56:37.050159"], ["updated_at", "2026-07-17 04:56:37.050159"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Other Admin Category"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Other Admin Category"], ["description", nil], ["created_at", "2026-07-17 04:56:37.055110"], ["updated_at", "2026-07-17 04:56:37.055110"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-INACTIVE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (1.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Inactive Admin Product"], ["description", "A second complete product used to verify administration filters."], ["brand", "Prairie Tech"], ["sku", "ADMIN-INACTIVE-002"], ["price", 99.99], ["stock_quantity", 15], ["active", 0], ["created_at", "2026-07-17 04:56:37.062268"], ["updated_at", "2026-07-17 04:56:37.062268"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.5ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "1hfk7o61wfhkpfuucfl2bbn7u2el"], ["filename", "computer-technology.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "test"], ["byte_size", 572098], ["checksum", "wn0hur3Ot0QMPhNuwqjc6w=="], ["created_at", "2026-07-17 04:56:37.125110"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 1], ["blob_id", 1], ["created_at", "2026-07-17 04:56:37.127426"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 04:56:37.129342"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[36m  Disk Storage (32.0ms) [0m[32mUploaded file to key: 1hfk7o61wfhkpfuucfl2bbn7u2el (checksum: wn0hur3Ot0QMPhNuwqjc6w==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: f95492ab-7f44-4cea-9fd9-5ea26dff7262) to Test(default) with arguments: #<GlobalID:0x0000012ba66c1e20 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?)[0m  [["id", 1], ["id", 2]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 2.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 108.9ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 115.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 4.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 11.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  [1m[36mCategory Pluck (0.4ms)[0m  [1m[34mSELECT "categories"."name", "categories"."id" FROM "categories" ORDER BY "categories"."name" ASC[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 71.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 81.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 88.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 5.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 388.5ms | GC: 0.2ms)
+Completed 200 OK in 434ms (Views: 413.6ms | ActiveRecord: 2.4ms (9 queries, 0 cached) | GC: 0.2ms)
+Started GET "/admin/products.csv" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as CSV
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering text template
+  Rendered text template (Duration: 0.0ms | GC: 0.0ms)
+Completed 401 Unauthorized in 36ms (Views: 4.0ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/admin/products.xml" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as XML
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 401 Unauthorized in 11ms (Views: 0.1ms | ActiveRecord: 0.0ms (1 query, 1 cached) | GC: 0.0ms)
+Started GET "/admin/products.json" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as JSON
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+Completed 401 Unauthorized in 12ms (Views: 0.2ms | ActiveRecord: 0.0ms (1 query, 1 cached) | GC: 0.0ms)
+Started GET "/admin/products?q%5Bcategory_id_eq%5D=1" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as HTML
+  Parameters: {"q"=>{"category_id_eq"=>"1"}}
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 1[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 1 AND "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 1 AND "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."category_id" = 1 AND (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."category_id" = 1 ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  [1m[36mCACHE ActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 29.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Category Pluck (0.0ms)[0m  [1m[34mSELECT "categories"."name", "categories"."id" FROM "categories" ORDER BY "categories"."name" ASC[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 6.3ms | GC: 0.0ms)
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_active_filters.html.erb (Duration: 3.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 23.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 30.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 30.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 66.5ms | GC: 0.0ms)
+Completed 200 OK in 79ms (Views: 65.9ms | ActiveRecord: 1.5ms (11 queries, 3 cached) | GC: 0.0ms)
+Started GET "/admin/products?q%5Bactive_eq%5D=false" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as HTML
+  Parameters: {"q"=>{"active_eq"=>"false"}}
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = 0[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = 0 AND "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (2.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = 0 AND "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = 0 AND (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = 0 ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 2]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 34.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Category Pluck (0.0ms)[0m  [1m[34mSELECT "categories"."name", "categories"."id" FROM "categories" ORDER BY "categories"."name" ASC[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 7.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_active_filters.html.erb (Duration: 20.0ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 20.7ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 29.0ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 29.4ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 75.3ms | GC: 0.2ms)
+Completed 200 OK in 87ms (Views: 72.8ms | ActiveRecord: 3.5ms (9 queries, 2 cached) | GC: 0.2ms)
+Started GET "/admin/products?q%5Bprice_lteq%5D=60" for 127.0.0.1 at 2026-07-16 23:56:37 -0500
+Processing by Admin::ProductsController#index as HTML
+  Parameters: {"q"=>{"price_lteq"=>"60"}}
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 2.2ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."price" <= 60.0[0m
+  [1m[36mProduct Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."price" <= 60.0 AND "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."price" <= 60.0 AND "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."price" <= 60.0 AND (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."price" <= 60.0 ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  [1m[36mCACHE ActiveStorage::Blob Load (0.0ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 46.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCACHE Category Pluck (0.0ms)[0m  [1m[34mSELECT "categories"."name", "categories"."id" FROM "categories" ORDER BY "categories"."name" ASC[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 11.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_active_filters.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 13.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 14.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 69.2ms | GC: 0.0ms)
+Completed 200 OK in 85ms (Views: 70.7ms | ActiveRecord: 1.8ms (10 queries, 5 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------
+AdminDashboardTest: test_authenticated_administrator_can_access_management_pages
+--------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdminUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "dashboard_admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.4ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "dashboard_admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 04:56:37.992450"], ["updated_at", "2026-07-17 04:56:37.992450"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Admin Test"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Admin Test"], ["description", "Products used by the admin integration test."], ["created_at", "2026-07-17 04:56:37.997849"], ["updated_at", "2026-07-17 04:56:37.997849"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Admin Test Product"], ["description", "A complete product used to verify the administration interface."], ["brand", "Prairie Tech"], ["sku", "ADMIN-TEST-001"], ["price", 49.99], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-07-17 04:56:38.009174"], ["updated_at", "2026-07-17 04:56:38.009174"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Other Admin Category"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Other Admin Category"], ["description", nil], ["created_at", "2026-07-17 04:56:38.013916"], ["updated_at", "2026-07-17 04:56:38.013916"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-INACTIVE-002"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 2], ["name", "Inactive Admin Product"], ["description", "A second complete product used to verify administration filters."], ["brand", "Prairie Tech"], ["sku", "ADMIN-INACTIVE-002"], ["price", 99.99], ["stock_quantity", 15], ["active", 0], ["created_at", "2026-07-17 04:56:38.022405"], ["updated_at", "2026-07-17 04:56:38.022405"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "u3zsegdbmig64inmvmjambo7g366"], ["filename", "computer-technology.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "test"], ["byte_size", 572098], ["checksum", "wn0hur3Ot0QMPhNuwqjc6w=="], ["created_at", "2026-07-17 04:56:38.043284"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 1], ["blob_id", 1], ["created_at", "2026-07-17 04:56:38.100994"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 04:56:38.103911"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[36m  Disk Storage (30.3ms) [0m[32mUploaded file to key: u3zsegdbmig64inmvmjambo7g366 (checksum: wn0hur3Ot0QMPhNuwqjc6w==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 45acb01e-5f11-4116-9d2d-454709db4de3) to Test(default) with arguments: #<GlobalID:0x0000012ba59016c8 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:56:38 -0500
+Processing by Admin::DashboardController#index as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mSitePage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 14.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 22.6ms | GC: 0.0ms)
+Completed 200 OK in 39ms (Views: 29.2ms | ActiveRecord: 1.1ms (6 queries, 0 cached) | GC: 0.0ms)
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 23:56:38 -0500
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?)[0m  [["id", 1], ["id", 2]]
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2]]
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 1.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 37.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCategory Pluck (0.1ms)[0m  [1m[34mSELECT "categories"."name", "categories"."id" FROM "categories" ORDER BY "categories"."name" ASC[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 8.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 9.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 9.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 55.1ms | GC: 0.0ms)
+Completed 200 OK in 68ms (Views: 54.3ms | ActiveRecord: 1.8ms (10 queries, 3 cached) | GC: 0.0ms)
+Started GET "/admin/products/1/edit" for 127.0.0.1 at 2026-07-16 23:56:38 -0500
+Processing by Admin::ProductsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_form.html.arb (Duration: 70.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin (Duration: 91.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 100.3ms | GC: 0.0ms)
+Completed 200 OK in 130ms (Views: 118.5ms | ActiveRecord: 1.0ms (7 queries, 2 cached) | GC: 0.0ms)
+Started GET "/admin/site_pages" for 127.0.0.1 at 2026-07-16 23:56:38 -0500
+Processing by Admin::SitePagesController#index as HTML
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" ORDER BY "site_pages"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_blank_slate.html.erb (Duration: 1.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 24.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 32.7ms | GC: 0.0ms)
+Completed 200 OK in 57ms (Views: 45.2ms | ActiveRecord: 0.3ms (2 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 23:56:38 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 2.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.3ms | GC: 0.0ms)
+Completed 200 OK in 30ms (Views: 19.7ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m

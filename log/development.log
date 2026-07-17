@@ -5663,3 +5663,333 @@ Processing by ActiveStorage::DiskController#show as JPEG
 Completed 304 Not Modified in 13ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/products?keyword=wireless" for 127.0.0.1 at 2026-07-16 23:44:10 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"wireless"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/views/products/index.html.erb:21
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%wireless%"], [nil, "%wireless%"]]
+  ↳ app/views/products/index.html.erb:35
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%wireless%"], [nil, "%wireless%"], ["LIMIT", 6], ["OFFSET", 0]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 5], ["id", 2], ["id", 3]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 11], ["record_id", 3], ["record_id", 5]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 23]]
+  ↳ app/views/products/index.html.erb:44
+  Rendered collection of products/_product_card.html.erb [3 times] (Duration: 199.0ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 245.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1148.5ms | GC: 0.0ms)
+Completed 200 OK in 1337ms (Views: 1176.9ms | ActiveRecord: 12.4ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/products?keyword=wireless&category_id=2" for 127.0.0.1 at 2026-07-16 23:44:12 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"wireless", "category_id"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/views/products/index.html.erb:21
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ?[0m  [["active", 1], [nil, "%wireless%"], [nil, "%wireless%"], ["category_id", 2]]
+  ↳ app/views/products/index.html.erb:35
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%wireless%"], [nil, "%wireless%"], ["category_id", 2], ["LIMIT", 6], ["OFFSET", 0]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 2]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 3]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 23]]
+  ↳ app/views/products/index.html.erb:44
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 22.3ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 44.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 55.1ms | GC: 0.0ms)
+Completed 200 OK in 67ms (Views: 54.9ms | ActiveRecord: 1.6ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/site_pages" for 127.0.0.1 at 2026-07-16 23:45:50 -0500
+Processing by Admin::SitePagesController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  [1m[36mSitePage Load (7.6ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" ORDER BY "site_pages"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_download_format_links.html.erb (Duration: 2.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 84.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 214.0ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 3.8ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 370.4ms | GC: 0.2ms)
+Completed 200 OK in 742ms (Views: 387.7ms | ActiveRecord: 9.1ms (2 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 23:46:05 -0500
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?, ?, ?)[0m  [["id", 4], ["id", 5], ["id", 6], ["id", 3], ["id", 2], ["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 12], ["record_id", 11], ["record_id", 10], ["record_id", 9], ["record_id", 8], ["record_id", 7], ["record_id", 6], ["record_id", 5], ["record_id", 4], ["record_id", 3], ["record_id", 2], ["record_id", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" IN (?, ?)[0m  [["id", 23], ["id", 24]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 2.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 259.4ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 4.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.9ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 10.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCategory Pluck (0.2ms)[0m  [1m[34mSELECT "categories"."name", "categories"."id" FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/admin/products.rb:12:in `block (2 levels) in <main>'
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 73.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 84.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 99.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 389.9ms | GC: 0.3ms)
+Completed 200 OK in 424ms (Views: 402.9ms | ActiveRecord: 2.3ms (10 queries, 0 cached) | GC: 0.3ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjMsInB1ciI6ImJsb2JfaWQifX0=--47b423252c71581890c48fdf61d8b82ffda24ec7/computer-technology.jpg" for 127.0.0.1 at 2026-07-16 23:46:05 -0500
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjQsInB1ciI6ImJsb2JfaWQifX0=--346ba5837cbc9adf8be97434dab55f11188d25ed/cat33.jpg" for 127.0.0.1 at 2026-07-16 23:46:05 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MjQsInB1ciI6ImJsb2JfaWQifX0=--346ba5837cbc9adf8be97434dab55f11188d25ed", "filename"=>"cat33"}
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MjMsInB1ciI6ImJsb2JfaWQifX0=--47b423252c71581890c48fdf61d8b82ffda24ec7", "filename"=>"computer-technology"}
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 24], ["LIMIT", 1]]
+[36m  Disk Storage (2.5ms) [0m[34mGenerated URL for file at key: 7jqxx5yjc2fi7laqahz78hjnywak (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI3anF4eDV5amMyZmk3bGFxYWh6Nzhoam55d2FrIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2F0MzMuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2F0MzMuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDQ6NTE6MDYuNjAyWiIsInB1ciI6ImJsb2Jfa2V5In19--9a06b492fece022f9f2ced13fa1f722468de9ff0/cat33.jpg)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI3anF4eDV5amMyZmk3bGFxYWh6Nzhoam55d2FrIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2F0MzMuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2F0MzMuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDQ6NTE6MDYuNjAyWiIsInB1ciI6ImJsb2Jfa2V5In19--9a06b492fece022f9f2ced13fa1f722468de9ff0/cat33.jpg
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 23], ["LIMIT", 1]]
+Completed 302 Found in 43ms (ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+[36m  Disk Storage (3.5ms) [0m[34mGenerated URL for file at key: jy6m97j0o8amab4p0pp72ics574i (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg
+Completed 302 Found in 48ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI3anF4eDV5amMyZmk3bGFxYWh6Nzhoam55d2FrIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY2F0MzMuanBnXCI7IGZpbGVuYW1lKj1VVEYtOCcnY2F0MzMuanBnIiwiY29udGVudF90eXBlIjoiaW1hZ2UvanBlZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDQ6NTE6MDYuNjAyWiIsInB1ciI6ImJsb2Jfa2V5In19--9a06b492fece022f9f2ced13fa1f722468de9ff0/cat33.jpg" for 127.0.0.1 at 2026-07-16 23:46:06 -0500
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg" for 127.0.0.1 at 2026-07-16 23:46:06 -0500
+Processing by ActiveStorage::DiskController#show as JPEG
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"cat33"}
+Completed 200 OK in 30ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Completed 200 OK in 21ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/dashboard" for 127.0.0.1 at 2026-07-16 23:46:10 -0500
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  ↳ app/admin/dashboard.rb:15:in `block (4 levels) in <main>'
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  ↳ app/admin/dashboard.rb:19:in `block (4 levels) in <main>'
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  ↳ app/admin/dashboard.rb:23:in `block (4 levels) in <main>'
+  [1m[36mSitePage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  ↳ app/admin/dashboard.rb:27:in `block (4 levels) in <main>'
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  ↳ app/admin/dashboard.rb:35:in `block (5 levels) in <main>'
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 3]]
+  ↳ app/admin/dashboard.rb:35:in `block (5 levels) in <main>'
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 43.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 3.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 3.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 6.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 1.4ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 78.0ms | GC: 0.0ms)
+Completed 200 OK in 120ms (Views: 89.4ms | ActiveRecord: 1.2ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-07-16 23:46:13 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mCategory Load (1.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1], ["record_id", 2], ["record_id", 3], ["record_id", 4], ["record_id", 5], ["record_id", 6]]
+  ↳ app/views/home/index.html.erb:19
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 23]]
+  ↳ app/views/home/index.html.erb:19
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 53.1ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 89.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 101.0ms | GC: 0.0ms)
+Completed 200 OK in 147ms (Views: 121.8ms | ActiveRecord: 1.8ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg" for 127.0.0.1 at 2026-07-16 23:46:13 -0500
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 23:46:13 -0500
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+Completed 304 Not Modified in 15ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 6.6ms | GC: 0.0ms)
+Completed 200 OK in 33ms (Views: 16.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2026-07-16 23:46:16 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/views/products/index.html.erb:21
+  [1m[36mProduct Load (0.6ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?)[0m  [["id", 5], ["id", 3], ["id", 1], ["id", 6]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 11], ["record_id", 6], ["record_id", 2], ["record_id", 9], ["record_id", 10]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 23]]
+  ↳ app/views/products/index.html.erb:44
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 41.2ms | GC: 0.0ms)
+  [1m[36mProduct Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  ↳ app/views/products/index.html.erb:53
+  Rendered products/index.html.erb within layouts/application (Duration: 115.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 123.5ms | GC: 0.0ms)
+Completed 200 OK in 135ms (Views: 121.3ms | ActiveRecord: 3.1ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg" for 127.0.0.1 at 2026-07-16 23:46:17 -0500
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 23:46:17 -0500
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+Completed 304 Not Modified in 18ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 39ms (Views: 8.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/products" for 127.0.0.1 at 2026-07-16 23:46:25 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/views/products/index.html.erb:21
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], ["LIMIT", 6], ["OFFSET", 0]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?)[0m  [["id", 5], ["id", 3], ["id", 1], ["id", 6]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 11], ["record_id", 6], ["record_id", 2], ["record_id", 9], ["record_id", 10]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 23]]
+  ↳ app/views/products/index.html.erb:44
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 39.0ms | GC: 0.0ms)
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  ↳ app/views/products/index.html.erb:53
+  Rendered products/index.html.erb within layouts/application (Duration: 66.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 80.3ms | GC: 0.0ms)
+Completed 200 OK in 93ms (Views: 79.6ms | ActiveRecord: 1.8ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg" for 127.0.0.1 at 2026-07-16 23:46:26 -0500
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 23:46:26 -0500
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+Processing by Rails::PwaController#manifest as JSON
+Completed 304 Not Modified in 37ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 55ms (Views: 0.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/products?keyword=be&category_id=3" for 127.0.0.1 at 2026-07-16 23:46:40 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"be", "category_id"=>"3"}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/views/products/index.html.erb:21
+  [1m[36mProduct Count (0.9ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ?[0m  [["active", 1], [nil, "%be%"], [nil, "%be%"], ["category_id", 3]]
+  ↳ app/views/products/index.html.erb:35
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) AND "products"."category_id" = ? ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%be%"], [nil, "%be%"], ["category_id", 3], ["LIMIT", 6], ["OFFSET", 0]]
+  ↳ app/views/products/index.html.erb:44
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.1ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 20.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.7ms | GC: 0.0ms)
+Completed 200 OK in 40ms (Views: 27.2ms | ActiveRecord: 1.3ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 23:46:40 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.3ms | GC: 0.0ms)
+Completed 200 OK in 13ms (Views: 2.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/products?keyword=be&category_id=" for 127.0.0.1 at 2026-07-16 23:46:43 -0500
+Processing by ProductsController#index as HTML
+  Parameters: {"keyword"=>"be", "category_id"=>""}
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" ORDER BY "categories"."name" ASC[0m
+  ↳ app/views/products/index.html.erb:21
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?)[0m  [["active", 1], [nil, "%be%"], [nil, "%be%"]]
+  ↳ app/views/products/index.html.erb:35
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (LOWER(products.name) LIKE ? OR LOWER(products.description) LIKE ?) ORDER BY "products"."name" ASC LIMIT ? OFFSET ?[0m  [["active", 1], [nil, "%be%"], [nil, "%be%"], ["LIMIT", 6], ["OFFSET", 0]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 5]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 11]]
+  ↳ app/views/products/index.html.erb:44
+  [1m[36mActiveStorage::Blob Load (0.1ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 23]]
+  ↳ app/views/products/index.html.erb:44
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 33.0ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 56.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 64.9ms | GC: 0.0ms)
+Completed 200 OK in 78ms (Views: 64.6ms | ActiveRecord: 1.5ms (6 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJqeTZtOTdqMG84YW1hYjRwMHBwNzJpY3M1NzRpIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA3LTE3VDA0OjUxOjA2LjYyMVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--710d2670c6abf429a9b878bf70432792c4f6c059/computer-technology.jpg" for 127.0.0.1 at 2026-07-16 23:46:44 -0500
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 23:46:44 -0500
+Processing by Rails::PwaController#manifest as JSON
+Processing by ActiveStorage::DiskController#show as JPEG
+  Rendering pwa/manifest.json.erb
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+  Rendered pwa/manifest.json.erb (Duration: 0.6ms | GC: 0.0ms)
+Completed 200 OK in 22ms (Views: 9.8ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Completed 304 Not Modified in 21ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
