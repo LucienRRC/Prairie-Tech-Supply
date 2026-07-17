@@ -1,5 +1,7 @@
 ActiveAdmin.register AdminUser do
   menu priority: 90, label: "Administrators"
+  actions :all, except: [:destroy]
+  config.batch_actions = false
   permit_params :username, :email, :password, :password_confirmation
 
   index do

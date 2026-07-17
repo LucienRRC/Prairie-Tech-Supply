@@ -1,0 +1,16 @@
+{
+  "name": "prairie-tech-supply",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/active_admin.tailwind.css -o ./app/assets/builds/active_admin.css --minify"
+  },
+  "dependencies": {
+    "@activeadmin/activeadmin": "4.0.0-beta22",
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.61.1"
+  }
+}

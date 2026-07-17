@@ -19,6 +19,7 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Prairie Tech Supply"
   config.comments = false
+  config.default_per_page = 20
 
   # == Load Paths
   #
@@ -190,7 +191,7 @@ ActiveAdmin.setup do |config|
   # Breadcrumbs are enabled by default. You can customize them for individual
   # resources or you can disable them globally from here.
   #
-  # config.breadcrumb = false
+  config.breadcrumb = true
 
   # == Create Another Checkbox
   #

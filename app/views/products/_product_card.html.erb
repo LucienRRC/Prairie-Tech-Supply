@@ -1,10 +1,6 @@
 <article class="product-card">
   <%= link_to product_path(product), class: "product-image" do %>
-    <% if product.image.attached? %>
-      <%= image_tag product.image, alt: product.name %>
-    <% else %>
-      <span>No image yet</span>
-    <% end %>
+    <%= image_tag(product.image.attached? ? product.image : "computer-technology.jpg", alt: product.name) %>
   <% end %>
   <div class="product-card-body">
     <p class="product-category"><%= product.category.name %></p>

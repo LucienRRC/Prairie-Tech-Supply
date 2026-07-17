@@ -1,2 +1,4 @@
 //= link_tree ../images
-//= link_directory ../stylesheets .css
+//= link application.css
+//= link_tree ../builds
+//= link active_admin_manifest.js

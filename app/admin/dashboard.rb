@@ -3,9 +3,11 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
   content title: proc { I18n.t("active_admin.dashboard") } do
-    div class: "admin-welcome" do
+    div class: "admin-welcome",
+      style: "background-image: linear-gradient(90deg, rgba(7, 18, 35, .96), rgba(7, 38, 65, .72)), url('#{image_path("computer-technology.jpg")}')" do
+      span "ADMIN CONTROL CENTER", class: "admin-welcome-label"
       h2 "Prairie Tech Supply"
-      para "Manage products, images, inventory, and public page content from one place."
+      para "Manage products, inventory, product images, and public website content from one place."
     end
 
     div class: "admin-stats" do

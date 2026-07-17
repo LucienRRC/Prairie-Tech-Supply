@@ -1,5 +1,5 @@
 ActiveAdmin.register SitePage do
-  menu label: "About & Contact"
+  menu priority: 20, label: "Website Pages"
   permit_params :title, :body
   actions :index, :show, :edit, :update
   config.filters = false
@@ -12,6 +12,8 @@ ActiveAdmin.register SitePage do
     actions defaults: false do |page|
       item "View", resource_path(page)
       item "Edit", edit_resource_path(page)
+      public_path = page.slug == "about" ? about_path : contact_path
+      item "Public page", public_path, target: "_blank", rel: "noopener"
     end
   end
 
@@ -23,6 +25,10 @@ ActiveAdmin.register SitePage do
         simple_format page.body
       end
       row :updated_at
+      row "Public page" do |page|
+        public_path = page.slug == "about" ? about_path : contact_path
+        link_to "Open #{page.title}", public_path, target: "_blank", rel: "noopener"
+      end
     end
   end
 

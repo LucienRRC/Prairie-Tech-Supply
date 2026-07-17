@@ -1675,3 +1675,909 @@ SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
 ----------------------------------------------------------------
   [1m[36mSitePage Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------
+AdminDashboardTest: test_authenticated_administrator_can_access_management_pages
+--------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdminUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "dashboard_admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.3ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "dashboard_admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 03:56:09.264570"], ["updated_at", "2026-07-17 03:56:09.264570"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:56:09 -0500
+Processing by Admin::DashboardController#index as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mSitePage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 963.3ms | GC: 0.3ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 228.8ms | GC: 0.6ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 3.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 5.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 5.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 4.5ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 1266.6ms | GC: 0.9ms)
+Completed 200 OK in 1422ms (Views: 1338.3ms | ActiveRecord: 0.8ms (5 queries, 0 cached) | GC: 0.9ms)
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 22:56:10 -0500
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mAdminUser Load (0.2ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 2.4ms | GC: 0.0ms)
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_blank_slate.html.erb (Duration: 1.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 38.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 4.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 7.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 120.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 126.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 134.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 192.7ms | GC: 0.0ms)
+Completed 200 OK in 256ms (Views: 213.6ms | ActiveRecord: 0.7ms (7 queries, 3 cached) | GC: 0.0ms)
+Started GET "/admin/site_pages" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by Admin::SitePagesController#index as HTML
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" ORDER BY "site_pages"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_blank_slate.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 15.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 27.5ms | GC: 0.0ms)
+Completed 200 OK in 46ms (Views: 36.6ms | ActiveRecord: 0.3ms (2 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 6.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | GC: 0.0ms)
+Completed 200 OK in 37ms (Views: 22.7ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (2.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:56:11.136623"], ["updated_at", "2026-07-17 03:56:11.136623"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:56:11.142641"], ["updated_at", "2026-07-17 03:56:11.142641"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:56:11.146342"], ["updated_at", "2026-07-17 03:56:11.146342"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:56:11.149429"], ["updated_at", "2026-07-17 03:56:11.149429"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 1.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.5ms | GC: 0.0ms)
+Completed 200 OK in 43ms (Views: 29.1ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.1ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 1.3ms | GC: 0.0ms)
+Completed 200 OK in 11ms (Views: 1.8ms | ActiveRecord: 0.1ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:56:11.228204"], ["updated_at", "2026-07-17 03:56:11.228204"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:56:11.231023"], ["updated_at", "2026-07-17 03:56:11.231023"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:56:11.236107"], ["updated_at", "2026-07-17 03:56:11.236107"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:56:11.239767"], ["updated_at", "2026-07-17 03:56:11.239767"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 7ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:56:11.265672"], ["updated_at", "2026-07-17 03:56:11.265672"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:56:11.279951"], ["updated_at", "2026-07-17 03:56:11.279951"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.1ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:56:11.286470"], ["updated_at", "2026-07-17 03:56:11.286470"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:56:11.290789"], ["updated_at", "2026-07-17 03:56:11.290789"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 105.3ms | GC: 0.0ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 107.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 110.6ms | GC: 0.0ms)
+Completed 200 OK in 138ms (Views: 126.3ms | ActiveRecord: 1.3ms (3 queries, 0 cached) | GC: 0.0ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 22:56:11 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 2.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.2ms | GC: 0.0ms)
+Completed 200 OK in 18ms (Views: 4.0ms | ActiveRecord: 0.3ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 22:56:58 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 10.4ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 20.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 231.2ms | GC: 0.2ms)
+Completed 200 OK in 447ms (Views: 265.2ms | ActiveRecord: 0.7ms (1 query, 0 cached) | GC: 0.2ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:56:58.944119"], ["updated_at", "2026-07-17 03:56:58.944119"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:56:58.981813"], ["updated_at", "2026-07-17 03:56:58.981813"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (5.0ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:56:59.011968"], ["updated_at", "2026-07-17 03:56:59.011968"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:56:59.021140"], ["updated_at", "2026-07-17 03:56:59.021140"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:56:59 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.6ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 210.0ms | GC: 0.6ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 212.8ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 217.3ms | GC: 0.6ms)
+Completed 200 OK in 245ms (Views: 230.3ms | ActiveRecord: 3.5ms (3 queries, 0 cached) | GC: 0.6ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 22:56:59 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 3.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.3ms | GC: 0.0ms)
+Completed 200 OK in 26ms (Views: 7.1ms | ActiveRecord: 0.3ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (2.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:56:59.326096"], ["updated_at", "2026-07-17 03:56:59.326096"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:56:59.338173"], ["updated_at", "2026-07-17 03:56:59.338173"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:56:59.346606"], ["updated_at", "2026-07-17 03:56:59.346606"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:56:59.359228"], ["updated_at", "2026-07-17 03:56:59.359228"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:56:59 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 23ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 03:56:59.426867"], ["updated_at", "2026-07-17 03:56:59.426867"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 03:56:59.467208"], ["updated_at", "2026-07-17 03:56:59.467208"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 03:56:59.487715"], ["updated_at", "2026-07-17 03:56:59.487715"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 03:56:59.519227"], ["updated_at", "2026-07-17 03:56:59.519227"]]
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 22:56:59 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 1.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.4ms | GC: 0.0ms)
+Completed 200 OK in 43ms (Views: 24.6ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:56:59 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 17.4ms | GC: 0.0ms)
+Completed 200 OK in 28ms (Views: 18.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------
+AdminDashboardTest: test_authenticated_administrator_can_access_management_pages
+--------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdminUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "dashboard_admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.3ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "dashboard_admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 03:56:59.715595"], ["updated_at", "2026-07-17 03:56:59.715595"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Admin Test"], ["LIMIT", 1]]
+  [1m[36mCategory Create (2.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Admin Test"], ["description", "Products used by the admin integration test."], ["created_at", "2026-07-17 03:56:59.721454"], ["updated_at", "2026-07-17 03:56:59.721454"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Admin Test Product"], ["description", "A complete product used to verify the administration interface."], ["brand", "Prairie Tech"], ["sku", "ADMIN-TEST-001"], ["price", 49.99], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-07-17 03:56:59.736029"], ["updated_at", "2026-07-17 03:56:59.736029"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (9.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (12.2ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "19nngaz08xd2miy0n6x3lof6bw8u"], ["filename", "computer-technology.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "test"], ["byte_size", 572098], ["checksum", "wn0hur3Ot0QMPhNuwqjc6w=="], ["created_at", "2026-07-17 03:56:59.833669"]]
+  [1m[36mActiveStorage::Attachment Create (1.0ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 1], ["blob_id", 1], ["created_at", "2026-07-17 03:56:59.851339"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:56:59.856431"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[36m  Disk Storage (54.4ms) [0m[32mUploaded file to key: 19nngaz08xd2miy0n6x3lof6bw8u (checksum: wn0hur3Ot0QMPhNuwqjc6w==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 5bd52e94-39fc-4550-86a3-8c69a84ce1fe) to Test(default) with arguments: #<GlobalID:0x000002342c165320 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 22:56:59 -0500
+Processing by Admin::DashboardController#index as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mSitePage Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  [1m[36mProduct Load (0.9ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 14.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 118.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 3.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 7.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 5.3ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 202.9ms | GC: 0.0ms)
+Completed 200 OK in 238ms (Views: 220.0ms | ActiveRecord: 1.5ms (6 queries, 0 cached) | GC: 0.0ms)
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 22:57:00 -0500
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mAdminUser Load (1.8ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 2.3ms | GC: 0.0ms)
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_download_format_links.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 4.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 110.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 5.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 44.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 93.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 103.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 109.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 271.2ms | GC: 0.0ms)
+Completed 200 OK in 332ms (Views: 289.3ms | ActiveRecord: 3.3ms (10 queries, 4 cached) | GC: 0.0ms)
+Started GET "/admin/products/1/edit" for 127.0.0.1 at 2026-07-16 22:57:00 -0500
+Processing by Admin::ProductsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProduct Load (0.8ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_form.html.arb (Duration: 200.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin (Duration: 221.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 3.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 233.6ms | GC: 0.0ms)
+Completed 200 OK in 264ms (Views: 251.7ms | ActiveRecord: 1.6ms (7 queries, 3 cached) | GC: 0.0ms)
+Started GET "/admin/site_pages" for 127.0.0.1 at 2026-07-16 22:57:00 -0500
+Processing by Admin::SitePagesController#index as HTML
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" ORDER BY "site_pages"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_blank_slate.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 24.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 1.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 32.5ms | GC: 0.0ms)
+Completed 200 OK in 61ms (Views: 46.4ms | ActiveRecord: 0.2ms (2 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (1.6ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:14:06.320401"], ["updated_at", "2026-07-17 04:14:06.320401"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:14:06.354937"], ["updated_at", "2026-07-17 04:14:06.354937"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:14:06.373971"], ["updated_at", "2026-07-17 04:14:06.373971"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.8ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:14:06.377858"], ["updated_at", "2026-07-17 04:14:06.377858"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 23:14:06 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 1885.4ms | GC: 1.1ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 1889.4ms | GC: 1.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 1889.7ms | GC: 1.1ms)
+Completed 500 Internal Server Error in 2008ms (ActiveRecord: 1.0ms (3 queries, 0 cached) | GC: 1.1ms)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:14:08.563483"], ["updated_at", "2026-07-17 04:14:08.563483"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:14:08.631444"], ["updated_at", "2026-07-17 04:14:08.631444"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:14:08.663202"], ["updated_at", "2026-07-17 04:14:08.663202"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:14:08.684327"], ["updated_at", "2026-07-17 04:14:08.684327"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 23:14:08 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 2.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 173.1ms | GC: 0.0ms)
+Completed 200 OK in 254ms (Views: 204.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 23:14:08 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.0ms | GC: 0.0ms)
+Completed 200 OK in 15ms (Views: 4.4ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:14:09.017625"], ["updated_at", "2026-07-17 04:14:09.017625"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.3ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:14:09.040982"], ["updated_at", "2026-07-17 04:14:09.040982"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:14:09.058204"], ["updated_at", "2026-07-17 04:14:09.058204"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:14:09.066364"], ["updated_at", "2026-07-17 04:14:09.066364"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:14:09 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 40ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 23:14:09 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 5.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.3ms | GC: 0.0ms)
+Completed 200 OK in 56ms (Views: 34.6ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------
+AdminDashboardTest: test_authenticated_administrator_can_access_management_pages
+--------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdminUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "dashboard_admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.5ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "dashboard_admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 04:14:09.290072"], ["updated_at", "2026-07-17 04:14:09.290072"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Admin Test"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Admin Test"], ["description", "Products used by the admin integration test."], ["created_at", "2026-07-17 04:14:09.302468"], ["updated_at", "2026-07-17 04:14:09.302468"]]
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.5ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Admin Test Product"], ["description", "A complete product used to verify the administration interface."], ["brand", "Prairie Tech"], ["sku", "ADMIN-TEST-001"], ["price", 49.99], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-07-17 04:14:09.324003"], ["updated_at", "2026-07-17 04:14:09.324003"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "5ai9flid0xfb6uc7xn4eftemgz5t"], ["filename", "computer-technology.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "test"], ["byte_size", 572098], ["checksum", "wn0hur3Ot0QMPhNuwqjc6w=="], ["created_at", "2026-07-17 04:14:09.496175"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 1], ["blob_id", 1], ["created_at", "2026-07-17 04:14:09.498407"]]
+  [1m[36mProduct Update (0.6ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 04:14:09.500296"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[36m  Disk Storage (24.6ms) [0m[32mUploaded file to key: 5ai9flid0xfb6uc7xn4eftemgz5t (checksum: wn0hur3Ot0QMPhNuwqjc6w==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: e4f1e556-7fe0-4a0d-a2ea-a94caa8a2add) to Test(default) with arguments: #<GlobalID:0x0000018dc4cc54b8 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:14:09 -0500
+Processing by Admin::DashboardController#index as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mSitePage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 21.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 18.7ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 55.4ms | GC: 0.0ms)
+Completed 500 Internal Server Error in 92ms (ActiveRecord: 1.1ms (6 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (7.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------
+StorefrontTest: test_lists_and_shows_active_products
+----------------------------------------------------
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.4ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:15:28.311752"], ["updated_at", "2026-07-17 04:15:28.311752"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:15:28.351971"], ["updated_at", "2026-07-17 04:15:28.351971"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.4ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:15:28.367291"], ["updated_at", "2026-07-17 04:15:28.367291"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.2ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:15:28.373397"], ["updated_at", "2026-07-17 04:15:28.373397"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/products" for 127.0.0.1 at 2026-07-16 23:15:28 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 1491.5ms | GC: 0.9ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 1504.7ms | GC: 0.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 1559.6ms | GC: 0.9ms)
+Completed 200 OK in 1681ms (Views: 1588.2ms | ActiveRecord: 1.2ms (3 queries, 0 cached) | GC: 0.9ms)
+Started GET "/products/1" for 127.0.0.1 at 2026-07-16 23:15:30 -0500
+Processing by ProductsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mCACHE ActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering products/show.html.erb within layouts/application
+  Rendered products/show.html.erb within layouts/application (Duration: 4.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.0ms | GC: 0.0ms)
+Completed 200 OK in 44ms (Views: 10.0ms | ActiveRecord: 0.4ms (3 queries, 2 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+StorefrontTest: test_admin_dashboard_requires_authentication
+------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.5ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:15:30.241207"], ["updated_at", "2026-07-17 04:15:30.241207"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:15:30.253626"], ["updated_at", "2026-07-17 04:15:30.253626"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (14.4ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (16.6ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:15:30.320971"], ["updated_at", "2026-07-17 04:15:30.320971"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (10.1ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.3ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:15:30.375953"], ["updated_at", "2026-07-17 04:15:30.375953"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:15:30 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 23ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------
+StorefrontTest: test_shows_editable_public_pages
+------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Test Gaming"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Test Gaming"], ["description", nil], ["created_at", "2026-07-17 04:15:30.545461"], ["updated_at", "2026-07-17 04:15:30.545461"]]
+  [1m[36mTRANSACTION (2.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "TEST-KEY-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.4ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Test Mechanical Keyboard"], ["description", "A complete product description for storefront testing."], ["brand", "Test Brand"], ["sku", "TEST-KEY-001"], ["price", 99.99], ["stock_quantity", 4], ["active", 1], ["created_at", "2026-07-17 04:15:30.562368"], ["updated_at", "2026-07-17 04:15:30.562368"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (3.6ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (4.9ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (0.5ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "about"], ["title", "About Test Store"], ["body", "About page body."], ["created_at", "2026-07-17 04:15:30.589807"], ["updated_at", "2026-07-17 04:15:30.589807"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSitePage Exists? (21.0ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mSitePage Create (15.8ms)[0m  [1m[32mINSERT INTO "site_pages" ("slug", "title", "body", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["slug", "contact"], ["title", "Contact Test Store"], ["body", "Contact page body."], ["created_at", "2026-07-17 04:15:30.662646"], ["updated_at", "2026-07-17 04:15:30.662646"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/about" for 127.0.0.1 at 2026-07-16 23:15:30 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"about"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 5.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 14.4ms | GC: 0.0ms)
+Completed 200 OK in 46ms (Views: 29.1ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 23:15:30 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.1ms | GC: 0.0ms)
+Completed 200 OK in 12ms (Views: 4.0ms | ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------
+CommerceCoreTest: test_cart_item_quantity_must_be_positive
+----------------------------------------------------------
+  [1m[36mCartItem Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "cart_items" WHERE "cart_items"."product_id" IS NULL AND "cart_items"."cart_id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------
+CommerceCoreTest: test_a_valid_product_belongs_to_a_category
+------------------------------------------------------------
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mProduct Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "KEY-001"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------
+HomeControllerTest: test_shows_the_storefront_home_page
+-------------------------------------------------------
+Started GET "/" for 127.0.0.1 at 2026-07-16 23:15:30 -0500
+Processing by HomeController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  Rendered collection of products/_product_card.html.erb [0 times] (Duration: 0.2ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 2.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.0ms | GC: 0.0ms)
+Completed 200 OK in 33ms (Views: 23.5ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+--------------------------------------------------------------------------------
+AdminDashboardTest: test_authenticated_administrator_can_access_management_pages
+--------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mAdminUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE "admin_users"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mAdminUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) LIMIT ?[0m  [["username", "dashboard_admin"], ["LIMIT", 1]]
+  [1m[36mAdminUser Create (0.4ms)[0m  [1m[32mINSERT INTO "admin_users" ("username", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["username", "dashboard_admin"], ["email", "[FILTERED]"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2026-07-17 04:15:30.915293"], ["updated_at", "2026-07-17 04:15:30.915293"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Admin Test"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Admin Test"], ["description", "Products used by the admin integration test."], ["created_at", "2026-07-17 04:15:30.926192"], ["updated_at", "2026-07-17 04:15:30.926192"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (1.1ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Admin Test Product"], ["description", "A complete product used to verify the administration interface."], ["brand", "Prairie Tech"], ["sku", "ADMIN-TEST-001"], ["price", 49.99], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-07-17 04:15:30.931565"], ["updated_at", "2026-07-17 04:15:30.931565"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "ADMIN-TEST-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.8ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "tl7aqs2ty8lse7pv3qm1b24y15x2"], ["filename", "computer-technology.jpg"], ["content_type", "image/jpeg"], ["metadata", "{\"identified\":true}"], ["service_name", "test"], ["byte_size", 572098], ["checksum", "wn0hur3Ot0QMPhNuwqjc6w=="], ["created_at", "2026-07-17 04:15:31.013735"]]
+  [1m[36mActiveStorage::Attachment Create (1.0ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 1], ["blob_id", 1], ["created_at", "2026-07-17 04:15:31.016754"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 04:15:31.019676"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+[36m  Disk Storage (33.8ms) [0m[32mUploaded file to key: tl7aqs2ty8lse7pv3qm1b24y15x2 (checksum: wn0hur3Ot0QMPhNuwqjc6w==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 721762a5-6501-4c9c-958b-c828b1557190) to Test(default) with arguments: #<GlobalID:0x0000021220332258 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/1>>
+Started GET "/admin" for 127.0.0.1 at 2026-07-16 23:15:31 -0500
+Processing by Admin::DashboardController#index as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mSitePage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 16.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 131.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 3.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 1.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 3.9ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 234.9ms | GC: 0.0ms)
+Completed 200 OK in 274ms (Views: 256.2ms | ActiveRecord: 1.3ms (6 queries, 0 cached) | GC: 0.0ms)
+Started GET "/admin/products" for 127.0.0.1 at 2026-07-16 23:15:31 -0500
+Processing by Admin::ProductsController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 0]]
+  [1m[36mCACHE Product Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."updated_at" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.1ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_download_format_links.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_table_actions_default.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 89.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 2.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_action_items.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 10.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 98.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 106.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 113.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 221.5ms | GC: 0.0ms)
+Completed 200 OK in 280ms (Views: 244.0ms | ActiveRecord: 1.5ms (10 queries, 4 cached) | GC: 0.0ms)
+Started GET "/admin/products/1/edit" for 127.0.0.1 at 2026-07-16 23:15:31 -0500
+Processing by Admin::ProductsController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories"[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_form.html.arb (Duration: 174.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin (Duration: 188.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 3.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 2.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.1ms | GC: 0.0ms)
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 206.1ms | GC: 0.0ms)
+Completed 200 OK in 232ms (Views: 221.1ms | ActiveRecord: 1.3ms (7 queries, 3 cached) | GC: 0.0ms)
+Started GET "/admin/site_pages" for 127.0.0.1 at 2026-07-16 23:15:31 -0500
+Processing by Admin::SitePagesController#index as HTML
+  [1m[36mCACHE AdminUser Load (0.0ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" ORDER BY "site_pages"."id" desc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_index_blank_slate.html.erb (Duration: 2.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 23.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 29.9ms | GC: 0.0ms)
+Completed 200 OK in 87ms (Views: 48.5ms | ActiveRecord: 0.2ms (2 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+----------------------------------------------------------------
+SitePageTest: test_only_the_about_and_contact_slugs_are_accepted
+----------------------------------------------------------------
+  [1m[36mSitePage Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "other"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m

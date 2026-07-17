@@ -1,0 +1,18 @@
+[2026-07-17T04:02:54.222Z] [INFO] ========================================================================================================================
+[2026-07-17T04:02:54.223Z] [INFO] Initializing MAM Client.
+App: com.microsoft.edge 150.0.4078.65
+SDK: 2.1.367.0
+OS: windows 10.0.26100.8655
+DeviceType: Desktop
+Manufacturer: LENOVO
+Model: 20FCS0NC29
+Telemetry: yes
+Managed device support: enabled
+[2026-07-17T04:02:54.223Z] [INFO] Telemetry session dc825e9c-bed6-416c-b616-b8335a029f1c.
+[2026-07-17T04:02:54.223Z] [INFO] Initializing cache (v1).
+[2026-07-17T04:02:54.265Z] [INFO] Registered UserID:9ee6b576-46ed-482c-a9c1-1f98b485cb7a in the Azure public cloud.
+[2026-07-17T04:02:54.265Z] [INFO] Conditional Access is blocked for UserID:9ee6b576-46ed-482c-a9c1-1f98b485cb7a pre-enrollment; compliance reporting will be accelerated to unblock the user.
+[2026-07-17T04:02:54.265Z] [INFO] Queuing pre-enrollment policy assignment check for UserID:9ee6b576-46ed-482c-a9c1-1f98b485cb7a to run as soon as possible.
+[2026-07-17T04:02:54.265Z] [INFO] Scheduler background thread starting for UserID:9ee6b576-46ed-482c-a9c1-1f98b485cb7a.
+[2026-07-17T04:02:57.550Z] [INFO] Shutting down.
+[2026-07-17T04:02:57.550Z] [INFO] Stopping the task scheduler and canceling any outstanding work items...
