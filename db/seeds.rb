@@ -38,12 +38,15 @@ products.each do |sku, name, brand, category_name, price, stock, description|
   )
 end
 
-featured_product = Product.find_by!(sku: "GAM-KEY-003")
-unless featured_product.image.attached?
-  featured_product.image.attach(
-    io: File.open(Rails.root.join("public/icon.png"), "rb"),
-    filename: "keychron-k8-pro-sample.png",
-    content_type: "image/png"
+product_image_path = Rails.root.join("app/assets/images/prairie-tech-products.jpg")
+product_image_path = Rails.root.join("public/icon.png") unless product_image_path.exist?
+
+Product.find_each do |product|
+  product.image.purge if product.image.attached?
+  product.image.attach(
+    io: File.open(product_image_path, "rb"),
+    filename: product_image_path.basename.to_s,
+    content_type: Marcel::MimeType.for(product_image_path)
   )
 end
 
@@ -59,6 +62,6 @@ SitePage.find_or_initialize_by(slug: "contact").update!(
 
 admin = AdminUser.find_or_initialize_by(username: "admin")
 admin.email = "admin@example.com"
-admin.password = "password123"
-admin.password_confirmation = "password123"
+admin.password = "password"
+admin.password_confirmation = "password"
 admin.save!

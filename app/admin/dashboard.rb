@@ -3,11 +3,51 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc { I18n.t("active_admin.dashboard") }
 
   content title: proc { I18n.t("active_admin.dashboard") } do
-    div class: "px-4 py-16 md:py-32 text-center m-auto max-w-3xl" do
-      h2 "Prairie Tech Supply", class: "text-base font-semibold leading-7 text-indigo-600 dark:text-indigo-500"
-      para "Store administration", class: "mt-2 text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-200"
-      para "Manage products, images, inventory, and public page content from this dashboard.",
-        class: "mt-6 text-xl leading-8 text-gray-700 dark:text-gray-400"
+    div class: "admin-welcome" do
+      h2 "Prairie Tech Supply"
+      para "Manage products, images, inventory, and public page content from one place."
+    end
+
+    div class: "admin-stats" do
+      div class: "admin-stat" do
+        strong Product.count
+        span "Products"
+      end
+      div class: "admin-stat" do
+        strong Product.where(active: true).count
+        span "Active products"
+      end
+      div class: "admin-stat" do
+        strong Product.where("stock_quantity <= ?", 10).count
+        span "Low-stock items"
+      end
+      div class: "admin-stat" do
+        strong SitePage.count
+        span "Editable pages"
+      end
+    end
+
+    div class: "admin-dashboard-grid" do
+      div do
+        panel "Low-stock products" do
+          table_for Product.includes(:category).where("stock_quantity <= ?", 10).order(:stock_quantity).limit(8) do
+            column("Product") { |product| link_to product.name, admin_product_path(product) }
+            column :category
+            column :stock_quantity
+          end
+        end
+      end
+
+      div do
+        panel "Quick actions" do
+          ul class: "admin-quick-links" do
+            li link_to("Add a product", new_admin_product_path)
+            li link_to("Manage products", admin_products_path)
+            li link_to("Edit About & Contact", admin_site_pages_path)
+            li link_to("View storefront", root_path, target: "_blank", rel: "noopener")
+          end
+        end
+      end
     end
   end
 end

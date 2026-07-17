@@ -1432,3 +1432,584 @@ Processing by ActiveStorage::DiskController#show as PNG
 Completed 304 Not Modified in 23ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (5.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Computer Components"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (8.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Gaming"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (11.0ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Audio"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (11.7ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Networking"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (12.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mCategory Exists? (7.1ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) AND "categories"."id" != ? LIMIT ?[0m  [["name", "Smart Home"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (19.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Computer Components"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Gaming"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Audio"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (13.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["id", 7], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (14.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["id", 8], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["id", 9], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Smart Home"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["id", 10], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Mobile Accessories"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (10.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["id", 11], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."sku" = ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["LIMIT", 1]]
+  [1m[36mCACHE Category Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."name" = ? LIMIT ?[0m  [["name", "Networking"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" ORDER BY "products"."id" ASC LIMIT ?[0m  [["LIMIT", 1000]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mCACHE Product Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-SSD-001"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveStorage::Blob Load (8.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (3.5ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "re5s20642bst49ihsv9z33rpovyw"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:42.943613"]]
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 1], ["blob_id", 2], ["created_at", "2026-07-17 03:39:42.958270"]]
+  [1m[36mProduct Update (0.9ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:42.964770"], ["id", 1]]
+  [1m[36mTRANSACTION (2.8ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (18.9ms) [0m[32mUploaded file to key: re5s20642bst49ihsv9z33rpovyw (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: a6704d10-b1e8-4d2e-8191-96241aefa588) to Async(default) with arguments: #<GlobalID:0x0000014adcb720f0 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/2>>
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "CMP-RAM-002"], ["id", 2], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 2], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "o1xgzx5fwm05is0e0u3t95lr435d"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:43.140507"]]
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 2], ["blob_id", 3], ["created_at", "2026-07-17 03:39:43.155688"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:43.164650"], ["id", 2]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (4.5ms) [0m[32mUploaded file to key: o1xgzx5fwm05is0e0u3t95lr435d (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: faef6d2c-a866-401f-ae30-b7f51cfc2945) to Async(default) with arguments: #<GlobalID:0x0000014addfd0470 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/3>>
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveStorage::Attachment Destroy (9.1ms)[0m  [1m[31mDELETE FROM "active_storage_attachments" WHERE "active_storage_attachments"."id" = ?[0m  [["id", 1]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:43.314755"], ["id", 3]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveStorage::Attachment Exists? (5.9ms)[0m  [1m[34mSELECT 1 AS one FROM "active_storage_attachments" WHERE "active_storage_attachments"."blob_id" = ? LIMIT ?[0m  [["blob_id", 1], ["LIMIT", 1]]
+  [1m[36mActiveStorage::VariantRecord Load (0.8ms)[0m  [1m[34mSELECT "active_storage_variant_records".* FROM "active_storage_variant_records" WHERE "active_storage_variant_records"."blob_id" = ?[0m  [["blob_id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 1], ["record_type", "ActiveStorage::Blob"], ["name", "preview_image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Destroy (0.3ms)[0m  [1m[31mDELETE FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (2.4ms) [0m[31mDeleted file from key: q3srk8o42jww0qth5dj2s79d0wqs[0m
+[36m  Disk Storage (0.8ms) [0m[31mDeleted files by key prefix: variants/q3srk8o42jww0qth5dj2s79d0wqs/[0m
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (14.1ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-KEY-003"], ["id", 3], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 3], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "wazo75j41gph7t05hik67ijl84r5"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:43.541633"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 3], ["blob_id", 4], ["created_at", "2026-07-17 03:39:43.548501"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:43.559090"], ["id", 3]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (17.5ms) [0m[32mUploaded file to key: wazo75j41gph7t05hik67ijl84r5 (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 6c289d4e-409d-4c6e-ac8b-3da40390eb3e) to Async(default) with arguments: #<GlobalID:0x0000014adcf3caa0 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/4>>
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "GAM-MSE-004"], ["id", 4], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 4], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.5ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "5bickp2p5bmtvh6ba78dw6lwbjer"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:43.716862"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 4], ["blob_id", 5], ["created_at", "2026-07-17 03:39:43.728714"]]
+  [1m[36mProduct Update (0.1ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:43.743761"], ["id", 4]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (13.3ms) [0m[32mUploaded file to key: 5bickp2p5bmtvh6ba78dw6lwbjer (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 9a0b9984-71c7-40d1-97fb-f259a2247146) to Async(default) with arguments: #<GlobalID:0x0000014ade78e180 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/5>>
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (4.9ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-HDP-005"], ["id", 5], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 5], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "2tgbfuw54jdpwnc7szp4trbgkda6"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:43.893862"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 5], ["blob_id", 6], ["created_at", "2026-07-17 03:39:43.902972"]]
+  [1m[36mProduct Update (0.1ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:43.923500"], ["id", 5]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (5.7ms) [0m[32mUploaded file to key: 2tgbfuw54jdpwnc7szp4trbgkda6 (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 509e079b-95ba-42a7-b6d5-95dfc104cd93) to Async(default) with arguments: #<GlobalID:0x0000014adc7c4070 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/6>>
+  [1m[36mActiveStorage::Attachment Load (2.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "AUD-MIC-006"], ["id", 6], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 6], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "fxaztqdwpuvi60fld2ns5uj24p5a"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:44.109320"]]
+  [1m[36mActiveStorage::Attachment Create (0.7ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 6], ["blob_id", 7], ["created_at", "2026-07-17 03:39:44.125848"]]
+  [1m[36mProduct Update (0.3ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:44.150206"], ["id", 6]]
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (29.8ms) [0m[32mUploaded file to key: fxaztqdwpuvi60fld2ns5uj24p5a (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 5ea6cebf-fac6-407a-82e3-dd452fa6d329) to Async(default) with arguments: #<GlobalID:0x0000014addfd5100 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/7>>
+  [1m[36mActiveStorage::Attachment Load (1.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (19.8ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-RTR-007"], ["id", 7], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 7], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "wlw4bf5h20mmr1aowd2egmdxbyzq"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:44.470956"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 7], ["blob_id", 8], ["created_at", "2026-07-17 03:39:44.497173"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:44.523854"], ["id", 7]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (27.9ms) [0m[32mUploaded file to key: wlw4bf5h20mmr1aowd2egmdxbyzq (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 23db2281-a16c-4fae-b820-72b19d4b45e4) to Async(default) with arguments: #<GlobalID:0x0000014adc8bfd30 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/8>>
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (7.6ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-PWR-008"], ["id", 8], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 8], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.5ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "ss21u6aopz8u4toewqjao71zoa9a"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:44.666244"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 8], ["blob_id", 9], ["created_at", "2026-07-17 03:39:44.682109"]]
+  [1m[36mProduct Update (0.1ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:44.694202"], ["id", 8]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [a6704d10-b1e8-4d2e-8191-96241aefa588]   [1m[36mActiveStorage::Blob Load (33.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [a6704d10-b1e8-4d2e-8191-96241aefa588] Performing ActiveStorage::AnalyzeJob (Job ID: a6704d10-b1e8-4d2e-8191-96241aefa588) from Async(default) enqueued at 2026-07-17T03:39:43.093461400Z with arguments: #<GlobalID:0x0000014addfd1b68 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/2>>
+[36m  Disk Storage (65.7ms) [0m[32mUploaded file to key: ss21u6aopz8u4toewqjao71zoa9a (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 67118dd5-4628-4795-bf1f-46cfd6558ea0) to Async(default) with arguments: #<GlobalID:0x0000014ade7d86b8 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/9>>
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [faef6d2c-a866-401f-ae30-b7f51cfc2945]   [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [faef6d2c-a866-401f-ae30-b7f51cfc2945] Performing ActiveStorage::AnalyzeJob (Job ID: faef6d2c-a866-401f-ae30-b7f51cfc2945) from Async(default) enqueued at 2026-07-17T03:39:43.188771100Z with arguments: #<GlobalID:0x0000014ade551e30 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/3>>
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (14.0ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-CAM-009"], ["id", 9], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 9], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.6ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "u4a9zeaid2a8q1sbw2lk92qb232q"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:44.988857"]]
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 9], ["blob_id", 10], ["created_at", "2026-07-17 03:39:45.025998"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:45.037337"], ["id", 9]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (57.0ms) [0m[32mUploaded file to key: u4a9zeaid2a8q1sbw2lk92qb232q (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: da2539be-dc71-4b2d-b711-f8437d8a17ca) to Async(default) with arguments: #<GlobalID:0x0000014adc41f758 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/10>>
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 10], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (8.7ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["id", 10], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 10], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.6ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "7rd8ab0fk7rwfor0hi2vermd2z2w"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:45.263807"]]
+  [1m[36mActiveStorage::Attachment Create (0.2ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 10], ["blob_id", 11], ["created_at", "2026-07-17 03:39:45.275212"]]
+  [1m[36mProduct Update (0.1ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:45.286474"], ["id", 10]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (8.3ms) [0m[32mUploaded file to key: 7rd8ab0fk7rwfor0hi2vermd2z2w (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 0a1da62e-923a-4ac2-9a54-4c9c6fae5a3d) to Async(default) with arguments: #<GlobalID:0x0000014addd66298 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/11>>
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 11], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (9.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "MOB-CHG-011"], ["id", 11], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 11], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "1umnfahasnkd5apihbhjz1uch3gx"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:45.444631"]]
+  [1m[36mActiveStorage::Attachment Create (0.6ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 11], ["blob_id", 12], ["created_at", "2026-07-17 03:39:45.461286"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:45.496273"], ["id", 11]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [6c289d4e-409d-4c6e-ac8b-3da40390eb3e]   [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [6c289d4e-409d-4c6e-ac8b-3da40390eb3e] Performing ActiveStorage::AnalyzeJob (Job ID: 6c289d4e-409d-4c6e-ac8b-3da40390eb3e) from Async(default) enqueued at 2026-07-17T03:39:43.602994300Z with arguments: #<GlobalID:0x0000014adc8ecf38 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/4>>
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[36mcommit transaction[0m
+[36m  Disk Storage (57.2ms) [0m[32mUploaded file to key: 1umnfahasnkd5apihbhjz1uch3gx (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: 7bca7092-b4db-4d4d-9f4b-bc2db7646aa6) to Async(default) with arguments: #<GlobalID:0x0000014adc3ea7d8 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/12>>
+  [1m[36mActiveStorage::Attachment Load (0.3ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 12], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProduct Exists? (14.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "NET-SWT-012"], ["id", 12], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" INNER JOIN "active_storage_attachments" ON "active_storage_blobs"."id" = "active_storage_attachments"."blob_id" WHERE "active_storage_attachments"."record_id" = ? AND "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? LIMIT ?[0m  [["record_id", 12], ["record_type", "Product"], ["name", "image"], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Create (0.4ms)[0m  [1m[32mINSERT INTO "active_storage_blobs" ("key", "filename", "content_type", "metadata", "service_name", "byte_size", "checksum", "created_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["key", "6lvw0f2cz573o0jk641nzuqwshdy"], ["filename", "icon.png"], ["content_type", "image/png"], ["metadata", "{\"identified\":true}"], ["service_name", "local"], ["byte_size", 5599], ["checksum", "vTL7paaZcB5x031rGWTptA=="], ["created_at", "2026-07-17 03:39:45.730666"]]
+  [1m[36mActiveStorage::Attachment Create (0.3ms)[0m  [1m[32mINSERT INTO "active_storage_attachments" ("name", "record_type", "record_id", "blob_id", "created_at") VALUES (?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "image"], ["record_type", "Product"], ["record_id", 12], ["blob_id", 13], ["created_at", "2026-07-17 03:39:45.742327"]]
+  [1m[36mProduct Update (0.2ms)[0m  [1m[33mUPDATE "products" SET "updated_at" = ? WHERE "products"."id" = ?[0m  [["updated_at", "2026-07-17 03:39:45.748897"], ["id", 12]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [9a0b9984-71c7-40d1-97fb-f259a2247146]   [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+[ActiveJob] [ActiveStorage::AnalyzeJob] [9a0b9984-71c7-40d1-97fb-f259a2247146] Performing ActiveStorage::AnalyzeJob (Job ID: 9a0b9984-71c7-40d1-97fb-f259a2247146) from Async(default) enqueued at 2026-07-17T03:39:43.775436700Z with arguments: #<GlobalID:0x0000014ade9275a0 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/5>>
+[36m  Disk Storage (19.8ms) [0m[32mUploaded file to key: 6lvw0f2cz573o0jk641nzuqwshdy (checksum: vTL7paaZcB5x031rGWTptA==)[0m
+[ActiveJob] Enqueued ActiveStorage::AnalyzeJob (Job ID: bdc0a276-9f39-446f-a52b-8defb53114e0) to Async(default) with arguments: #<GlobalID:0x0000014ade87ac38 @uri=#<URI::GID gid://prairie-tech-supply/ActiveStorage::Blob/13>>
+  [1m[36mSitePage Load (0.3ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "about"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mAdminUser Exists? (7.1ms)[0m  [1m[34mSELECT 1 AS one FROM "admin_users" WHERE LOWER("admin_users"."username") = LOWER(?) AND "admin_users"."id" != ? LIMIT ?[0m  [["username", "admin"], ["id", 1], ["LIMIT", 1]]
+  [1m[36mAdminUser Update (0.2ms)[0m  [1m[33mUPDATE "admin_users" SET "encrypted_password" = ?, "updated_at" = ? WHERE "admin_users"."id" = ?[0m  [["encrypted_password", "[FILTERED]"], ["updated_at", "2026-07-17 03:39:46.288847"], ["id", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+[ActiveJob] [ActiveStorage::AnalyzeJob] [a6704d10-b1e8-4d2e-8191-96241aefa588] Performed ActiveStorage::AnalyzeJob (Job ID: a6704d10-b1e8-4d2e-8191-96241aefa588) from Async(default) in 1629.7ms
+[ActiveJob] [ActiveStorage::AnalyzeJob] [faef6d2c-a866-401f-ae30-b7f51cfc2945] Performed ActiveStorage::AnalyzeJob (Job ID: faef6d2c-a866-401f-ae30-b7f51cfc2945) from Async(default) in 1380.59ms
+[ActiveJob] [ActiveStorage::AnalyzeJob] [6c289d4e-409d-4c6e-ac8b-3da40390eb3e] Performed ActiveStorage::AnalyzeJob (Job ID: 6c289d4e-409d-4c6e-ac8b-3da40390eb3e) from Async(default) in 879.0ms
+[ActiveJob] [ActiveStorage::AnalyzeJob] [9a0b9984-71c7-40d1-97fb-f259a2247146] Performed ActiveStorage::AnalyzeJob (Job ID: 9a0b9984-71c7-40d1-97fb-f259a2247146) from Async(default) in 528.22ms
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+  [1m[36mProduct Count (7.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(DISTINCT "products"."id") FROM "products" INNER JOIN "active_storage_attachments" ON "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = "products"."id"[0m  [["record_type", "Product"], ["name", "image"]]
+Started GET "/contact" for 127.0.0.1 at 2026-07-16 22:40:35 -0500
+Processing by SitePagesController#show as HTML
+  Parameters: {"slug"=>"contact"}
+  [1m[36mSitePage Load (0.2ms)[0m  [1m[34mSELECT "site_pages".* FROM "site_pages" WHERE "site_pages"."slug" = ? LIMIT ?[0m  [["slug", "contact"], ["LIMIT", 1]]
+  ↳ app/controllers/site_pages_controller.rb:3:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering site_pages/show.html.erb within layouts/application
+  Rendered site_pages/show.html.erb within layouts/application (Duration: 2.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.0ms | GC: 0.0ms)
+Completed 200 OK in 69ms (Views: 34.6ms | ActiveRecord: 4.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 22:40:37 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 1.3ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 7.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(DISTINCT "products"."id") FROM "products" INNER JOIN "active_storage_attachments" ON "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = "products"."id"[0m  [["record_type", "Product"], ["name", "image"]]
+Started GET "/products" for 127.0.0.1 at 2026-07-16 22:40:46 -0500
+Processing by ProductsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering products/index.html.erb within layouts/application
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? ORDER BY "products"."name" ASC[0m  [["active", 1]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?, ?, ?, ?)[0m  [["id", 5], ["id", 3], ["id", 1], ["id", 6], ["id", 2], ["id", 4]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mActiveStorage::Attachment Load (0.5ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 8], ["record_id", 11], ["record_id", 6], ["record_id", 2], ["record_id", 9], ["record_id", 10], ["record_id", 3], ["record_id", 4], ["record_id", 12], ["record_id", 1], ["record_id", 5], ["record_id", 7]]
+  ↳ app/views/products/index.html.erb:11
+  [1m[36mActiveStorage::Blob Load (4.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["id", 2], ["id", 3], ["id", 4], ["id", 5], ["id", 6], ["id", 7], ["id", 8], ["id", 9], ["id", 10], ["id", 11], ["id", 12], ["id", 13]]
+  ↳ app/views/products/index.html.erb:11
+  Rendered collection of products/_product_card.html.erb [12 times] (Duration: 162.8ms | GC: 0.2ms)
+  Rendered products/index.html.erb within layouts/application (Duration: 197.2ms | GC: 0.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 220.7ms | GC: 0.2ms)
+Completed 200 OK in 254ms (Views: 232.5ms | ActiveRecord: 5.3ms (4 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTIsInB1ciI6ImJsb2JfaWQifX0=--13a03df588bb8b63fc559c957cd515be27d532e4/icon.png" for 127.0.0.1 at 2026-07-16 22:40:47 -0500
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NywicHVyIjoiYmxvYl9pZCJ9fQ==--444934b31221e62cbacbef92b6eb352f3c56c1ed/icon.png" for 127.0.0.1 at 2026-07-16 22:40:47 -0500
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MywicHVyIjoiYmxvYl9pZCJ9fQ==--2481e4048851cc8aed0e225bd86c4f3ec39517bb/icon.png" for 127.0.0.1 at 2026-07-16 22:40:47 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6NywicHVyIjoiYmxvYl9pZCJ9fQ==--444934b31221e62cbacbef92b6eb352f3c56c1ed", "filename"=>"icon"}
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MTIsInB1ciI6ImJsb2JfaWQifX0=--13a03df588bb8b63fc559c957cd515be27d532e4", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.6ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[36mActiveStorage::Blob Load (3.7ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 12], ["LIMIT", 1]]
+[36m  Disk Storage (2.5ms) [0m[34mGenerated URL for file at key: fxaztqdwpuvi60fld2ns5uj24p5a (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJmeGF6dHFkd3B1dmk2MGZsZDJuczV1ajI0cDVhIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDA4WiIsInB1ciI6ImJsb2Jfa2V5In19--99055f46b2a4392df197dfa06e25dd86e3ea0aa4/icon.png)[0m
+[36m  Disk Storage (5.6ms) [0m[34mGenerated URL for file at key: 1umnfahasnkd5apihbhjz1uch3gx (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxdW1uZmFoYXNua2Q1YXBpaGJoanoxdWNoM2d4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDMzWiIsInB1ciI6ImJsb2Jfa2V5In19--683474aa5af8f6ca366240b6225121fbe0b23e1d/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJmeGF6dHFkd3B1dmk2MGZsZDJuczV1ajI0cDVhIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDA4WiIsInB1ciI6ImJsb2Jfa2V5In19--99055f46b2a4392df197dfa06e25dd86e3ea0aa4/icon.png
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxdW1uZmFoYXNua2Q1YXBpaGJoanoxdWNoM2d4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDMzWiIsInB1ciI6ImJsb2Jfa2V5In19--683474aa5af8f6ca366240b6225121fbe0b23e1d/icon.png
+Completed 302 Found in 97ms (ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Completed 302 Found in 85ms (ActiveRecord: 3.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTEsInB1ciI6ImJsb2JfaWQifX0=--fba6d8b868827ea309ff57b9c3769f9aac966d37/icon.png" for 127.0.0.1 at 2026-07-16 22:40:48 -0500
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTAsInB1ciI6ImJsb2JfaWQifX0=--57918b25b880cdb6a0cde2220a6f42ff74e0d9b0/icon.png" for 127.0.0.1 at 2026-07-16 22:40:48 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MywicHVyIjoiYmxvYl9pZCJ9fQ==--2481e4048851cc8aed0e225bd86c4f3ec39517bb", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[36m  Disk Storage (3.6ms) [0m[34mGenerated URL for file at key: o1xgzx5fwm05is0e0u3t95lr435d (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJvMXhneng1ZndtMDVpczBlMHUzdDk1bHI0MzVkIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDkzWiIsInB1ciI6ImJsb2Jfa2V5In19--91a65d0579ea9bb78d9def83baaeb236c995b515/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJvMXhneng1ZndtMDVpczBlMHUzdDk1bHI0MzVkIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDkzWiIsInB1ciI6ImJsb2Jfa2V5In19--91a65d0579ea9bb78d9def83baaeb236c995b515/icon.png
+Completed 302 Found in 32ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-07-16 22:40:48 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MTAsInB1ciI6ImJsb2JfaWQifX0=--57918b25b880cdb6a0cde2220a6f42ff74e0d9b0", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 10], ["LIMIT", 1]]
+[36m  Disk Storage (12.7ms) [0m[34mGenerated URL for file at key: u4a9zeaid2a8q1sbw2lk92qb232q (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ1NGE5emVhaWQyYThxMXNidzJsazkycWIyMzJxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDkuMDI1WiIsInB1ciI6ImJsb2Jfa2V5In19--010498dbc418a01283f9d86c190c646dae334417/icon.png)[0m
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ1NGE5emVhaWQyYThxMXNidzJsazkycWIyMzJxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDkuMDI1WiIsInB1ciI6ImJsb2Jfa2V5In19--010498dbc418a01283f9d86c190c646dae334417/icon.png
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MTEsInB1ciI6ImJsb2JfaWQifX0=--fba6d8b868827ea309ff57b9c3769f9aac966d37", "filename"=>"icon"}
+Completed 302 Found in 64ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6OSwicHVyIjoiYmxvYl9pZCJ9fQ==--4a59c50806b2a7cf54eedb33dde42b48d291a19f/icon.png" for 127.0.0.1 at 2026-07-16 22:40:49 -0500
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+[36m  Disk Storage (21.4ms) [0m[34mGenerated URL for file at key: 7rd8ab0fk7rwfor0hi2vermd2z2w (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI3cmQ4YWIwZms3cndmb3IwaGkydmVybWQyejJ3IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDkuMTEyWiIsInB1ciI6ImJsb2Jfa2V5In19--993d6d7fd081b0759b96a9eece0209beb60fd18d/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI3cmQ4YWIwZms3cndmb3IwaGkydmVybWQyejJ3IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDkuMTEyWiIsInB1ciI6ImJsb2Jfa2V5In19--993d6d7fd081b0759b96a9eece0209beb60fd18d/icon.png
+Completed 302 Found in 83ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJmeGF6dHFkd3B1dmk2MGZsZDJuczV1ajI0cDVhIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDA4WiIsInB1ciI6ImJsb2Jfa2V5In19--99055f46b2a4392df197dfa06e25dd86e3ea0aa4/icon.png" for 127.0.0.1 at 2026-07-16 22:40:49 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 5.1ms | GC: 0.0ms)
+Completed 200 OK in 25ms (Views: 9.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxdW1uZmFoYXNua2Q1YXBpaGJoanoxdWNoM2d4IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDMzWiIsInB1ciI6ImJsb2Jfa2V5In19--683474aa5af8f6ca366240b6225121fbe0b23e1d/icon.png" for 127.0.0.1 at 2026-07-16 22:40:49 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6OSwicHVyIjoiYmxvYl9pZCJ9fQ==--4a59c50806b2a7cf54eedb33dde42b48d291a19f", "filename"=>"icon"}
+Completed 200 OK in 33ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 9], ["LIMIT", 1]]
+[36m  Disk Storage (0.7ms) [0m[34mGenerated URL for file at key: ss21u6aopz8u4toewqjao71zoa9a (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJzczIxdTZhb3B6OHU0dG9ld3FqYW83MXpvYTlhIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTAuMjUzWiIsInB1ciI6ImJsb2Jfa2V5In19--c14be64e787a50f4928f50f48afa26a29ac46899/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJzczIxdTZhb3B6OHU0dG9ld3FqYW83MXpvYTlhIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTAuMjUzWiIsInB1ciI6ImJsb2Jfa2V5In19--c14be64e787a50f4928f50f48afa26a29ac46899/icon.png
+Completed 302 Found in 38ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJvMXhneng1ZndtMDVpczBlMHUzdDk1bHI0MzVkIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDguMDkzWiIsInB1ciI6ImJsb2Jfa2V5In19--91a65d0579ea9bb78d9def83baaeb236c995b515/icon.png" for 127.0.0.1 at 2026-07-16 22:40:50 -0500
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ1NGE5emVhaWQyYThxMXNidzJsazkycWIyMzJxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDkuMDI1WiIsInB1ciI6ImJsb2Jfa2V5In19--010498dbc418a01283f9d86c190c646dae334417/icon.png" for 127.0.0.1 at 2026-07-16 22:40:50 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 12ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI3cmQ4YWIwZms3cndmb3IwaGkydmVybWQyejJ3IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NDkuMTEyWiIsInB1ciI6ImJsb2Jfa2V5In19--993d6d7fd081b0759b96a9eece0209beb60fd18d/icon.png" for 127.0.0.1 at 2026-07-16 22:40:50 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 33ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NCwicHVyIjoiYmxvYl9pZCJ9fQ==--dbbe5ebf883b3d24c3caaf9cf4eef2c3cd0471f5/icon.png" for 127.0.0.1 at 2026-07-16 22:40:51 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 37ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJzczIxdTZhb3B6OHU0dG9ld3FqYW83MXpvYTlhIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTAuMjUzWiIsInB1ciI6ImJsb2Jfa2V5In19--c14be64e787a50f4928f50f48afa26a29ac46899/icon.png" for 127.0.0.1 at 2026-07-16 22:40:51 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 31ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NSwicHVyIjoiYmxvYl9pZCJ9fQ==--035ce2e0c8927f673f9a583be8e480a5ce88276e/icon.png" for 127.0.0.1 at 2026-07-16 22:40:51 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6NCwicHVyIjoiYmxvYl9pZCJ9fQ==--dbbe5ebf883b3d24c3caaf9cf4eef2c3cd0471f5", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+[36m  Disk Storage (3.0ms) [0m[34mGenerated URL for file at key: wazo75j41gph7t05hik67ijl84r5 (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ3YXpvNzVqNDFncGg3dDA1aGlrNjdpamw4NHI1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTIuNzk3WiIsInB1ciI6ImJsb2Jfa2V5In19--cada26ee48c470094b5ee88429d91e6773fa97a9/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ3YXpvNzVqNDFncGg3dDA1aGlrNjdpamw4NHI1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTIuNzk3WiIsInB1ciI6ImJsb2Jfa2V5In19--cada26ee48c470094b5ee88429d91e6773fa97a9/icon.png
+Completed 302 Found in 35ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MTMsInB1ciI6ImJsb2JfaWQifX0=--664df05a0cd497309d86dcdd077a5eaae5d43c95/icon.png" for 127.0.0.1 at 2026-07-16 22:40:52 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 89ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MiwicHVyIjoiYmxvYl9pZCJ9fQ==--329a635c8ac6fb7673e60a15cc02d874b3c6c150/icon.png" for 127.0.0.1 at 2026-07-16 22:40:52 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6NSwicHVyIjoiYmxvYl9pZCJ9fQ==--035ce2e0c8927f673f9a583be8e480a5ce88276e", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 5], ["LIMIT", 1]]
+[36m  Disk Storage (0.7ms) [0m[34mGenerated URL for file at key: 5bickp2p5bmtvh6ba78dw6lwbjer (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI1Ymlja3AycDVibXR2aDZiYTc4ZHc2bHdiamVyIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTIuOTg5WiIsInB1ciI6ImJsb2Jfa2V5In19--5479c763396600cbec8b2dca64ffcdc55ef7d188/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI1Ymlja3AycDVibXR2aDZiYTc4ZHc2bHdiamVyIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTIuOTg5WiIsInB1ciI6ImJsb2Jfa2V5In19--5479c763396600cbec8b2dca64ffcdc55ef7d188/icon.png
+Completed 302 Found in 31ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6NiwicHVyIjoiYmxvYl9pZCJ9fQ==--961880defd8cf93cb22d56621b3e2a371ccd1b18/icon.png" for 127.0.0.1 at 2026-07-16 22:40:53 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MTMsInB1ciI6ImJsb2JfaWQifX0=--664df05a0cd497309d86dcdd077a5eaae5d43c95", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 13], ["LIMIT", 1]]
+[36m  Disk Storage (1.6ms) [0m[34mGenerated URL for file at key: 6lvw0f2cz573o0jk641nzuqwshdy (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI2bHZ3MGYyY3o1NzNvMGprNjQxbnp1cXdzaGR5IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTMuODI1WiIsInB1ciI6ImJsb2Jfa2V5In19--ce5aa6429c97b6e801099e013d33191eec72097f/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI2bHZ3MGYyY3o1NzNvMGprNjQxbnp1cXdzaGR5IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTMuODI1WiIsInB1ciI6ImJsb2Jfa2V5In19--ce5aa6429c97b6e801099e013d33191eec72097f/icon.png
+Completed 302 Found in 51ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ3YXpvNzVqNDFncGg3dDA1aGlrNjdpamw4NHI1IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTIuNzk3WiIsInB1ciI6ImJsb2Jfa2V5In19--cada26ee48c470094b5ee88429d91e6773fa97a9/icon.png" for 127.0.0.1 at 2026-07-16 22:40:53 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MiwicHVyIjoiYmxvYl9pZCJ9fQ==--329a635c8ac6fb7673e60a15cc02d874b3c6c150", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[36m  Disk Storage (2.0ms) [0m[34mGenerated URL for file at key: re5s20642bst49ihsv9z33rpovyw (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJyZTVzMjA2NDJic3Q0OWloc3Y5ejMzcnBvdnl3IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTQuMDQ1WiIsInB1ciI6ImJsb2Jfa2V5In19--7e4ceead17b8b20ea7a16c5dc16b714fb93ca07b/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJyZTVzMjA2NDJic3Q0OWloc3Y5ejMzcnBvdnl3IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTQuMDQ1WiIsInB1ciI6ImJsb2Jfa2V5In19--7e4ceead17b8b20ea7a16c5dc16b714fb93ca07b/icon.png
+Completed 302 Found in 50ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6OCwicHVyIjoiYmxvYl9pZCJ9fQ==--2e5b4774edb7990697c9484dd9c5636d6945a717/icon.png" for 127.0.0.1 at 2026-07-16 22:40:54 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6NiwicHVyIjoiYmxvYl9pZCJ9fQ==--961880defd8cf93cb22d56621b3e2a371ccd1b18", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+[36m  Disk Storage (0.9ms) [0m[34mGenerated URL for file at key: 2tgbfuw54jdpwnc7szp4trbgkda6 (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIydGdiZnV3NTRqZHB3bmM3c3pwNHRyYmdrZGE2IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTQuMTA2WiIsInB1ciI6ImJsb2Jfa2V5In19--daa2402baad10163ab1d1265e2d41ced8b4d81d9/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIydGdiZnV3NTRqZHB3bmM3c3pwNHRyYmdrZGE2IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTQuMTA2WiIsInB1ciI6ImJsb2Jfa2V5In19--daa2402baad10163ab1d1265e2d41ced8b4d81d9/icon.png
+Completed 302 Found in 73ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI1Ymlja3AycDVibXR2aDZiYTc4ZHc2bHdiamVyIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTIuOTg5WiIsInB1ciI6ImJsb2Jfa2V5In19--5479c763396600cbec8b2dca64ffcdc55ef7d188/icon.png" for 127.0.0.1 at 2026-07-16 22:40:54 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 34ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiI2bHZ3MGYyY3o1NzNvMGprNjQxbnp1cXdzaGR5IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTMuODI1WiIsInB1ciI6ImJsb2Jfa2V5In19--ce5aa6429c97b6e801099e013d33191eec72097f/icon.png" for 127.0.0.1 at 2026-07-16 22:40:55 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as PNG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6OCwicHVyIjoiYmxvYl9pZCJ9fQ==--2e5b4774edb7990697c9484dd9c5636d6945a717", "filename"=>"icon"}
+  [1m[36mActiveStorage::Blob Load (0.3ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 8], ["LIMIT", 1]]
+[36m  Disk Storage (54.5ms) [0m[34mGenerated URL for file at key: wlw4bf5h20mmr1aowd2egmdxbyzq (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ3bHc0YmY1aDIwbW1yMWFvd2QyZWdtZHhieXpxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTUuMjU3WiIsInB1ciI6ImJsb2Jfa2V5In19--75d4de59f574fe51246336ec12da1cc27239d597/icon.png)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ3bHc0YmY1aDIwbW1yMWFvd2QyZWdtZHhieXpxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTUuMjU3WiIsInB1ciI6ImJsb2Jfa2V5In19--75d4de59f574fe51246336ec12da1cc27239d597/icon.png
+Completed 302 Found in 175ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJyZTVzMjA2NDJic3Q0OWloc3Y5ejMzcnBvdnl3IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTQuMDQ1WiIsInB1ciI6ImJsb2Jfa2V5In19--7e4ceead17b8b20ea7a16c5dc16b714fb93ca07b/icon.png" for 127.0.0.1 at 2026-07-16 22:40:55 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 34ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIydGdiZnV3NTRqZHB3bmM3c3pwNHRyYmdrZGE2IiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTQuMTA2WiIsInB1ciI6ImJsb2Jfa2V5In19--daa2402baad10163ab1d1265e2d41ced8b4d81d9/icon.png" for 127.0.0.1 at 2026-07-16 22:40:55 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 27ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiJ3bHc0YmY1aDIwbW1yMWFvd2QyZWdtZHhieXpxIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiaWNvbi5wbmdcIjsgZmlsZW5hbWUqPVVURi04JydpY29uLnBuZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL3BuZyIsInNlcnZpY2VfbmFtZSI6ImxvY2FsIn0sImV4cCI6IjIwMjYtMDctMTdUMDM6NDU6NTUuMjU3WiIsInB1ciI6ImJsb2Jfa2V5In19--75d4de59f574fe51246336ec12da1cc27239d597/icon.png" for 127.0.0.1 at 2026-07-16 22:40:55 -0500
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 26ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 25ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by ActiveStorage::DiskController#show as PNG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"icon"}
+Completed 200 OK in 17ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+[ActionDispatch::HostAuthorization::DefaultResponseApp] Blocked hosts: www.example.com
+Started POST "/admin/login" for 127.0.0.1 at 2026-07-16 22:42:04 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"admin_user"=>{"username"=>"admin", "password"=>"[FILTERED]"}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Content in 7ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActionController::InvalidAuthenticityToken (Can't verify CSRF token authenticity.):
+  
+actionpack (7.2.3) lib/action_controller/metal/request_forgery_protection.rb:314:in `handle_unverified_request'
+actionpack (7.2.3) lib/action_controller/metal/request_forgery_protection.rb:408:in `handle_unverified_request'
+devise (5.0.4) lib/devise/controllers/helpers.rb:257:in `handle_unverified_request'
+actionpack (7.2.3) lib/action_controller/metal/request_forgery_protection.rb:397:in `verify_authenticity_token'
+activesupport (7.2.3) lib/active_support/callbacks.rb:362:in `block in make_lambda'
+activesupport (7.2.3) lib/active_support/callbacks.rb:179:in `block in call'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (7.2.3) lib/active_support/callbacks.rb:180:in `call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:560:in `block in invoke_before'
+activesupport (7.2.3) lib/active_support/callbacks.rb:560:in `each'
+activesupport (7.2.3) lib/active_support/callbacks.rb:560:in `invoke_before'
+activesupport (7.2.3) lib/active_support/callbacks.rb:119:in `block in run_callbacks'
+activesupport (7.2.3) lib/active_support/callbacks.rb:141:in `run_callbacks'
+actionpack (7.2.3) lib/abstract_controller/callbacks.rb:260:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/rescue.rb:27:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:77:in `block in process_action'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `block in instrument'
+activesupport (7.2.3) lib/active_support/notifications/instrumenter.rb:58:in `instrument'
+activesupport (7.2.3) lib/active_support/notifications.rb:210:in `instrument'
+actionpack (7.2.3) lib/action_controller/metal/instrumentation.rb:76:in `process_action'
+actionpack (7.2.3) lib/action_controller/metal/params_wrapper.rb:259:in `process_action'
+activerecord (7.2.3) lib/active_record/railties/controller_runtime.rb:39:in `process_action'
+actionpack (7.2.3) lib/abstract_controller/base.rb:152:in `process'
+actionview (7.2.3) lib/action_view/rendering.rb:40:in `process'
+actionpack (7.2.3) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (7.2.3) lib/action_controller/metal.rb:335:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:67:in `dispatch'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:50:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/mapper.rb:32:in `block in <class:Constraints>'
+actionpack (7.2.3) lib/action_dispatch/routing/mapper.rb:62:in `serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:53:in `block in serve'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:133:in `block in find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `each'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:126:in `find_routes'
+actionpack (7.2.3) lib/action_dispatch/journey/router.rb:34:in `serve'
+actionpack (7.2.3) lib/action_dispatch/routing/route_set.rb:896:in `call'
+warden (1.2.9) lib/warden/manager.rb:36:in `block in call'
+warden (1.2.9) lib/warden/manager.rb:34:in `catch'
+warden (1.2.9) lib/warden/manager.rb:34:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:44:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/permissions_policy.rb:38:in `call'
+actionpack (7.2.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/cookies.rb:704:in `call'
+activerecord (7.2.3) lib/active_record/migration.rb:674:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+rack-test (2.2.0) lib/rack/test.rb:360:in `process_request'
+rack-test (2.2.0) lib/rack/test.rb:153:in `request'
+actionpack (7.2.3) lib/action_dispatch/testing/integration.rb:287:in `process'
+actionpack (7.2.3) lib/action_dispatch/testing/integration.rb:25:in `post'
+railties (7.2.3) lib/rails/commands/runner/runner_command.rb:49:in `<main>'
+railties (7.2.3) lib/rails/commands/runner/runner_command.rb:49:in `eval'
+railties (7.2.3) lib/rails/commands/runner/runner_command.rb:49:in `block in perform'
+activesupport (7.2.3) lib/active_support/execution_wrapper.rb:91:in `wrap'
+railties (7.2.3) lib/rails/commands/runner/runner_command.rb:70:in `conditional_executor'
+railties (7.2.3) lib/rails/commands/runner/runner_command.rb:48:in `perform'
+thor (1.5.0) lib/thor/command.rb:28:in `run'
+thor (1.5.0) lib/thor/invocation.rb:127:in `invoke_command'
+railties (7.2.3) lib/rails/command/base.rb:178:in `invoke_command'
+thor (1.5.0) lib/thor.rb:538:in `dispatch'
+railties (7.2.3) lib/rails/command/base.rb:73:in `perform'
+railties (7.2.3) lib/rails/command.rb:71:in `block in invoke'
+railties (7.2.3) lib/rails/command.rb:149:in `with_argv'
+railties (7.2.3) lib/rails/command.rb:69:in `invoke'
+railties (7.2.3) lib/rails/commands.rb:18:in `<main>'
+C:/Ruby33-x64/lib/ruby/3.3.0/bundled_gems.rb:69:in `require'
+C:/Ruby33-x64/lib/ruby/3.3.0/bundled_gems.rb:69:in `block (2 levels) in replace_require'
+bootsnap (1.24.6) lib/bootsnap/load_path_cache/core_ext/kernel_require.rb:33:in `require'
+bin/rails:4:in `<main>'
