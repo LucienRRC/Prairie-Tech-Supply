@@ -35,6 +35,10 @@ class Product < ApplicationRecord
     sale_price.present? && sale_price < price
   end
 
+  def selling_price
+    on_sale? ? sale_price : price
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[active brand category_id created_at id name price sale_price sku stock_quantity updated_at]
   end

@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   root "home#index"
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
+  resource :cart, only: :show
+  post "/cart/items/:product_id", to: "carts#add", as: :add_cart_item
+  patch "/cart/items/:product_id", to: "carts#update", as: :update_cart_item
+  delete "/cart/items/:product_id", to: "carts#destroy", as: :remove_cart_item
   get "/about", to: "site_pages#show", defaults: { slug: "about" }, as: :about
   get "/contact", to: "site_pages#show", defaults: { slug: "contact" }, as: :contact
 

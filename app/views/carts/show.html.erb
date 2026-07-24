@@ -1,0 +1,61 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">YOUR SESSION CART</p>
+    <h1>Shopping cart</h1>
+    <p>Your selected products remain in this browser session while you continue shopping.</p>
+  </div>
+</section>
+
+<section class="container section">
+  <% if @cart_items.any? %>
+    <div class="cart-layout">
+      <div class="cart-items">
+        <% @cart_items.each do |item| %>
+          <% product = item[:product] %>
+          <article class="cart-item">
+            <%= link_to product_path(product), class: "cart-item-image" do %>
+              <%= image_tag(product.image.attached? ? product.image : "computer-technology.jpg", alt: product.name) %>
+            <% end %>
+
+            <div class="cart-item-details">
+              <p class="product-category"><%= product.category.name %></p>
+              <h2><%= link_to product.name, product_path(product) %></h2>
+              <p class="cart-unit-price"><%= number_to_currency(product.selling_price) %> each</p>
+
+              <div class="cart-item-actions">
+                <%= form_with url: update_cart_item_path(product), method: :patch, class: "cart-quantity-form" do %>
+                  <%= label_tag "quantity_#{product.id}", "Quantity" %>
+                  <%= number_field_tag :quantity, item[:quantity],
+                    id: "quantity_#{product.id}",
+                    min: 0,
+                    max: product.stock_quantity %>
+                  <%= submit_tag "Update", class: "cart-update-button" %>
+                <% end %>
+
+                <%= button_to "Remove", remove_cart_item_path(product),
+                  method: :delete,
+                  class: "cart-remove-button",
+                  form: { class: "cart-remove-form" } %>
+              </div>
+            </div>
+
+            <strong class="cart-line-total"><%= number_to_currency(item[:line_total]) %></strong>
+          </article>
+        <% end %>
+      </div>
+
+      <aside class="cart-summary">
+        <p>Subtotal</p>
+        <strong><%= number_to_currency(@subtotal) %></strong>
+        <span><%= pluralize(cart_item_count, "item") %> in your cart</span>
+        <%= link_to "Continue shopping", products_path, class: "catalogue-link" %>
+      </aside>
+    </div>
+  <% else %>
+    <div class="empty-products empty-cart">
+      <h2>Your cart is empty</h2>
+      <p>Add products to your cart to see them here.</p>
+      <%= link_to "Browse products", products_path, class: "catalogue-link" %>
+    </div>
+  <% end %>
+</section>

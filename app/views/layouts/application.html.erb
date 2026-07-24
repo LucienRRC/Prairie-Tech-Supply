@@ -25,6 +25,9 @@
           <%= link_to "Categories", categories_path %>
           <%= link_to "About", about_path %>
           <%= link_to "Contact", contact_path %>
+          <%= link_to cart_path, class: "cart-link" do %>
+            Cart <span class="cart-count"><%= cart_item_count %></span>
+          <% end %>
           <%= link_to "Admin", admin_root_path, class: "admin-link" %>
         </nav>
       </div>

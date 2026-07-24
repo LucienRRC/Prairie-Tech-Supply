@@ -17,6 +17,15 @@
     <% end %>
     <div class="prose"><%= simple_format @product.description %></div>
     <p class="stock"><%= @product.stock_quantity %> currently in stock</p>
+    <% if @product.active? && @product.stock_quantity.positive? %>
+      <%= form_with url: add_cart_item_path(@product), method: :post, class: "detail-cart-form" do %>
+        <div class="quantity-field">
+          <%= label_tag :quantity, "Quantity" %>
+          <%= number_field_tag :quantity, 1, min: 1, max: @product.stock_quantity %>
+        </div>
+        <%= submit_tag "Add to cart", class: "add-cart-button" %>
+      <% end %>
+    <% end %>
     <%= link_to "Back to products", products_path, class: "text-link" %>
   </div>
 </section>
