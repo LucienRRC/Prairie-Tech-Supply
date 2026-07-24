@@ -11,27 +11,28 @@
 end
 
 products = [
-  ["CMP-SSD-001", "Samsung 990 PRO 2TB NVMe SSD", "Samsung", "Computer Components", 249.99, 18, "High-performance PCIe 4.0 NVMe solid-state drive with fast read and write speeds for gaming PCs and professional workstations."],
-  ["CMP-RAM-002", "Corsair Vengeance 32GB DDR5 Memory Kit", "Corsair", "Computer Components", 139.99, 24, "A 32GB dual-channel DDR5 memory kit designed for dependable multitasking, content creation, and modern PC gaming."],
-  ["GAM-KEY-003", "Keychron K8 Pro Wireless Mechanical Keyboard", "Keychron", "Gaming", 149.99, 15, "A tenkeyless mechanical keyboard with wireless connectivity, hot-swappable switches, and customizable RGB backlighting."],
-  ["GAM-MSE-004", "Logitech G502 X Gaming Mouse", "Logitech", "Gaming", 109.99, 21, "A lightweight wired gaming mouse with a precise HERO sensor, adjustable controls, and redesigned hybrid optical-mechanical switches."],
-  ["AUD-HDP-005", "Sony WH-1000XM5 Wireless Headphones", "Sony", "Audio", 499.99, 9, "Premium wireless headphones featuring adaptive noise cancellation, clear hands-free calling, and long battery life."],
-  ["AUD-MIC-006", "Blue Yeti USB Microphone", "Logitech G", "Audio", 169.99, 13, "A versatile USB condenser microphone with multiple pickup patterns for streaming, podcasts, meetings, and voice recording."],
-  ["NET-RTR-007", "TP-Link Archer AX55 Wi-Fi 6 Router", "TP-Link", "Networking", 129.99, 17, "A dual-band Wi-Fi 6 router offering reliable coverage, improved capacity, and gigabit wired connections for busy homes."],
-  ["MOB-PWR-008", "Anker 737 24,000mAh Power Bank", "Anker", "Mobile Accessories", 199.99, 12, "A high-capacity portable charger with fast USB-C charging and a digital display for laptops, tablets, and mobile phones."],
-  ["SMT-CAM-009", "Google Nest Cam Indoor Wired", "Google", "Smart Home", 129.99, 14, "A wired indoor security camera with intelligent alerts, clear video, night vision, and convenient Google Home integration."],
-  ["SMT-PLG-010", "Kasa Smart Wi-Fi Plug Mini 4-Pack", "Kasa", "Smart Home", 44.99, 30, "Compact smart plugs that add app control, schedules, timers, and voice control to lamps and small household appliances."],
-  ["MOB-CHG-011", "Belkin BoostCharge Pro 3-in-1 Wireless Charger", "Belkin", "Mobile Accessories", 189.99, 11, "A compact charging stand designed to charge compatible phones, wireless earbuds, and smartwatches from one location."],
-  ["NET-SWT-012", "NETGEAR GS308 8-Port Gigabit Ethernet Switch", "NETGEAR", "Networking", 39.99, 26, "A quiet unmanaged eight-port gigabit switch for expanding reliable wired network connections at home or in a small office."]
+  ["CMP-SSD-001", "Samsung 990 PRO 2TB NVMe SSD", "Samsung", "Computer Components", 249.99, 219.99, 18, "High-performance PCIe 4.0 NVMe solid-state drive with fast read and write speeds for gaming PCs and professional workstations."],
+  ["CMP-RAM-002", "Corsair Vengeance 32GB DDR5 Memory Kit", "Corsair", "Computer Components", 139.99, nil, 24, "A 32GB dual-channel DDR5 memory kit designed for dependable multitasking, content creation, and modern PC gaming."],
+  ["GAM-KEY-003", "Keychron K8 Pro Wireless Mechanical Keyboard", "Keychron", "Gaming", 149.99, 129.99, 15, "A tenkeyless mechanical keyboard with wireless connectivity, hot-swappable switches, and customizable RGB backlighting."],
+  ["GAM-MSE-004", "Logitech G502 X Gaming Mouse", "Logitech", "Gaming", 109.99, nil, 21, "A lightweight wired gaming mouse with a precise HERO sensor, adjustable controls, and redesigned hybrid optical-mechanical switches."],
+  ["AUD-HDP-005", "Sony WH-1000XM5 Wireless Headphones", "Sony", "Audio", 499.99, 449.99, 9, "Premium wireless headphones featuring adaptive noise cancellation, clear hands-free calling, and long battery life."],
+  ["AUD-MIC-006", "Blue Yeti USB Microphone", "Logitech G", "Audio", 169.99, nil, 13, "A versatile USB condenser microphone with multiple pickup patterns for streaming, podcasts, meetings, and voice recording."],
+  ["NET-RTR-007", "TP-Link Archer AX55 Wi-Fi 6 Router", "TP-Link", "Networking", 129.99, nil, 17, "A dual-band Wi-Fi 6 router offering reliable coverage, improved capacity, and gigabit wired connections for busy homes."],
+  ["MOB-PWR-008", "Anker 737 24,000mAh Power Bank", "Anker", "Mobile Accessories", 199.99, nil, 12, "A high-capacity portable charger with fast USB-C charging and a digital display for laptops, tablets, and mobile phones."],
+  ["SMT-CAM-009", "Google Nest Cam Indoor Wired", "Google", "Smart Home", 129.99, nil, 14, "A wired indoor security camera with intelligent alerts, clear video, night vision, and convenient Google Home integration."],
+  ["SMT-PLG-010", "Kasa Smart Wi-Fi Plug Mini 4-Pack", "Kasa", "Smart Home", 44.99, 34.99, 30, "Compact smart plugs that add app control, schedules, timers, and voice control to lamps and small household appliances."],
+  ["MOB-CHG-011", "Belkin BoostCharge Pro 3-in-1 Wireless Charger", "Belkin", "Mobile Accessories", 189.99, nil, 11, "A compact charging stand designed to charge compatible phones, wireless earbuds, and smartwatches from one location."],
+  ["NET-SWT-012", "NETGEAR GS308 8-Port Gigabit Ethernet Switch", "NETGEAR", "Networking", 39.99, nil, 26, "A quiet unmanaged eight-port gigabit switch for expanding reliable wired network connections at home or in a small office."]
 ]
 
-products.each do |sku, name, brand, category_name, price, stock, description|
+products.each do |sku, name, brand, category_name, price, sale_price, stock, description|
   product = Product.find_or_initialize_by(sku: sku)
   product.update!(
     name: name,
     brand: brand,
     category: Category.find_by!(name: category_name),
     price: price,
+    sale_price: sale_price,
     stock_quantity: stock,
     description: description,
     active: true

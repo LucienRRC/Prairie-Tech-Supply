@@ -174,12 +174,45 @@ class StorefrontTest < ActionDispatch::IntegrationTest
     assert_select "h3", text: old_product.name, count: 0
     assert_select "h3", text: unavailable_product.name, count: 0
 
+    get products_url(filter: "recently_updated", keyword: "keyboard")
+    assert_response :success
+    assert_select "h3", text: @product.name, count: 0
+    assert_select ".empty-products", text: /No products found/
+
     get products_url(filter: "new", category_id: @category.id, keyword: "keyboard")
     assert_response :success
     assert_select "input[name='keyword'][value='keyboard']"
     assert_select "option[value='#{@category.id}'][selected]"
     assert_select "option[value='new'][selected]"
     assert_select "h3", text: @product.name
+  end
+
+  test "filters available products that are on sale" do
+    sale_product = Product.create!(
+      category: @category,
+      name: "Discounted Gaming Headset",
+      brand: "Prairie Tech",
+      sku: "FILTER-SALE-001",
+      price: 129.99,
+      sale_price: 99.99,
+      stock_quantity: 8,
+      description: "A currently available product with a valid promotional price.",
+      active: true
+    )
+
+    get products_url(filter: "on_sale")
+    assert_response :success
+    assert_select "option[value='on_sale'][selected]", text: "On sale"
+    assert_select "h3", text: sale_product.name
+    assert_select ".sale-badge", text: "Sale"
+    assert_select ".original-price", text: "$129.99"
+    assert_select ".sale-price", text: "$99.99"
+    assert_select "h3", text: @product.name, count: 0
+
+    get product_url(sale_product)
+    assert_response :success
+    assert_select ".detail-price .original-price", text: "$129.99"
+    assert_select ".detail-price .sale-price", text: "$99.99"
   end
 
   test "navigates products through dedicated category pages" do

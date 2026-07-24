@@ -5,8 +5,12 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   scope :available, -> { where(active: true).where("stock_quantity > 0") }
+  scope :on_sale, -> { where.not(sale_price: nil).where("sale_price < price") }
   scope :new_arrivals, -> { where(created_at: 3.days.ago..Time.current) }
-  scope :recently_updated, -> { where(updated_at: 3.days.ago..Time.current) }
+  scope :recently_updated, -> {
+    where(updated_at: 3.days.ago..Time.current)
+      .where("created_at < ?", 3.days.ago)
+  }
 
   def self.search_by_keyword(keyword)
     normalized_keyword = keyword.to_s.strip.downcase
@@ -22,10 +26,17 @@ class Product < ApplicationRecord
   validates :name, :sku, presence: true
   validates :sku, uniqueness: { case_sensitive: false }
   validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :sale_price,
+    numericality: { greater_than_or_equal_to: 0, less_than: :price },
+    allow_nil: true
   validates :stock_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
+  def on_sale?
+    sale_price.present? && sale_price < price
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
-    %w[active brand category_id created_at id name price sku stock_quantity updated_at]
+    %w[active brand category_id created_at id name price sale_price sku stock_quantity updated_at]
   end
 
   def self.ransackable_associations(_auth_object = nil)

@@ -4,10 +4,20 @@
   <% end %>
   <div class="product-card-body">
     <p class="product-category"><%= link_to product.category.name, category_path(product.category) %></p>
+    <% if product.on_sale? %>
+      <span class="sale-badge">Sale</span>
+    <% end %>
     <h3><%= link_to product.name, product_path(product) %></h3>
     <p class="product-brand"><%= product.brand %></p>
     <div class="product-meta">
-      <strong><%= number_to_currency(product.price) %></strong>
+      <div class="product-price">
+        <% if product.on_sale? %>
+          <span class="original-price"><%= number_to_currency(product.price) %></span>
+          <strong class="sale-price"><%= number_to_currency(product.sale_price) %></strong>
+        <% else %>
+          <strong><%= number_to_currency(product.price) %></strong>
+        <% end %>
+      </div>
       <span><%= product.stock_quantity.positive? ? "In stock" : "Out of stock" %></span>
     </div>
   </div>

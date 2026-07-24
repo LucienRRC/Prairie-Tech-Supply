@@ -6,7 +6,15 @@
     <p class="eyebrow"><%= @product.category.name %></p>
     <h1><%= @product.name %></h1>
     <p class="detail-brand"><%= @product.brand %> &middot; SKU <%= @product.sku %></p>
-    <p class="detail-price"><%= number_to_currency(@product.price) %></p>
+    <% if @product.on_sale? %>
+      <p class="detail-price">
+        <span class="original-price"><%= number_to_currency(@product.price) %></span>
+        <span class="sale-price"><%= number_to_currency(@product.sale_price) %></span>
+      </p>
+      <span class="sale-badge">On sale</span>
+    <% else %>
+      <p class="detail-price"><%= number_to_currency(@product.price) %></p>
+    <% end %>
     <div class="prose"><%= simple_format @product.description %></div>
     <p class="stock"><%= @product.stock_quantity %> currently in stock</p>
     <%= link_to "Back to products", products_path, class: "text-link" %>

@@ -3,7 +3,7 @@ ActiveAdmin.register Product do
   config.sort_order = "updated_at_desc"
 
   permit_params :category_id, :name, :description, :brand, :sku, :price,
-    :stock_quantity, :active, :image
+    :sale_price, :stock_quantity, :active, :image
 
   includes :category, image_attachment: :blob
 
@@ -47,6 +47,9 @@ ActiveAdmin.register Product do
     column :category
     column :sku
     column(:price) { |product| number_to_currency(product.price) }
+    column :sale_price do |product|
+      product.on_sale? ? number_to_currency(product.sale_price) : "—"
+    end
     column :stock_quantity do |product|
       status_tag product.stock_quantity, class: product.stock_quantity <= 10 ? "warning" : "ok"
     end
@@ -68,6 +71,9 @@ ActiveAdmin.register Product do
       row :sku
       row :description
       row(:price) { |product| number_to_currency(product.price) }
+      row(:sale_price) do |product|
+        product.on_sale? ? number_to_currency(product.sale_price) : "Not on sale"
+      end
       row :stock_quantity do |product|
         status_tag product.stock_quantity, class: product.stock_quantity <= 10 ? "warning" : "ok"
       end
@@ -88,6 +94,11 @@ ActiveAdmin.register Product do
       f.input :sku
       f.input :description, input_html: { rows: 7 }
       f.input :price, min: 0, step: 0.01
+      f.input :sale_price,
+        min: 0,
+        max: 99_999_999.99,
+        step: 0.01,
+        hint: "Leave blank for regular pricing. Sale price must be lower than the regular price."
       f.input :stock_quantity, min: 0
       f.input :active
       current_image = f.object.image.attached? ? url_for(f.object.image) : image_path("computer-technology.jpg")

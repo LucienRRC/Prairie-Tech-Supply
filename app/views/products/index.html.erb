@@ -43,7 +43,9 @@
       <% if @selected_category_id.present? %>
         in <%= @categories.find { |category| category.id.to_s == @selected_category_id.to_s }&.name || "the selected category" %>
       <% end %>
-      <% if @selected_filter == "new" %>
+      <% if @selected_filter == "on_sale" %>
+        &middot; currently on sale
+      <% elsif @selected_filter == "new" %>
         &middot; added within the past 3 days
       <% elsif @selected_filter == "recently_updated" %>
         &middot; updated within the past 3 days

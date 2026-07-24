@@ -87,6 +87,10 @@ nav a { color: #39445a; font-weight: 650; }
 .product-meta { display: flex; align-items: center; justify-content: space-between; }
 .product-meta strong { font-size: 1.2rem; }
 .product-meta span, .stock { color: #16794b; font-weight: 700; }
+.product-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.original-price { color: var(--muted); font-size: .95rem; font-weight: 600; text-decoration: line-through; }
+.sale-price { color: #c33b26; font-weight: 850; }
+.sale-badge { display: inline-flex; margin-bottom: 8px; padding: 4px 9px; color: white; border-radius: 999px; background: #c33b26; font-size: .72rem; font-weight: 850; letter-spacing: .05em; text-transform: uppercase; }
 .pagination-wrap { display: flex; justify-content: center; margin-top: 42px; }
 nav.pagination { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
 nav.pagination span { display: inline-flex; }
@@ -110,6 +114,8 @@ nav.pagination .disabled { opacity: .45; }
 .product-detail h1 { margin: 8px 0; font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -.045em; }
 .detail-brand { color: var(--muted); }
 .detail-price { margin: 20px 0; font-size: 2rem; font-weight: 850; }
+.detail-price .original-price { margin-right: 12px; font-size: 1.2rem; }
+.detail-price .sale-price { font-size: 2rem; }
 .prose { color: #3d485d; font-size: 1.06rem; }
 .page-copy { min-height: 360px; }
 .site-footer { padding-block: 28px; color: #9aa6bb; background: #101726; }
