@@ -5,6 +5,8 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   scope :available, -> { where(active: true).where("stock_quantity > 0") }
+  scope :new_arrivals, -> { where(created_at: 3.days.ago..Time.current) }
+  scope :recently_updated, -> { where(updated_at: 3.days.ago..Time.current) }
 
   def self.search_by_keyword(keyword)
     normalized_keyword = keyword.to_s.strip.downcase

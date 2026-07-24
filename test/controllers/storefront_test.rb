@@ -119,6 +119,69 @@ class StorefrontTest < ActionDispatch::IntegrationTest
     assert_select ".empty-products", text: /No products found/
   end
 
+  test "filters available products by new and recently updated" do
+    old_product = Product.create!(
+      category: @category,
+      name: "Established Desktop Computer",
+      brand: "Prairie Tech",
+      sku: "FILTER-OLD-001",
+      price: 799.99,
+      stock_quantity: 3,
+      description: "An established product outside both three-day filter windows.",
+      active: true
+    )
+    recently_updated_product = Product.create!(
+      category: @category,
+      name: "Recently Refreshed Monitor",
+      brand: "Prairie Tech",
+      sku: "FILTER-UPDATED-002",
+      price: 249.99,
+      stock_quantity: 5,
+      description: "An older product whose listing was recently updated.",
+      active: true
+    )
+    unavailable_product = Product.create!(
+      category: @category,
+      name: "Unavailable New Accessory",
+      brand: "Prairie Tech",
+      sku: "FILTER-UNAVAILABLE-003",
+      price: 29.99,
+      stock_quantity: 0,
+      description: "A new product that is not currently available.",
+      active: true
+    )
+
+    old_product.update_columns(created_at: 5.days.ago, updated_at: 5.days.ago)
+    recently_updated_product.update_columns(created_at: 5.days.ago, updated_at: 1.day.ago)
+
+    get products_url(filter: "new", keyword: "keyboard")
+    assert_response :success
+    assert_select "select[name='filter']" do
+      assert_select "option[value='']", text: "All products"
+      assert_select "option[value='new'][selected]", text: "New arrivals (last 3 days)"
+      assert_select "option[value='recently_updated']", text: "Recently updated (last 3 days)"
+    end
+    assert_select "input[name='keyword'][value='keyboard']"
+    assert_select "h3", text: @product.name
+    assert_select "h3", text: old_product.name, count: 0
+    assert_select "h3", text: recently_updated_product.name, count: 0
+    assert_select "h3", text: unavailable_product.name, count: 0
+
+    get products_url(filter: "recently_updated", keyword: "refreshed")
+    assert_response :success
+    assert_select "option[value='recently_updated'][selected]"
+    assert_select "h3", text: recently_updated_product.name
+    assert_select "h3", text: old_product.name, count: 0
+    assert_select "h3", text: unavailable_product.name, count: 0
+
+    get products_url(filter: "new", category_id: @category.id, keyword: "keyboard")
+    assert_response :success
+    assert_select "input[name='keyword'][value='keyboard']"
+    assert_select "option[value='#{@category.id}'][selected]"
+    assert_select "option[value='new'][selected]"
+    assert_select "h3", text: @product.name
+  end
+
   test "navigates products through dedicated category pages" do
     office_category = Category.create!(name: "Category Navigation Office", description: "Office technology and accessories.")
     office_product = Product.create!(

@@ -22,20 +22,31 @@
         include_blank: "All categories" %>
     </div>
 
+    <div class="search-field search-filter">
+      <%= label_tag :filter, "Product filter" %>
+      <%= select_tag :filter,
+        options_for_select(@filter_options, @selected_filter) %>
+    </div>
+
     <div class="search-actions">
-      <%= submit_tag "Search", name: nil, class: "search-button" %>
-      <% if @keyword.present? || @selected_category_id.present? %>
-        <%= link_to "Clear search", products_path, class: "clear-search" %>
+      <%= submit_tag "Apply", name: nil, class: "search-button" %>
+      <% if @keyword.present? || @selected_category_id.present? || @selected_filter.present? %>
+        <%= link_to "Clear filters", products_path, class: "clear-search" %>
       <% end %>
     </div>
   </form>
 
-  <% if @keyword.present? || @selected_category_id.present? %>
+  <% if @keyword.present? || @selected_category_id.present? || @selected_filter.present? %>
     <p class="search-summary" role="status">
       <strong><%= pluralize(@products.total_count, "product") %></strong> found
       <% if @keyword.present? %>for &ldquo;<%= @keyword %>&rdquo;<% end %>
       <% if @selected_category_id.present? %>
         in <%= @categories.find { |category| category.id.to_s == @selected_category_id.to_s }&.name || "the selected category" %>
+      <% end %>
+      <% if @selected_filter == "new" %>
+        &middot; added within the past 3 days
+      <% elsif @selected_filter == "recently_updated" %>
+        &middot; updated within the past 3 days
       <% end %>
     </p>
   <% end %>
@@ -47,7 +58,7 @@
   <% if @products.empty? %>
     <div class="empty-products">
       <h2>No products found</h2>
-      <p>Try another keyword, choose a different category, or search all categories.</p>
+      <p>Try another keyword, category, or product filter.</p>
       <%= link_to "View all products", products_path, class: "text-link" %>
     </div>
   <% elsif @products.total_pages > 1 %>
