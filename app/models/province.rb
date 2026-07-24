@@ -1,5 +1,6 @@
 class Province < ApplicationRecord
   has_many :users, dependent: :restrict_with_error
+  has_many :customers, dependent: :restrict_with_error
 
   validates :name, :abbreviation, presence: true, uniqueness: true
   validates :gst_rate, :pst_rate, :hst_rate,

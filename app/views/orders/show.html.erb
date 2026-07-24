@@ -1,0 +1,85 @@
+<section class="page-hero invoice-hero">
+  <div class="container">
+    <p class="eyebrow">ORDER CONFIRMATION</p>
+    <h1>Invoice #<%= @order.id.to_s.rjust(6, "0") %></h1>
+    <p>Created <%= @order.created_at.in_time_zone.to_fs(:long) %></p>
+  </div>
+</section>
+
+<section class="container section">
+  <article class="invoice">
+    <header class="invoice-header">
+      <div>
+        <h2>Prairie Tech Supply</h2>
+        <p>Winnipeg, Manitoba</p>
+      </div>
+      <div class="invoice-customer">
+        <strong>Customer</strong>
+        <span><%= @order.recipient_name %></span>
+        <span><%= @order.customer.email %></span>
+        <% if @order.phone.present? %><span><%= @order.phone %></span><% end %>
+        <% if @order.address.present? %><span><%= @order.address %></span><% end %>
+        <% if @order.city.present? || @order.postal_code.present? %>
+          <span><%= [@order.city, @order.postal_code].compact_blank.join(" ") %></span>
+        <% end %>
+        <span><%= @order.province_name %></span>
+      </div>
+    </header>
+
+    <div class="invoice-table-wrap">
+      <table class="invoice-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>SKU</th>
+            <th>Quantity</th>
+            <th>Unit price</th>
+            <th>Line total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_items.each do |item| %>
+            <tr>
+              <td><%= item.product_name %></td>
+              <td><%= item.sku %></td>
+              <td><%= item.quantity %></td>
+              <td><%= number_to_currency(item.unit_price) %></td>
+              <td><%= number_to_currency(item.line_total) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="invoice-totals">
+      <div><span>Subtotal</span><strong><%= number_to_currency(@order.subtotal) %></strong></div>
+      <% if @order.gst_amount.positive? %>
+        <div>
+          <span>GST (<%= number_to_percentage(@order.gst_rate * 100, precision: 3, strip_insignificant_zeros: true) %>)</span>
+          <strong><%= number_to_currency(@order.gst_amount) %></strong>
+        </div>
+      <% end %>
+      <% if @order.pst_amount.positive? %>
+        <div>
+          <span>Provincial sales tax (<%= number_to_percentage(@order.pst_rate * 100, precision: 3, strip_insignificant_zeros: true) %>)</span>
+          <strong><%= number_to_currency(@order.pst_amount) %></strong>
+        </div>
+      <% end %>
+      <% if @order.hst_amount.positive? %>
+        <div>
+          <span>HST (<%= number_to_percentage(@order.hst_rate * 100, precision: 3, strip_insignificant_zeros: true) %>)</span>
+          <strong><%= number_to_currency(@order.hst_amount) %></strong>
+        </div>
+      <% end %>
+      <div class="invoice-grand-total">
+        <span>Total</span>
+        <strong><%= number_to_currency(@order.total) %></strong>
+      </div>
+    </div>
+
+    <footer class="invoice-footer">
+      <p>Fulfillment: <%= @order.delivery_method.humanize %></p>
+      <%= link_to "Continue shopping", products_path, class: "catalogue-link" %>
+    </footer>
+  </article>
+</section>

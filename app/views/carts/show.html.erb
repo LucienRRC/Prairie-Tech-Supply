@@ -51,6 +51,7 @@
         <p>Subtotal</p>
         <strong data-cart-subtotal><%= number_to_currency(@subtotal) %></strong>
         <span data-cart-item-count><%= pluralize(cart_item_count, "item") %> in your cart</span>
+        <%= link_to "Proceed to checkout", new_checkout_path, class: "checkout-button" %>
         <%= link_to "Continue shopping", products_path, class: "catalogue-link" %>
       </aside>
     </div>

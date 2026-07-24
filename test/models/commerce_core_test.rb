@@ -40,4 +40,15 @@ class CommerceCoreTest < ActiveSupport::TestCase
     assert product.valid?
     assert product.on_sale?
   end
+
+  test "an order must belong to a customer" do
+    order = Order.new(
+      delivery_method: :in_store_pickup,
+      recipient_name: "Test Customer",
+      province_name: "Manitoba"
+    )
+
+    assert_not order.valid?
+    assert_includes order.errors[:customer], "must exist"
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_07_23_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_23_010000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -79,6 +79,21 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_23_000000) do
     t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.integer "province_id", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.string "phone"
+    t.string "address"
+    t.string "city"
+    t.string "postal_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+    t.index ["province_id"], name: "index_customers_on_province_id"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "product_id", null: false
@@ -95,7 +110,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_23_000000) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.string "status", default: "pending", null: false
     t.string "delivery_method", null: false
     t.decimal "subtotal", precision: 10, scale: 2, default: "0.0", null: false
@@ -115,6 +130,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_23_000000) do
     t.decimal "hst_rate", precision: 5, scale: 4, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "customer_id", null: false
+    t.index ["customer_id", "created_at"], name: "index_orders_on_customer_id_and_created_at"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["status"], name: "index_orders_on_status"
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -210,8 +228,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_23_000000) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "products"
   add_foreign_key "carts", "users"
+  add_foreign_key "customers", "provinces"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "customers"
   add_foreign_key "orders", "users"
   add_foreign_key "pickup_requests", "orders"
   add_foreign_key "pickup_requests", "users"

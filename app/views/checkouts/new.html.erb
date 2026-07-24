@@ -1,0 +1,90 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">SECURE CHECKOUT</p>
+    <h1>Customer details</h1>
+    <p>Choose your province so the invoice uses the correct Canadian sales taxes.</p>
+  </div>
+</section>
+
+<section class="container section checkout-layout">
+  <div class="checkout-form-panel">
+    <h2>Contact and address</h2>
+    <p class="form-note">Province is required. Street address, city, and postal code may be left blank for in-store pickup.</p>
+
+    <%= form_with model: @customer, url: checkout_path, method: :post, class: "checkout-form" do |form| %>
+      <% if @customer.errors.any? %>
+        <div class="form-errors" role="alert">
+          <strong>Please correct the following:</strong>
+          <ul>
+            <% @customer.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="checkout-fields two-column-fields">
+        <div>
+          <%= form.label :first_name %>
+          <%= form.text_field :first_name, required: true, autocomplete: "given-name" %>
+        </div>
+        <div>
+          <%= form.label :last_name %>
+          <%= form.text_field :last_name, required: true, autocomplete: "family-name" %>
+        </div>
+        <div>
+          <%= form.label :email %>
+          <%= form.email_field :email, required: true, autocomplete: "email" %>
+        </div>
+        <div>
+          <%= form.label :phone %>
+          <%= form.telephone_field :phone, autocomplete: "tel" %>
+        </div>
+      </div>
+
+      <div class="checkout-fields">
+        <div>
+          <%= form.label :province_id, "Province or territory" %>
+          <%= form.collection_select :province_id, @provinces, :id, :name,
+            { prompt: "Select a province or territory" },
+            { required: true, autocomplete: "address-level1" } %>
+        </div>
+        <div>
+          <%= form.label :address, "Street address (optional)" %>
+          <%= form.text_field :address, autocomplete: "street-address" %>
+        </div>
+      </div>
+
+      <div class="checkout-fields two-column-fields">
+        <div>
+          <%= form.label :city %>
+          <%= form.text_field :city, autocomplete: "address-level2" %>
+        </div>
+        <div>
+          <%= form.label :postal_code %>
+          <%= form.text_field :postal_code, autocomplete: "postal-code" %>
+        </div>
+      </div>
+
+      <%= form.submit "Place order and view invoice", class: "checkout-submit" %>
+    <% end %>
+  </div>
+
+  <aside class="checkout-review">
+    <h2>Order review</h2>
+    <% @checkout_items.each do |item| %>
+      <div class="checkout-review-item">
+        <div>
+          <strong><%= item[:product].name %></strong>
+          <span><%= item[:quantity] %> &times; <%= number_to_currency(item[:product].selling_price) %></span>
+        </div>
+        <strong><%= number_to_currency(item[:line_total]) %></strong>
+      </div>
+    <% end %>
+    <div class="checkout-review-total">
+      <span>Subtotal before tax</span>
+      <strong><%= number_to_currency(@subtotal) %></strong>
+    </div>
+    <p>GST/PST/HST is calculated after you choose a province.</p>
+  </aside>
+</section>
