@@ -8,7 +8,7 @@
 
 <section class="container section">
   <% if @cart_items.any? %>
-    <div class="cart-layout">
+    <div class="cart-layout" data-session-cart>
       <div class="cart-items">
         <% @cart_items.each do |item| %>
           <% product = item[:product] %>
@@ -23,13 +23,16 @@
               <p class="cart-unit-price"><%= number_to_currency(product.selling_price) %> each</p>
 
               <div class="cart-item-actions">
-                <%= form_with url: update_cart_item_path(product), method: :patch, class: "cart-quantity-form" do %>
+                <%= form_with url: update_cart_item_path(product),
+                  method: :patch,
+                  class: "cart-quantity-form",
+                  data: { auto_cart_form: true, unit_price: product.selling_price.to_f } do %>
                   <%= label_tag "quantity_#{product.id}", "Quantity" %>
                   <%= number_field_tag :quantity, item[:quantity],
                     id: "quantity_#{product.id}",
-                    min: 0,
+                    min: 1,
                     max: product.stock_quantity %>
-                  <%= submit_tag "Update", class: "cart-update-button" %>
+                  <span class="cart-save-status" data-save-status aria-live="polite"></span>
                 <% end %>
 
                 <%= button_to "Remove", remove_cart_item_path(product),
@@ -39,15 +42,15 @@
               </div>
             </div>
 
-            <strong class="cart-line-total"><%= number_to_currency(item[:line_total]) %></strong>
+            <strong class="cart-line-total" data-line-total><%= number_to_currency(item[:line_total]) %></strong>
           </article>
         <% end %>
       </div>
 
       <aside class="cart-summary">
         <p>Subtotal</p>
-        <strong><%= number_to_currency(@subtotal) %></strong>
-        <span><%= pluralize(cart_item_count, "item") %> in your cart</span>
+        <strong data-cart-subtotal><%= number_to_currency(@subtotal) %></strong>
+        <span data-cart-item-count><%= pluralize(cart_item_count, "item") %> in your cart</span>
         <%= link_to "Continue shopping", products_path, class: "catalogue-link" %>
       </aside>
     </div>

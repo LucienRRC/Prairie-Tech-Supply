@@ -25,6 +25,11 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
+  # Avoid Windows file-lock races while Sprockets compiles assets in tests.
+  config.assets.configure do |environment|
+    environment.cache = Sprockets::Cache::NullStore.new
+  end
+
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
 

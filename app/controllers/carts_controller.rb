@@ -45,7 +45,19 @@ class CartsController < ApplicationController
     end
 
     session[:cart] = cart
-    redirect_to cart_path, notice: notice
+
+    respond_to do |format|
+      format.html { redirect_to cart_path, notice: notice }
+      format.json do
+        totals = cart_totals(cart)
+        render json: {
+          quantity: cart.fetch(@product.id.to_s, 0),
+          line_total: @product.selling_price * cart.fetch(@product.id.to_s, 0),
+          subtotal: totals[:subtotal],
+          item_count: totals[:item_count]
+        }
+      end
+    end
   end
 
   def destroy
@@ -69,5 +81,18 @@ class CartsController < ApplicationController
     Integer(params.fetch(:quantity, default))
   rescue ArgumentError, TypeError
     default
+  end
+
+  def cart_totals(cart)
+    products = Product.available.where(id: cart.keys).index_by { |product| product.id.to_s }
+
+    cart.each_with_object({ subtotal: 0.to_d, item_count: 0 }) do |(product_id, quantity), totals|
+      product = products[product_id]
+      next unless product
+
+      valid_quantity = [[quantity.to_i, 1].max, product.stock_quantity].min
+      totals[:subtotal] += product.selling_price * valid_quantity
+      totals[:item_count] += valid_quantity
+    end
   end
 end

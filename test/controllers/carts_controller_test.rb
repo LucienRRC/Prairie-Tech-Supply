@@ -56,11 +56,20 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
   test "updates and removes session cart products" do
     post add_cart_item_path(@keyboard), params: { quantity: 1 }
-    patch update_cart_item_path(@keyboard), params: { quantity: 4 }
+    patch update_cart_item_path(@keyboard), params: { quantity: 4 }, as: :json
+    assert_response :success
+    response_data = response.parsed_body
+    assert_equal 4, response_data["quantity"]
+    assert_equal "320.0", response_data["line_total"].to_s
+    assert_equal "320.0", response_data["subtotal"].to_s
+    assert_equal 4, response_data["item_count"]
 
     get cart_path
     assert_select "input#quantity_#{@keyboard.id}[value='4']"
     assert_select ".cart-count", text: "4"
+    assert_select "form[data-auto-cart-form][data-unit-price='80.0']"
+    assert_select "[data-line-total]", text: "$320.00"
+    assert_select "input[type='submit'][value='Update']", count: 0
 
     delete remove_cart_item_path(@keyboard)
     assert_redirected_to cart_path
