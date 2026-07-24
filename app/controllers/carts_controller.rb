@@ -34,20 +34,12 @@ class CartsController < ApplicationController
 
   def update
     cart = session_cart
-    quantity = requested_quantity(default: 1)
-
-    if quantity <= 0
-      cart.delete(@product.id.to_s)
-      notice = "#{@product.name} was removed from your cart."
-    else
-      cart[@product.id.to_s] = [quantity, @product.stock_quantity].min
-      notice = "#{@product.name} quantity was updated."
-    end
-
+    quantity = [[requested_quantity(default: 1), 1].max, @product.stock_quantity].min
+    cart[@product.id.to_s] = quantity
     session[:cart] = cart
 
     respond_to do |format|
-      format.html { redirect_to cart_path, notice: notice }
+      format.html { redirect_to cart_path, notice: "#{@product.name} quantity was updated." }
       format.json do
         totals = cart_totals(cart)
         render json: {

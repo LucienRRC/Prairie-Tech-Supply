@@ -66,10 +66,23 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
     get cart_path
     assert_select "input#quantity_#{@keyboard.id}[value='4']"
+    assert_select "input#quantity_#{@keyboard.id}[type='number'][min='1'][max='5']"
     assert_select ".cart-count", text: "4"
-    assert_select "form[data-auto-cart-form][data-unit-price='80.0']"
+    assert_select "form.cart-quantity-form[action='#{update_cart_item_path(@keyboard)}'][data-auto-cart-form][data-unit-price='80.0']"
+    assert_select "form.cart-remove-form[action='#{remove_cart_item_path(@keyboard)}']" do
+      assert_select "input[name='_method'][value='delete']"
+      assert_select "button.cart-remove-button", text: "Remove"
+    end
     assert_select "[data-line-total]", text: "$320.00"
     assert_select "input[type='submit'][value='Update']", count: 0
+
+    patch update_cart_item_path(@keyboard), params: { quantity: 0 }, as: :json
+    assert_response :success
+    assert_equal 1, response.parsed_body["quantity"]
+
+    get cart_path
+    assert_select "h2", text: @keyboard.name
+    assert_select "input#quantity_#{@keyboard.id}[value='1']"
 
     delete remove_cart_item_path(@keyboard)
     assert_redirected_to cart_path
