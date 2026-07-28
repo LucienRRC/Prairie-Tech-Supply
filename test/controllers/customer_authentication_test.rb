@@ -9,6 +9,13 @@ class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
       pst_rate: 0.07,
       hst_rate: 0
     )
+    @second_province = Province.create!(
+      name: "Authentication Ontario",
+      abbreviation: "AO",
+      gst_rate: 0,
+      pst_rate: 0,
+      hst_rate: 0.13
+    )
   end
 
   test "customer signs up with a hashed password and stays logged in across requests" do
@@ -42,6 +49,10 @@ class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
     assert customer.encrypted_password.start_with?("$2")
     assert customer.valid_password?("secure-password")
     assert_not Customer.devise_modules.include?(:rememberable)
+    assert_equal "100 Main Street", customer.address
+    assert_equal "Winnipeg", customer.city
+    assert_equal "R3C 1A1", customer.postal_code
+    assert_equal @province, customer.province
 
     assert_redirected_to root_path
     follow_redirect!
@@ -51,6 +62,59 @@ class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
     get products_path
     assert_response :success
     assert_select "a[href='#{edit_customer_registration_path}']", text: "Account"
+  end
+
+  test "logged in customer updates saved address and province from account page" do
+    customer = Customer.create!(
+      username: "address_customer",
+      first_name: "Address",
+      last_name: "Customer",
+      email: "address@example.com",
+      address: "10 Original Road",
+      city: "Winnipeg",
+      postal_code: "R2R 2R2",
+      province: @province,
+      account_registered: true,
+      password: "address-password",
+      password_confirmation: "address-password"
+    )
+    post customer_session_path, params: {
+      customer: { username: customer.username, password: "address-password" }
+    }
+
+    get edit_customer_registration_path
+    assert_response :success
+    assert_select "input[name='customer[address]'][value='10 Original Road']"
+    assert_select "select[name='customer[province_id]'] option[value='#{@province.id}'][selected]"
+
+    put customer_registration_path, params: {
+      customer: {
+        username: customer.username,
+        first_name: customer.first_name,
+        last_name: customer.last_name,
+        email: customer.email,
+        address: "250 Updated Avenue",
+        city: "Toronto",
+        postal_code: "M5V 2T6",
+        province_id: @second_province.id,
+        current_password: "address-password"
+      }
+    }
+
+    assert_redirected_to root_path
+    customer.reload
+    assert_equal "250 Updated Avenue", customer.address
+    assert_equal "Toronto", customer.city
+    assert_equal "M5V 2T6", customer.postal_code
+    assert_equal @second_province, customer.province
+  end
+
+  test "customers province_id has a database foreign key to provinces" do
+    foreign_key = ActiveRecord::Base.connection
+      .foreign_keys(:customers)
+      .find { |key| key.to_table == "provinces" && key.options[:column] == "province_id" }
+
+    assert foreign_key, "Expected customers.province_id to reference provinces.id"
   end
 
   test "customer logs out and logs back in using username and password" do
