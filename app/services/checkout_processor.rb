@@ -4,9 +4,10 @@ class CheckoutProcessor
 
   attr_reader :customer
 
-  def initialize(cart:, customer_attributes:)
+  def initialize(cart:, customer_attributes:, customer: nil)
     @cart = cart
     @customer_attributes = customer_attributes
+    @authenticated_customer = customer
   end
 
   def call
@@ -16,7 +17,7 @@ class CheckoutProcessor
       products = Product.lock.where(id: @cart.keys).index_by { |product| product.id.to_s }
       validate_products!(products)
 
-      @customer = Customer.find_or_initialize_by(
+      @customer = @authenticated_customer || Customer.find_or_initialize_by(
         email: @customer_attributes.fetch(:email).to_s.strip.downcase
       )
       @customer.assign_attributes(@customer_attributes)

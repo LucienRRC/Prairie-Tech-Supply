@@ -2,14 +2,17 @@ class CheckoutsController < ApplicationController
   before_action :load_provinces
 
   def new
-    @customer = Customer.find_by(id: session[:customer_id]) || Customer.new
+    @customer = current_customer || Customer.find_by(id: session[:customer_id]) || Customer.new
     load_cart_preview
   end
 
   def create
+    attributes = customer_params.to_h.symbolize_keys
+    attributes[:email] = current_customer.email if customer_signed_in?
     processor = CheckoutProcessor.new(
       cart: session_cart,
-      customer_attributes: customer_params.to_h.symbolize_keys
+      customer_attributes: attributes,
+      customer: current_customer
     )
     order = processor.call
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_07_23_010000) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_27_000000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -90,8 +90,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_23_010000) do
     t.string "postal_code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
+    t.string "encrypted_password", default: "", null: false
+    t.boolean "account_registered", default: false, null: false
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["province_id"], name: "index_customers_on_province_id"
+    t.index ["username"], name: "index_customers_on_username", unique: true
   end
 
   create_table "order_items", force: :cascade do |t|

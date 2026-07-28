@@ -1,0 +1,28 @@
+<section class="page-hero auth-hero">
+  <div class="container narrow">
+    <p class="eyebrow">WELCOME BACK</p>
+    <h1>Customer login</h1>
+    <p>Log in with your username and password.</p>
+  </div>
+</section>
+
+<section class="container auth-narrow section">
+  <div class="auth-panel">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |form| %>
+      <div class="auth-fields">
+        <div>
+          <%= form.label :username %>
+          <%= form.text_field :username, required: true, autofocus: true, autocomplete: "username" %>
+        </div>
+        <div>
+          <%= form.label :password %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password" %>
+        </div>
+      </div>
+
+      <%= form.submit "Log in", class: "auth-submit" %>
+    <% end %>
+
+    <p class="auth-switch">Need an account? <%= link_to "Sign up", new_customer_registration_path %></p>
+  </div>
+</section>

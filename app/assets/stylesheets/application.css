@@ -26,6 +26,11 @@ a:hover { text-decoration: underline; }
 nav { display: flex; align-items: center; gap: 22px; }
 nav a { color: #39445a; font-weight: 650; }
 .admin-link { padding: 8px 14px; border-radius: 8px; color: white; background: var(--ink); }
+.signup-link { padding: 7px 12px; border: 1px solid var(--brand); border-radius: 8px; color: var(--brand); }
+.signup-link:hover { color: white; background: var(--brand); text-decoration: none; }
+.nav-form { display: inline-flex; margin: 0; }
+.nav-button { padding: 0; border: 0; color: #39445a; background: transparent; font: inherit; font-weight: 650; cursor: pointer; }
+.nav-button:hover { color: var(--brand); text-decoration: underline; }
 .cart-link { display: inline-flex; align-items: center; gap: 6px; }
 .cart-count { min-width: 22px; height: 22px; display: inline-grid; place-items: center; padding: 0 6px; border-radius: 999px; color: white; background: var(--brand); font-size: .72rem; font-weight: 850; }
 .hero { min-height: 520px; display: grid; place-items: center; color: white; background: linear-gradient(120deg, rgba(14,29,56,.97), rgba(21,94,239,.82)), radial-gradient(circle at 80% 30%, #51a2ff, transparent 36%); }
@@ -165,6 +170,19 @@ nav.pagination .disabled { opacity: .45; }
 .checkout-submit:hover { background: #104bcc; }
 .form-errors { padding: 14px 18px; border: 1px solid #efb8b8; border-radius: 9px; color: #8e2525; background: #fff0f0; }
 .form-errors ul { margin: 6px 0 0; padding-left: 20px; }
+.auth-hero { padding-block: 54px; }
+.auth-narrow { max-width: 580px; }
+.auth-panel { padding: 30px; border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: 0 8px 28px rgba(28,43,70,.06); }
+.auth-form { display: grid; gap: 22px; }
+.auth-fields { display: grid; gap: 16px; }
+.auth-fields > div { display: grid; gap: 6px; }
+.auth-fields label { color: #39445a; font-size: .8rem; font-weight: 800; }
+.auth-fields input, .auth-fields select { width: 100%; height: 46px; padding: 0 12px; border: 1px solid #b9c4d3; border-radius: 8px; background: white; font: inherit; }
+.auth-fields input:focus, .auth-fields select:focus { border-color: var(--brand); outline: 3px solid rgba(21,94,239,.12); }
+.auth-fields small { color: var(--muted); }
+.auth-submit { min-height: 48px; padding: 11px 18px; border: 0; border-radius: 9px; color: white; background: var(--brand); font: inherit; font-weight: 850; cursor: pointer; }
+.auth-submit:hover { background: #104bcc; }
+.auth-switch { margin: 22px 0 0; color: var(--muted); text-align: center; }
 .checkout-review { position: sticky; top: 96px; padding: 26px; }
 .checkout-review-item { display: flex; justify-content: space-between; gap: 18px; padding: 15px 0; border-bottom: 1px solid var(--line); }
 .checkout-review-item div { display: grid; gap: 3px; }

@@ -1,0 +1,76 @@
+<section class="page-hero auth-hero">
+  <div class="container narrow">
+    <p class="eyebrow">CUSTOMER ACCOUNT</p>
+    <h1>Create your account</h1>
+    <p>Save your address for faster future orders.</p>
+  </div>
+</section>
+
+<section class="container narrow section">
+  <div class="auth-panel">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "auth-form" }) do |form| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="auth-fields two-column-fields">
+        <div>
+          <%= form.label :first_name %>
+          <%= form.text_field :first_name, required: true, autocomplete: "given-name" %>
+        </div>
+        <div>
+          <%= form.label :last_name %>
+          <%= form.text_field :last_name, required: true, autocomplete: "family-name" %>
+        </div>
+      </div>
+
+      <div class="auth-fields">
+        <div>
+          <%= form.label :username %>
+          <%= form.text_field :username, required: true, autocomplete: "username" %>
+        </div>
+        <div>
+          <%= form.label :email %>
+          <%= form.email_field :email, required: true, autocomplete: "email" %>
+        </div>
+        <div>
+          <%= form.label :province_id, "Province or territory" %>
+          <%= form.collection_select :province_id, Province.order(:name), :id, :name,
+            { prompt: "Select a province or territory" },
+            { required: true, autocomplete: "address-level1" } %>
+        </div>
+        <div>
+          <%= form.label :address, "Street address (optional)" %>
+          <%= form.text_field :address, autocomplete: "street-address" %>
+        </div>
+      </div>
+
+      <div class="auth-fields two-column-fields">
+        <div>
+          <%= form.label :city %>
+          <%= form.text_field :city, autocomplete: "address-level2" %>
+        </div>
+        <div>
+          <%= form.label :postal_code %>
+          <%= form.text_field :postal_code, autocomplete: "postal-code" %>
+        </div>
+      </div>
+
+      <div class="auth-fields two-column-fields">
+        <div>
+          <%= form.label :password %>
+          <%= form.password_field :password, required: true, autocomplete: "new-password" %>
+          <% if @minimum_password_length %>
+            <small><%= @minimum_password_length %> characters minimum</small>
+          <% end %>
+        </div>
+        <div>
+          <%= form.label :password_confirmation %>
+          <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password" %>
+        </div>
+      </div>
+
+      <%= form.submit "Create account", class: "auth-submit" %>
+    <% end %>
+
+    <p class="auth-switch">Already have an account? <%= link_to "Log in", new_customer_session_path %></p>
+  </div>
+</section>

@@ -29,6 +29,16 @@
           <%= link_to cart_path, class: "cart-link" do %>
             Cart <span class="cart-count"><%= cart_item_count %></span>
           <% end %>
+          <% if customer_signed_in? %>
+            <%= link_to "Account", edit_customer_registration_path %>
+            <%= button_to "Log out", destroy_customer_session_path,
+              method: :delete,
+              class: "nav-button",
+              form: { class: "nav-form" } %>
+          <% else %>
+            <%= link_to "Log in", new_customer_session_path %>
+            <%= link_to "Sign up", new_customer_registration_path, class: "signup-link" %>
+          <% end %>
           <%= link_to "Admin", admin_root_path, class: "admin-link" %>
         </nav>
       </div>
