@@ -17,4 +17,12 @@ class Order < ApplicationRecord
   validates :recipient_name, :province_name, presence: true
   validates :subtotal, :gst_amount, :pst_amount, :hst_amount, :delivery_fee, :total,
     numericality: { greater_than_or_equal_to: 0 }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[created_at customer_id delivery_method id province_name status total updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[customer order_items]
+  end
 end

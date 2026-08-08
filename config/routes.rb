@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   patch "/cart/items/:product_id", to: "carts#update", as: :update_cart_item
   delete "/cart/items/:product_id", to: "carts#destroy", as: :remove_cart_item
   resource :checkout, only: [:new, :create]
-  resources :orders, only: :show
+  resources :orders, only: [:index, :show]
   get "/about", to: "site_pages#show", defaults: { slug: "about" }, as: :about
   get "/contact", to: "site_pages#show", defaults: { slug: "contact" }, as: :contact
 

@@ -30,6 +30,7 @@
             Cart <span class="cart-count"><%= cart_item_count %></span>
           <% end %>
           <% if customer_signed_in? %>
+            <%= link_to "Orders", orders_path %>
             <%= link_to "Account", edit_customer_registration_path %>
             <%= button_to "Log out", destroy_customer_session_path,
               method: :delete,

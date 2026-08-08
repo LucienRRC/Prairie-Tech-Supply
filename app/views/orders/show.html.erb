@@ -79,7 +79,12 @@
 
     <footer class="invoice-footer">
       <p>Fulfillment: <%= @order.delivery_method.humanize %></p>
-      <%= link_to "Continue shopping", products_path, class: "catalogue-link" %>
+      <div class="invoice-actions">
+        <% if customer_signed_in? && @order.customer_id == current_customer.id %>
+          <%= link_to "Back to order history", orders_path, class: "catalogue-link" %>
+        <% end %>
+        <%= link_to "Continue shopping", products_path, class: "catalogue-link" %>
+      </div>
     </footer>
   </article>
 </section>

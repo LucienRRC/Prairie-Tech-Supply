@@ -1,0 +1,61 @@
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">CUSTOMER ACCOUNT</p>
+    <h1>Order history</h1>
+    <p>Review every product, tax amount, and grand total from your past orders.</p>
+  </div>
+</section>
+
+<section class="container section">
+  <% if @orders.any? %>
+    <div class="order-history">
+      <% @orders.each do |order| %>
+        <article class="order-history-card">
+          <header>
+            <div>
+              <span>Order</span>
+              <h2>#<%= order.id.to_s.rjust(6, "0") %></h2>
+            </div>
+            <div class="order-history-meta">
+              <span><%= order.created_at.in_time_zone.to_fs(:long) %></span>
+              <strong><%= order.status.humanize %></strong>
+            </div>
+          </header>
+
+          <div class="order-history-products">
+            <% order.order_items.each do |item| %>
+              <div>
+                <span><%= item.quantity %> &times; <%= item.product_name %></span>
+                <strong><%= number_to_currency(item.line_total) %></strong>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="order-history-taxes">
+            <span>GST <strong><%= number_to_currency(order.gst_amount) %></strong></span>
+            <span>Provincial tax <strong><%= number_to_currency(order.pst_amount) %></strong></span>
+            <span>HST <strong><%= number_to_currency(order.hst_amount) %></strong></span>
+          </div>
+
+          <footer>
+            <div>
+              <span>Grand total</span>
+              <strong><%= number_to_currency(order.total) %></strong>
+            </div>
+            <%= link_to "View invoice", order_path(order), class: "catalogue-link" %>
+          </footer>
+        </article>
+      <% end %>
+    </div>
+
+    <% if @orders.total_pages > 1 %>
+      <div class="pagination-wrap"><%= paginate @orders %></div>
+    <% end %>
+  <% else %>
+    <div class="empty-products">
+      <h2>No past orders</h2>
+      <p>Your completed checkouts will appear here.</p>
+      <%= link_to "Browse products", products_path, class: "catalogue-link" %>
+    </div>
+  <% end %>
+</section>

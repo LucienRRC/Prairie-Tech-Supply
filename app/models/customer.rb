@@ -32,4 +32,12 @@ class Customer < ApplicationRecord
   def active_for_authentication?
     super && account_registered?
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[email first_name id last_name province_id username]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[orders province]
+  end
 end
