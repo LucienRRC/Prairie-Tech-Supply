@@ -152,6 +152,39 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_equal BigDecimal("45.60"), order.total
   end
 
+  test "product price changes do not affect an existing order or invoice" do
+    post add_cart_item_path(@keyboard), params: { quantity: 2 }
+
+    post checkout_path, params: {
+      customer: {
+        first_name: "Price",
+        last_name: "Snapshot",
+        email: "price.snapshot@example.com",
+        province_id: @manitoba.id
+      }
+    }
+
+    order = Order.order(:id).last
+    item = order.order_items.find_by!(product: @keyboard)
+    assert_equal BigDecimal("80.00"), item.unit_price
+    assert_equal BigDecimal("160.00"), item.line_total
+    assert_equal BigDecimal("179.20"), order.total
+
+    @keyboard.update!(price: 999, sale_price: 888)
+
+    item.reload
+    order.reload
+    assert_equal BigDecimal("80.00"), item.unit_price
+    assert_equal BigDecimal("160.00"), item.line_total
+    assert_equal BigDecimal("179.20"), order.total
+
+    get order_path(order)
+    assert_response :success
+    assert_select ".invoice-table", text: /Checkout Keyboard.*\$80\.00.*\$160\.00/m
+    assert_select ".invoice-grand-total", text: /Total.*\$179\.20/m
+    assert_select ".invoice", text: /\$888\.00/, count: 0
+  end
+
   test "keeps cart when customer details are invalid" do
     post add_cart_item_path(@keyboard), params: { quantity: 1 }
 
