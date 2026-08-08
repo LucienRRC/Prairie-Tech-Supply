@@ -13601,3 +13601,438 @@ Processing by Rails::PwaController#manifest as JSON
 Completed 200 OK in 30ms (Views: 7.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
 
 
+Started POST "/cart/items/10" for 127.0.0.1 at 2026-08-07 23:38:42 -0500
+Processing by CartsController#add as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "quantity"=>"1", "commit"=>"Add to cart", "product_id"=>"10"}
+  [1m[36mProduct Load (0.4ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."id" = ? LIMIT ?[0m  [["active", 1], ["id", 10], ["LIMIT", 1]]
+  ↳ app/controllers/carts_controller.rb:66:in `load_available_product'
+Redirected to http://127.0.0.1:3000/cart
+Completed 302 Found in 21ms (ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/cart" for 127.0.0.1 at 2026-08-07 23:38:43 -0500
+Processing by CartsController#show as HTML
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."id" = ?[0m  [["active", 1], ["id", 10]]
+  ↳ app/controllers/carts_controller.rb:9:in `show'
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 6]]
+  ↳ app/controllers/carts_controller.rb:9:in `show'
+  [1m[36mActiveStorage::Attachment Load (0.4ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 10]]
+  ↳ app/controllers/carts_controller.rb:9:in `show'
+  [1m[36mActiveStorage::Blob Load (0.2ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 27]]
+  ↳ app/controllers/carts_controller.rb:9:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering carts/show.html.erb within layouts/application
+  Rendered carts/show.html.erb within layouts/application (Duration: 6.8ms | GC: 0.0ms)
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.erb:32
+  Rendered layout layouts/application.html.erb (Duration: 145.9ms | GC: 0.2ms)
+Completed 200 OK in 421ms (Views: 168.6ms | ActiveRecord: 1.5ms (5 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxOGszMG9nb2NjOTM0aGJ1azJ1ZHRwcHJnaGtqIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA4LTA4VDA0OjQyOjAwLjU3M1oiLCJwdXIiOiJibG9iX2tleSJ9fQ==--2f79a362e444192c96d6becb401b4ccd24550215/computer-technology.jpg" for 127.0.0.1 at 2026-08-07 23:38:44 -0500
+Started GET "/manifest.json" for 127.0.0.1 at 2026-08-07 23:38:44 -0500
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+Completed 304 Not Modified in 30ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.3ms)
+
+
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 3.9ms | GC: 0.0ms)
+Completed 200 OK in 41ms (Views: 13.7ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/checkout/new" for 127.0.0.1 at 2026-08-07 23:38:47 -0500
+Processing by CheckoutsController#new as HTML
+  [1m[36mCustomer Load (0.7ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/checkouts_controller.rb:5:in `new'
+  [1m[36mProduct Load (0.3ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."id" = ?[0m  [["active", 1], ["id", 10]]
+  ↳ app/controllers/checkouts_controller.rb:44:in `load_cart_preview'
+  Rendering layout layouts/application.html.erb
+  Rendering checkouts/new.html.erb within layouts/application
+  [1m[36mProvince Load (0.4ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" ORDER BY "provinces"."name" ASC[0m
+  ↳ app/views/checkouts/new.html.erb:51
+  Rendered checkouts/new.html.erb within layouts/application (Duration: 30.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 46.3ms | GC: 0.0ms)
+Completed 200 OK in 389ms (Views: 65.5ms | ActiveRecord: 1.4ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-08-07 23:38:48 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.8ms | GC: 0.0ms)
+Completed 200 OK in 17ms (Views: 1.9ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/checkout" for 127.0.0.1 at 2026-08-07 23:38:52 -0500
+Processing by CheckoutsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "customer"=>{"first_name"=>"ku", "last_name"=>"Lin", "email"=>"[FILTERED]", "phone"=>"", "province_id"=>"6", "address"=>"36 Leander Crescent", "city"=>"Winnipeg", "postal_code"=>"r3y1w5"}, "commit"=>"Place order and view invoice"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/checkouts_controller.rb:11:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/services/checkout_processor.rb:17:in `block in call'
+  [1m[36mProduct Load (4.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."id" = ? [0m  [["id", 10]]
+  ↳ app/services/checkout_processor.rb:17:in `block in call'
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."username") = LOWER(?) AND "customers"."id" != ? LIMIT ?[0m  [["username", "user2"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/services/checkout_processor.rb:24:in `block in call'
+  [1m[36mCustomer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER(?) AND "customers"."id" != ? LIMIT ?[0m  [["email", "[FILTERED]"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/services/checkout_processor.rb:24:in `block in call'
+  [1m[36mProvince Load (0.3ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."id" = ? LIMIT ?[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/services/checkout_processor.rb:51:in `build_order'
+  [1m[36mOrder Create (1.7ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "status", "delivery_method", "subtotal", "gst_amount", "pst_amount", "hst_amount", "delivery_fee", "total", "recipient_name", "phone", "address", "city", "postal_code", "province_name", "gst_rate", "pst_rate", "hst_rate", "created_at", "updated_at", "customer_id") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["user_id", nil], ["status", "pending"], ["delivery_method", "shipping"], ["subtotal", 34.99], ["gst_amount", 1.75], ["pst_amount", 0.0], ["hst_amount", 0.0], ["delivery_fee", 0.0], ["total", 36.74], ["recipient_name", "ku Lin"], ["phone", ""], ["address", "36 Leander Crescent"], ["city", "Winnipeg"], ["postal_code", "r3y1w5"], ["province_name", "Northwest Territories"], ["gst_rate", 0.05], ["pst_rate", 0.0], ["hst_rate", 0.0], ["created_at", "2026-08-08 04:38:53.306105"], ["updated_at", "2026-08-08 04:38:53.306105"], ["customer_id", 3]]
+  ↳ app/services/checkout_processor.rb:27:in `block in call'
+  [1m[36mOrderItem Create (0.9ms)[0m  [1m[32mINSERT INTO "order_items" ("order_id", "product_id", "product_name", "sku", "quantity", "unit_price", "line_total", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["order_id", 4], ["product_id", 10], ["product_name", "Kasa Smart Wi-Fi Plug Mini 4-Pack"], ["sku", "SMT-PLG-010"], ["quantity", 1], ["unit_price", 34.99], ["line_total", 34.99], ["created_at", "2026-08-08 04:38:53.444756"], ["updated_at", "2026-08-08 04:38:53.444756"]]
+  ↳ app/services/checkout_processor.rb:82:in `block in create_order_items!'
+  [1m[36mProduct Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) AND "products"."id" != ? LIMIT ?[0m  [["sku", "SMT-PLG-010"], ["id", 10], ["LIMIT", 1]]
+  ↳ app/services/checkout_processor.rb:96:in `block in reduce_inventory!'
+  [1m[36mProduct Update (0.3ms)[0m  [1m[33mUPDATE "products" SET "stock_quantity" = ?, "updated_at" = ? WHERE "products"."id" = ?[0m  [["stock_quantity", 29], ["updated_at", "2026-08-08 04:38:53.480292"], ["id", 10]]
+  ↳ app/services/checkout_processor.rb:96:in `block in reduce_inventory!'
+  [1m[36mTRANSACTION (7.8ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/services/checkout_processor.rb:16:in `call'
+Redirected to http://127.0.0.1:3000/orders/4
+Completed 302 Found in 426ms (ActiveRecord: 16.8ms (9 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/orders/4" for 127.0.0.1 at 2026-08-07 23:38:53 -0500
+Processing by OrdersController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:14:in `show'
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ?[0m  [["id", 3]]
+  ↳ app/controllers/orders_controller.rb:14:in `show'
+  [1m[36mOrderItem Load (0.3ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" WHERE "order_items"."order_id" = ?[0m  [["order_id", 4]]
+  ↳ app/controllers/orders_controller.rb:14:in `show'
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/orders_controller.rb:16:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering orders/show.html.erb within layouts/application
+  Rendered orders/show.html.erb within layouts/application (Duration: 8.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 24.1ms | GC: 0.0ms)
+Completed 200 OK in 362ms (Views: 48.1ms | ActiveRecord: 1.4ms (4 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-08-07 23:38:54 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 1.0ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 2.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2026-08-07 23:39:00 -0500
+Processing by OrdersController#index as HTML
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering orders/index.html.erb within layouts/application
+  [1m[36mOrder Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "orders" WHERE "orders"."customer_id" = ? LIMIT ? OFFSET ?[0m  [["customer_id", 3], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/orders/index.html.erb:10
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."customer_id" = ? ORDER BY "orders"."created_at" DESC LIMIT ? OFFSET ?[0m  [["customer_id", 3], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/orders/index.html.erb:12
+  [1m[36mOrderItem Load (0.5ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" WHERE "order_items"."order_id" IN (?, ?)[0m  [["order_id", 4], ["order_id", 3]]
+  ↳ app/views/orders/index.html.erb:12
+  Rendered orders/index.html.erb within layouts/application (Duration: 34.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 55.9ms | GC: 0.0ms)
+Completed 200 OK in 386ms (Views: 141.5ms | ActiveRecord: 2.1ms (4 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-08-07 23:39:01 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 0.9ms | GC: 0.0ms)
+Completed 200 OK in 16ms (Views: 2.2ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/orders" for 127.0.0.1 at 2026-08-07 23:48:18 -0500
+Processing by OrdersController#index as HTML
+  [1m[36mCustomer Load (13.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering orders/index.html.erb within layouts/application
+  [1m[36mOrder Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "orders" WHERE "orders"."customer_id" = ? LIMIT ? OFFSET ?[0m  [["customer_id", 3], ["LIMIT", 1], ["OFFSET", 0]]
+  ↳ app/views/orders/index.html.erb:10
+  [1m[36mOrder Load (0.6ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."customer_id" = ? ORDER BY "orders"."created_at" DESC LIMIT ? OFFSET ?[0m  [["customer_id", 3], ["LIMIT", 10], ["OFFSET", 0]]
+  ↳ app/views/orders/index.html.erb:12
+  [1m[36mOrderItem Load (1.7ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" WHERE "order_items"."order_id" IN (?, ?)[0m  [["order_id", 4], ["order_id", 3]]
+  ↳ app/views/orders/index.html.erb:12
+  Rendered orders/index.html.erb within layouts/application (Duration: 98.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 139.1ms | GC: 0.2ms)
+Completed 200 OK in 271ms (Views: 181.2ms | ActiveRecord: 15.8ms (4 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/manifest.json" for 127.0.0.1 at 2026-08-07 23:48:23 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 2.9ms | GC: 0.0ms)
+Completed 200 OK in 35ms (Views: 15.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-08-07 23:48:25 -0500
+Processing by Admin::DashboardController#index as HTML
+Completed 401 Unauthorized in 27ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/login" for 127.0.0.1 at 2026-08-07 23:48:26 -0500
+Processing by ActiveAdmin::Devise::SessionsController#new as HTML
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/shared/_links.erb (Duration: 10.2ms | GC: 0.2ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/devise/sessions/new.html.erb within layouts/active_admin_logged_out (Duration: 714.4ms | GC: 0.3ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 1490.1ms | GC: 0.6ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 6.0ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin_logged_out.html.erb (Duration: 2257.3ms | GC: 0.9ms)
+Completed 200 OK in 2666ms (Views: 2618.6ms | ActiveRecord: 0.9ms (0 queries, 0 cached) | GC: 0.9ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-08-07 23:48:31 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started POST "/admin/login" for 127.0.0.1 at 2026-08-07 23:48:36 -0500
+Processing by ActiveAdmin::Devise::SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "admin_user"=>{"username"=>"admin", "password"=>"[FILTERED]", "remember_me"=>"1"}, "commit"=>"Sign In"}
+  [1m[36mAdminUser Load (0.6ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."username" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["username", "admin"], ["LIMIT", 1]]
+Redirected to http://127.0.0.1:3000/admin
+Completed 303 See Other in 968ms (ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-08-07 23:48:38 -0500
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdminUser Load (0.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  ↳ app/admin/dashboard.rb:15:in `block (4 levels) in <main>'
+  [1m[36mProduct Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  ↳ app/admin/dashboard.rb:19:in `block (4 levels) in <main>'
+  [1m[36mProduct Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  ↳ app/admin/dashboard.rb:23:in `block (4 levels) in <main>'
+  [1m[36mSitePage Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  ↳ app/admin/dashboard.rb:27:in `block (4 levels) in <main>'
+  [1m[36mProduct Load (2.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  ↳ app/admin/dashboard.rb:35:in `block (5 levels) in <main>'
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?)[0m  [["id", 5], ["id", 3]]
+  ↳ app/admin/dashboard.rb:35:in `block (5 levels) in <main>'
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 148.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 5.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 16.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 7.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 8.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 3.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 2.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 11.1ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 333.2ms | GC: 0.0ms)
+Completed 200 OK in 421ms (Views: 383.2ms | ActiveRecord: 4.7ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin" for 127.0.0.1 at 2026-08-07 23:50:00 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate
+
+You have 1 pending migration:
+
+db/migrate/20260807000000_increase_tax_rate_precision.rb
+
+
+):
+  
+activerecord (7.2.3) lib/active_record/migration.rb:756:in `check_pending_migrations'
+activerecord (7.2.3) lib/active_record/migration.rb:663:in `block (2 levels) in call'
+activesupport (7.2.3) lib/active_support/file_update_checker.rb:85:in `execute'
+activesupport (7.2.3) lib/active_support/file_update_checker.rb:95:in `execute_if_updated'
+activerecord (7.2.3) lib/active_record/migration.rb:670:in `block in call'
+activerecord (7.2.3) lib/active_record/migration.rb:660:in `synchronize'
+activerecord (7.2.3) lib/active_record/migration.rb:660:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (7.2.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (7.2.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.2.1) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.1) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (7.2.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (7.2.3) lib/rails/rack/logger.rb:29:in `call'
+sprockets-rails (3.5.2) lib/sprockets/rails/quiet_assets.rb:17:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/remote_ip.rb:96:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/request_id.rb:33:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (7.2.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.2.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/executor.rb:16:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (7.2.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (7.2.3) lib/rails/engine.rb:535:in `call'
+puma (8.0.2) lib/puma/configuration.rb:305:in `call'
+puma (8.0.2) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.2) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.2) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.2) lib/puma/server.rb:508:in `process_client'
+puma (8.0.2) lib/puma/server.rb:263:in `block in run'
+puma (8.0.2) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to IncreaseTaxRatePrecision (20260807000000)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aprovinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aprovinces_on_abbreviation" ON "aprovinces" ("abbreviation")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aprovinces_on_name" ON "aprovinces" ("name")[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "aprovinces" ("id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "provinces"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE "provinces"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "provinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_name" ON "provinces" ("name")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_abbreviation" ON "provinces" ("abbreviation")[0m
+  [1m[35m (0.3ms)[0m  [1m[32mINSERT INTO "provinces" ("id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "aprovinces"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mDROP TABLE "aprovinces"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id_and_created_at" ON "aorders" ("customer_id", "created_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id" ON "aorders" ("customer_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_status" ON "aorders" ("status")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id_and_created_at" ON "aorders" ("user_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id" ON "aorders" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "aorders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id" FROM "orders"[0m
+  [1m[35m (14.7ms)[0m  [1m[35mDROP TABLE "orders"[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL, CONSTRAINT "fk_rails_3dad120da9"
+FOREIGN KEY ("customer_id")
+  REFERENCES "customers" ("id")
+, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id" ON "orders" ("customer_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id_and_created_at" ON "orders" ("customer_id", "created_at")[0m
+  [1m[35m (0.5ms)[0m  [1m[32mINSERT INTO "orders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id" FROM "aorders"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "aorders"[0m
+  [1m[35m (0.8ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aprovinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aprovinces_on_abbreviation" ON "aprovinces" ("abbreviation")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aprovinces_on_name" ON "aprovinces" ("name")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aprovinces" ("id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "provinces"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mDROP TABLE "provinces"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "provinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_name" ON "provinces" ("name")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_abbreviation" ON "provinces" ("abbreviation")[0m
+  [1m[35m (5.0ms)[0m  [1m[32mINSERT INTO "provinces" ("id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "aprovinces"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE "aprovinces"[0m
+  [1m[35m (0.5ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id_and_created_at" ON "aorders" ("customer_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id" ON "aorders" ("customer_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_status" ON "aorders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id_and_created_at" ON "aorders" ("user_id", "created_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id" ON "aorders" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "aorders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id" FROM "orders"[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE "orders"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_3dad120da9"
+FOREIGN KEY ("customer_id")
+  REFERENCES "customers" ("id")
+)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id" ON "orders" ("customer_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id_and_created_at" ON "orders" ("customer_id", "created_at")[0m
+  [1m[35m (0.6ms)[0m  [1m[32mINSERT INTO "orders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id" FROM "aorders"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aorders"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.2ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aprovinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aprovinces_on_abbreviation" ON "aprovinces" ("abbreviation")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aprovinces_on_name" ON "aprovinces" ("name")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "aprovinces" ("id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "provinces"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "provinces"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "provinces" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar NOT NULL, "abbreviation" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_name" ON "provinces" ("name")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_provinces_on_abbreviation" ON "provinces" ("abbreviation")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "provinces" ("id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at")
+                     SELECT "id","name","abbreviation","gst_rate","pst_rate","hst_rate","created_at","updated_at" FROM "aprovinces"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "aprovinces"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(5,4) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL)[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id_and_created_at" ON "aorders" ("customer_id", "created_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id" ON "aorders" ("customer_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_status" ON "aorders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id_and_created_at" ON "aorders" ("user_id", "created_at")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id" ON "aorders" ("user_id")[0m
+  [1m[35m (6.4ms)[0m  [1m[32mINSERT INTO "aorders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id" FROM "orders"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "orders"[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL, CONSTRAINT "fk_rails_3dad120da9"
+FOREIGN KEY ("customer_id")
+  REFERENCES "customers" ("id")
+, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id" ON "orders" ("customer_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id_and_created_at" ON "orders" ("customer_id", "created_at")[0m
+  [1m[35m (0.4ms)[0m  [1m[32mINSERT INTO "orders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id" FROM "aorders"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE "aorders"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260807000000') RETURNING "version"[0m
+  [1m[36mTRANSACTION (15.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mProvince Load (0.4ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."abbreviation" = ? LIMIT ?[0m  [["abbreviation", "QC"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mProvince Update (0.3ms)[0m  [1m[33mUPDATE "provinces" SET "pst_rate" = ?, "updated_at" = ? WHERE "provinces"."id" = ?[0m  [["pst_rate", 0.09975], ["updated_at", "2026-08-08 04:52:23.277910"], ["id", 11]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mProvince Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "provinces"[0m
+  [1m[36mProvince Load (0.3ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]

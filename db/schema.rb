@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_07_27_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_07_000000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -129,9 +129,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_27_000000) do
     t.string "city"
     t.string "postal_code"
     t.string "province_name", null: false
-    t.decimal "gst_rate", precision: 5, scale: 4, default: "0.0", null: false
-    t.decimal "pst_rate", precision: 5, scale: 4, default: "0.0", null: false
-    t.decimal "hst_rate", precision: 5, scale: 4, default: "0.0", null: false
+    t.decimal "gst_rate", precision: 6, scale: 5, default: "0.0", null: false
+    t.decimal "pst_rate", precision: 6, scale: 5, default: "0.0", null: false
+    t.decimal "hst_rate", precision: 6, scale: 5, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "customer_id", null: false
@@ -179,9 +179,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_27_000000) do
   create_table "provinces", force: :cascade do |t|
     t.string "name", null: false
     t.string "abbreviation", null: false
-    t.decimal "gst_rate", precision: 5, scale: 4, default: "0.0", null: false
-    t.decimal "pst_rate", precision: 5, scale: 4, default: "0.0", null: false
-    t.decimal "hst_rate", precision: 5, scale: 4, default: "0.0", null: false
+    t.decimal "gst_rate", precision: 6, scale: 5, default: "0.0", null: false
+    t.decimal "pst_rate", precision: 6, scale: 5, default: "0.0", null: false
+    t.decimal "hst_rate", precision: 6, scale: 5, default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["abbreviation"], name: "index_provinces_on_abbreviation", unique: true

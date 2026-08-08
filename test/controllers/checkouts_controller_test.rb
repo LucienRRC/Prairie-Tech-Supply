@@ -125,6 +125,33 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".invoice-totals", text: /Provincial sales tax/, count: 0
   end
 
+  test "new orders use updated province rates while existing orders keep their tax snapshot" do
+    @manitoba.update!(gst_rate: 0.06, pst_rate: 0.08)
+    post add_cart_item_path(@mouse), params: { quantity: 1 }
+
+    post checkout_path, params: {
+      customer: {
+        first_name: "Updated",
+        last_name: "Taxes",
+        email: "updated.taxes@example.com",
+        province_id: @manitoba.id
+      }
+    }
+
+    order = Order.order(:id).last
+    assert_equal BigDecimal("0.06"), order.gst_rate
+    assert_equal BigDecimal("0.08"), order.pst_rate
+    assert_equal BigDecimal("2.40"), order.gst_amount
+    assert_equal BigDecimal("3.20"), order.pst_amount
+    assert_equal BigDecimal("45.60"), order.total
+
+    @manitoba.update!(gst_rate: 0.05, pst_rate: 0.07)
+    order.reload
+    assert_equal BigDecimal("0.06"), order.gst_rate
+    assert_equal BigDecimal("0.08"), order.pst_rate
+    assert_equal BigDecimal("45.60"), order.total
+  end
+
   test "keeps cart when customer details are invalid" do
     post add_cart_item_path(@keyboard), params: { quantity: 1 }
 
