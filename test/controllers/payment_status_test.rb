@@ -101,6 +101,18 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
     assert @order.reload.new_order?
   end
 
+  test "live-mode payment confirmation is rejected" do
+    live_event = stripe_event("checkout.session.completed", payment_status: "paid", livemode: true)
+
+    Stripe::Webhook.stub(:construct_event, live_event) do
+      post stripe_webhook_path, params: "{}", headers: { "Stripe-Signature" => "valid" }
+    end
+
+    assert_response :unprocessable_entity
+    assert @order.reload.new_order?
+    assert_nil @order.stripe_payment_intent_id
+  end
+
   test "webhook rejects an invalid Stripe signature" do
     signature_error = Stripe::SignatureVerificationError.new("Invalid signature", "invalid")
     verifier = ->(*) { raise signature_error }
@@ -138,11 +150,20 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
     )
     sign_in admin
 
-    patch mark_shipped_admin_order_path(@order)
-    assert_redirected_to admin_order_path(@order)
-    assert @order.reload.new_order?
+    get admin_order_path(@order)
+    assert_response :success
+    assert_select "h3", text: "Order Status Management"
+    assert_select "a[href='#{sync_payment_status_admin_order_path(@order)}']", text: "Check Stripe payment"
+    assert_select "a", text: "Mark as shipped", count: 0
 
-    @order.update!(status: :paid, paid_at: Time.current)
+    paid_session = stripe_event("checkout.session.completed", payment_status: "paid").data.object
+    StripeCheckoutSession.stub(:retrieve, paid_session) do
+      patch sync_payment_status_admin_order_path(@order)
+    end
+    assert_redirected_to admin_order_path(@order)
+    assert @order.reload.paid?
+    assert_not_nil @order.paid_at
+
     get admin_order_path(@order)
     assert_response :success
     assert_select "a[href='#{mark_shipped_admin_order_path(@order)}']", text: "Mark as shipped"
@@ -183,6 +204,23 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
     assert_equal "prairie-tech-order-#{@order.id}", captured_options[:idempotency_key]
   end
 
+  test "Stripe checkout refuses a live secret key" do
+    Rails.application.config.x.stripe.secret_key = "sk_live_must_not_be_used"
+    creator = ->(*) { flunk "Stripe must not be called with a live key" }
+
+    error = assert_raises(StripeCheckoutSession::ConfigurationError) do
+      Stripe::Checkout::Session.stub(:create, creator) do
+        StripeCheckoutSession.create(
+          order: @order,
+          success_url: "http://example.com/success",
+          cancel_url: "http://example.com/cancel"
+        )
+      end
+    end
+
+    assert_match(/sandbox keys/, error.message)
+  end
+
   private
 
   def create_order
@@ -214,7 +252,7 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
     order
   end
 
-  def stripe_event(type, payment_status:, amount_total: 22_400)
+  def stripe_event(type, payment_status:, amount_total: 22_400, livemode: false)
     Stripe::Event.construct_from(
       id: "evt_test_#{type.tr('.', '_')}",
       type: type,
@@ -222,6 +260,7 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
         object: {
           id: @order.stripe_checkout_session_id,
           payment_status: payment_status,
+          livemode: livemode,
           payment_intent: "pi_test_order_#{@order.id}",
           currency: "cad",
           amount_total: amount_total,

@@ -16,6 +16,25 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(resource), alert: error.record.errors.full_messages.to_sentence
   end
 
+  member_action :sync_payment_status, method: :patch do
+    unless resource.new_order?
+      return redirect_to admin_order_path(resource),
+        alert: "Only new orders need Stripe payment confirmation."
+    end
+
+    if resource.stripe_checkout_session_id.blank?
+      return redirect_to admin_order_path(resource),
+        alert: "This order does not have a Stripe Checkout Session."
+    end
+
+    stripe_session = StripeCheckoutSession.retrieve(resource.stripe_checkout_session_id)
+    OrderPaymentFulfillment.call(stripe_session)
+    redirect_to admin_order_path(resource), notice: "Stripe confirmed the payment. Order status is now Paid."
+  rescue StripeCheckoutSession::ConfigurationError, Stripe::StripeError,
+      OrderPaymentFulfillment::VerificationError => error
+    redirect_to admin_order_path(resource), alert: "Stripe payment was not confirmed: #{error.message}"
+  end
+
   action_item :mark_shipped, only: :show, if: proc { resource.paid? } do
     link_to "Mark as shipped",
       mark_shipped_admin_order_path(resource),
@@ -69,6 +88,47 @@ ActiveAdmin.register Order do
   end
 
   show title: proc { |order| "Order ##{order.id.to_s.rjust(6, '0')}" } do
+    panel "Order Status Management" do
+      div class: "admin-order-status-flow" do
+        div do
+          span "Current status: "
+          status_tag order.status_label
+        end
+
+        if order.new_order?
+          para "This order remains unpaid until Stripe confirms the card payment."
+          if order.stripe_checkout_session_id.present?
+            text_node link_to(
+              "Check Stripe payment",
+              sync_payment_status_admin_order_path(order),
+              class: "button",
+              data: {
+                turbo_method: :patch,
+                turbo_confirm: "Check this order's current payment status with Stripe?"
+              }
+            )
+          else
+            para "No Stripe Checkout Session is associated with this order."
+          end
+        elsif order.paid?
+          para "Stripe has confirmed payment. Mark the order as shipped after it leaves the store."
+          text_node link_to(
+            "Mark as shipped",
+            mark_shipped_admin_order_path(order),
+            class: "button",
+            data: {
+              turbo_method: :patch,
+              turbo_confirm: "Confirm that this order has shipped?"
+            }
+          )
+        elsif order.shipped?
+          para "This order was marked as shipped#{" on #{order.shipped_at.in_time_zone.to_fs(:long)}" if order.shipped_at}."
+        else
+          para "This order is cancelled and cannot move to another status."
+        end
+      end
+    end
+
     attributes_table do
       row :customer do |order|
         "#{order.recipient_name} - #{order.customer.email}"

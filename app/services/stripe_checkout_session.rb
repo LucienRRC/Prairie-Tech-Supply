@@ -69,6 +69,11 @@ class StripeCheckoutSession
 
     def ensure_secret_key!
       raise ConfigurationError, "STRIPE_SECRET_KEY is not configured." if secret_key.blank?
+
+      return if secret_key.match?(/\A(?:sk|rk)_test_/)
+
+      raise ConfigurationError,
+        "Prairie Tech Supply only accepts Stripe sandbox keys beginning with sk_test_ or rk_test_."
     end
   end
 end

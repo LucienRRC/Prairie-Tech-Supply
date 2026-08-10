@@ -27,6 +27,7 @@ class OrderPaymentFulfillment
       raise VerificationError, "Stripe Checkout Session does not match this order."
     end
     raise VerificationError, "Stripe has not confirmed this payment." unless stripe_session.payment_status == "paid"
+    raise VerificationError, "Live-mode Stripe payments are disabled for this project." unless stripe_session.livemode == false
     raise VerificationError, "Payment currency must be CAD." unless stripe_session.currency.to_s.downcase == "cad"
 
     expected_amount = (order.total * 100).round.to_i
