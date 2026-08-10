@@ -4,6 +4,24 @@ ActiveAdmin.register Order do
   config.sort_order = "created_at_desc"
   config.filters = false
 
+  scope :all, default: true
+  scope("New") { |orders| orders.where(status: "new") }
+  scope("Paid") { |orders| orders.where(status: "paid") }
+  scope("Shipped") { |orders| orders.where(status: "shipped") }
+
+  member_action :mark_shipped, method: :patch do
+    resource.mark_shipped!
+    redirect_to admin_order_path(resource), notice: "Order was marked as shipped."
+  rescue ActiveRecord::RecordInvalid => error
+    redirect_to admin_order_path(resource), alert: error.record.errors.full_messages.to_sentence
+  end
+
+  action_item :mark_shipped, only: :show, if: proc { resource.paid? } do
+    link_to "Mark as shipped",
+      mark_shipped_admin_order_path(resource),
+      data: { turbo_method: :patch, turbo_confirm: "Confirm that this order has shipped?" }
+  end
+
   includes :customer, :order_items
 
   index title: "Customer Order History", download_links: false do
@@ -36,11 +54,17 @@ ActiveAdmin.register Order do
     end
     column("Grand total") { |order| strong number_to_currency(order.total) }
     column :status do |order|
-      status_tag order.status.humanize
+      status_tag order.status_label
     end
     column("Ordered") { |order| order.created_at.in_time_zone.to_fs(:short) }
     actions defaults: false do |order|
       item "Invoice details", admin_order_path(order), class: "member_link"
+      if order.paid?
+        item "Mark shipped",
+          mark_shipped_admin_order_path(order),
+          class: "member_link",
+          data: { turbo_method: :patch, turbo_confirm: "Confirm shipment?" }
+      end
     end
   end
 
@@ -50,7 +74,11 @@ ActiveAdmin.register Order do
         "#{order.recipient_name} - #{order.customer.email}"
       end
       row :province_name
-      row :status
+      row("Status") { |order| status_tag order.status_label }
+      row :stripe_checkout_session_id
+      row :stripe_payment_intent_id
+      row :paid_at
+      row :shipped_at
       row :delivery_method
       row(:subtotal) { |order| number_to_currency(order.subtotal) }
       row(:gst_amount) { |order| number_to_currency(order.gst_amount) }

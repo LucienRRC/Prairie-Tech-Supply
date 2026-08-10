@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_08_07_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_09_000000) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -115,7 +115,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_07_000000) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
-    t.string "status", default: "pending", null: false
+    t.string "status", default: "new", null: false
     t.string "delivery_method", null: false
     t.decimal "subtotal", precision: 10, scale: 2, default: "0.0", null: false
     t.decimal "gst_amount", precision: 10, scale: 2, default: "0.0", null: false
@@ -135,9 +135,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_07_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "customer_id", null: false
+    t.string "stripe_checkout_session_id"
+    t.string "stripe_payment_intent_id"
+    t.datetime "paid_at"
+    t.datetime "shipped_at"
     t.index ["customer_id", "created_at"], name: "index_orders_on_customer_id_and_created_at"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["status"], name: "index_orders_on_status"
+    t.index ["stripe_checkout_session_id"], name: "index_orders_on_stripe_checkout_session_id", unique: true
+    t.index ["stripe_payment_intent_id"], name: "index_orders_on_stripe_payment_intent_id", unique: true
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

@@ -55,7 +55,7 @@ class CheckoutProcessor
 
     @customer.orders.build(
       user: nil,
-      status: :pending,
+      status: :new_order,
       delivery_method: @customer.address.present? ? :shipping : :in_store_pickup,
       subtotal: subtotal,
       gst_amount: gst_amount,

@@ -1,6 +1,6 @@
 <section class="page-hero invoice-hero">
   <div class="container">
-    <p class="eyebrow">ORDER CONFIRMATION</p>
+    <p class="eyebrow">ORDER STATUS: <%= @order.status_label.upcase %></p>
     <h1>Invoice #<%= @order.id.to_s.rjust(6, "0") %></h1>
     <p>Created <%= @order.created_at.in_time_zone.to_fs(:long) %></p>
   </div>

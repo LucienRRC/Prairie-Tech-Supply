@@ -14036,3 +14036,204 @@ FOREIGN KEY ("user_id")
   [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mProvince Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "provinces"[0m
   [1m[36mProvince Load (0.3ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."id" = ? LIMIT ?[0m  [["id", 11], ["LIMIT", 1]]
+Started GET "/admin" for 127.0.0.1 at 2026-08-07 23:55:15 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Admin::DashboardController#index as HTML
+  [1m[36mAdminUser Load (6.7ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products"[0m
+  ↳ app/admin/dashboard.rb:15:in `block (4 levels) in <main>'
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE "products"."active" = ?[0m  [["active", 1]]
+  ↳ app/admin/dashboard.rb:19:in `block (4 levels) in <main>'
+  [1m[36mProduct Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "products" WHERE (stock_quantity <= ?)[0m  [[nil, 10]]
+  ↳ app/admin/dashboard.rb:23:in `block (4 levels) in <main>'
+  [1m[36mSitePage Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "site_pages"[0m
+  ↳ app/admin/dashboard.rb:27:in `block (4 levels) in <main>'
+  [1m[36mProduct Load (0.5ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE (stock_quantity <= ?) ORDER BY "products"."stock_quantity" ASC LIMIT ?[0m  [[nil, 10], ["LIMIT", 8]]
+  ↳ app/admin/dashboard.rb:35:in `block (5 levels) in <main>'
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?)[0m  [["id", 5], ["id", 3]]
+  ↳ app/admin/dashboard.rb:35:in `block (5 levels) in <main>'
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/page/index.html.arb within layouts/active_admin (Duration: 106.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 8.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 5.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 9.3ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 4.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 1.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 1.9ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 249.4ms | GC: 0.0ms)
+Completed 200 OK in 371ms (Views: 277.1ms | ActiveRecord: 9.0ms (7 queries, 0 cached) | GC: 0.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-08-07 23:55:25 -0500
+Processing by HomeController#index as HTML
+  [1m[36mProduct Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "products"."category_id" AS "products_category_id" FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."category_id" IN (SELECT DISTINCT "categories"."id" FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? AND (stock_quantity > 0) ORDER BY "categories"."name" ASC LIMIT ?) GROUP BY "products"."category_id"[0m  [["active", 1], ["active", 1], ["LIMIT", 6]]
+  ↳ app/controllers/home_controller.rb:15:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mCategory Load (2.0ms)[0m  [1m[34mSELECT DISTINCT "categories".* FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? AND (stock_quantity > 0) ORDER BY "categories"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:23
+  [1m[36mProduct Load (0.7ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) ORDER BY "products"."updated_at" DESC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  ↳ app/views/home/index.html.erb:41
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" IN (?, ?, ?)[0m  [["id", 6], ["id", 5], ["id", 4]]
+  ↳ app/views/home/index.html.erb:41
+  [1m[36mActiveStorage::Attachment Load (0.7ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" IN (?, ?, ?, ?, ?, ?)[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 10], ["record_id", 11], ["record_id", 13], ["record_id", 9], ["record_id", 8], ["record_id", 7]]
+  ↳ app/views/home/index.html.erb:41
+  [1m[36mActiveStorage::Blob Load (0.4ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ?[0m  [["id", 27]]
+  ↳ app/views/home/index.html.erb:41
+  Rendered collection of products/_product_card.html.erb [6 times] (Duration: 202.9ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 274.4ms | GC: 0.0ms)
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ? ORDER BY "customers"."id" ASC LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/views/layouts/application.html.erb:32
+  Rendered layout layouts/application.html.erb (Duration: 316.2ms | GC: 0.0ms)
+Completed 200 OK in 440ms (Views: 401.2ms | ActiveRecord: 5.8ms (7 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsiZGF0YSI6MjcsInB1ciI6ImJsb2JfaWQifX0=--c5fb56927f14fb555f79316efb647a8c9adb1944/computer-technology.jpg" for 127.0.0.1 at 2026-08-07 23:55:26 -0500
+Started GET "/manifest.json" for 127.0.0.1 at 2026-08-07 23:55:26 -0500
+Processing by ActiveStorage::Blobs::RedirectController#show as JPEG
+  Parameters: {"signed_id"=>"eyJfcmFpbHMiOnsiZGF0YSI6MjcsInB1ciI6ImJsb2JfaWQifX0=--c5fb56927f14fb555f79316efb647a8c9adb1944", "filename"=>"computer-technology"}
+  [1m[36mActiveStorage::Blob Load (0.5ms)[0m  [1m[34mSELECT "active_storage_blobs".* FROM "active_storage_blobs" WHERE "active_storage_blobs"."id" = ? LIMIT ?[0m  [["id", 27], ["LIMIT", 1]]
+[36m  Disk Storage (1.9ms) [0m[34mGenerated URL for file at key: 18k30ogocc934hbuk2udtpprghkj (http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxOGszMG9nb2NjOTM0aGJ1azJ1ZHRwcHJnaGtqIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA4LTA4VDA1OjAwOjI2LjkyOVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--7bbc09f20d7aa37fb53a17e5b4703fa15bdc34ae/computer-technology.jpg)[0m
+Redirected to http://127.0.0.1:3000/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxOGszMG9nb2NjOTM0aGJ1azJ1ZHRwcHJnaGtqIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA4LTA4VDA1OjAwOjI2LjkyOVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--7bbc09f20d7aa37fb53a17e5b4703fa15bdc34ae/computer-technology.jpg
+Completed 302 Found in 69ms (ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/rails/active_storage/disk/eyJfcmFpbHMiOnsiZGF0YSI6eyJrZXkiOiIxOGszMG9nb2NjOTM0aGJ1azJ1ZHRwcHJnaGtqIiwiZGlzcG9zaXRpb24iOiJpbmxpbmU7IGZpbGVuYW1lPVwiY29tcHV0ZXItdGVjaG5vbG9neS5qcGdcIjsgZmlsZW5hbWUqPVVURi04Jydjb21wdXRlci10ZWNobm9sb2d5LmpwZyIsImNvbnRlbnRfdHlwZSI6ImltYWdlL2pwZWciLCJzZXJ2aWNlX25hbWUiOiJsb2NhbCJ9LCJleHAiOiIyMDI2LTA4LTA4VDA1OjAwOjI2LjkyOVoiLCJwdXIiOiJibG9iX2tleSJ9fQ==--7bbc09f20d7aa37fb53a17e5b4703fa15bdc34ae/computer-technology.jpg" for 127.0.0.1 at 2026-08-07 23:55:26 -0500
+Processing by Rails::PwaController#manifest as JSON
+  Rendering pwa/manifest.json.erb
+  Rendered pwa/manifest.json.erb (Duration: 3.3ms | GC: 0.0ms)
+Completed 200 OK in 34ms (Views: 16.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Processing by ActiveStorage::DiskController#show as JPEG
+  Parameters: {"encoded_key"=>"[FILTERED]", "filename"=>"computer-technology"}
+Completed 200 OK in 21ms (ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/provinces" for 127.0.0.1 at 2026-08-07 23:55:38 -0500
+Processing by Admin::ProvincesController#index as HTML
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 1.8ms | GC: 0.0ms)
+  [1m[36mProvince Load (0.5ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" ORDER BY "provinces"."name" asc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 120.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 6.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 140.5ms | GC: 0.0ms)
+Completed 200 OK in 247ms (Views: 169.6ms | ActiveRecord: 0.7ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/provinces/1/edit" for 127.0.0.1 at 2026-08-07 23:55:42 -0500
+Processing by Admin::ProvincesController#edit as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProvince Load (0.3ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_form.html.arb (Duration: 39.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/edit.html.arb within layouts/active_admin (Duration: 63.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 5.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 2.0ms | GC: 0.0ms)
+  [1m[36mCACHE Province Load (0.0ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 10.5ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_section.html.arb (Duration: 1.0ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/shared/_sidebar_sections.html.erb (Duration: 10.9ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 19.6ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 112.6ms | GC: 0.0ms)
+Completed 200 OK in 166ms (Views: 138.3ms | ActiveRecord: 0.5ms (3 queries, 1 cached) | GC: 0.0ms)
+
+
+Started PATCH "/admin/provinces/1" for 127.0.0.1 at 2026-08-07 23:56:13 -0500
+Processing by Admin::ProvincesController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "province"=>{"gst_rate"=>"0.06", "pst_rate"=>"0.0", "hst_rate"=>"0.0"}, "commit"=>"Update Province", "id"=>"1"}
+  [1m[36mAdminUser Load (0.3ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mProvince Load (0.3ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" WHERE "provinces"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/admin/provinces.rb:52:in `update'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/admin/provinces.rb:52:in `update'
+  [1m[36mProvince Update (0.2ms)[0m  [1m[33mUPDATE "provinces" SET "gst_rate" = ?, "updated_at" = ? WHERE "provinces"."id" = ?[0m  [["gst_rate", 0.06], ["updated_at", "2026-08-08 04:56:14.170604"], ["id", 1]]
+  ↳ app/admin/provinces.rb:52:in `update'
+  [1m[36mTRANSACTION (9.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/admin/provinces.rb:52:in `update'
+Redirected to http://127.0.0.1:3000/admin/provinces
+Completed 302 Found in 70ms (ActiveRecord: 20.8ms (3 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/admin/provinces" for 127.0.0.1 at 2026-08-07 23:56:14 -0500
+Processing by Admin::ProvincesController#index as HTML
+  [1m[36mAdminUser Load (0.4ms)[0m  [1m[34mSELECT "admin_users".* FROM "admin_users" WHERE "admin_users"."id" = ? ORDER BY "admin_users"."id" ASC LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb
+  Rendering C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/_batch_actions_dropdown.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  [1m[36mProvince Load (4.8ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" ORDER BY "provinces"."name" asc LIMIT ? OFFSET ?[0m  [["LIMIT", 20], ["OFFSET", 0]]
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/resource/index.html.arb within layouts/active_admin (Duration: 260.4ms | GC: 1.6ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_html_head.html.erb (Duration: 6.7ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_header.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_main_navigation.html.erb (Duration: 3.8ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_page_header.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_flash_messages.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_sidebar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/active_admin/_site_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered layout C:/Users/user/.local/share/gem/ruby/3.3.0/gems/activeadmin-4.0.0.beta22/app/views/layouts/active_admin.html.erb (Duration: 285.0ms | GC: 1.6ms)
+Completed 200 OK in 321ms (Views: 281.8ms | ActiveRecord: 5.0ms (2 queries, 0 cached) | GC: 1.7ms)
+
+
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddStripePaymentStatusToOrders (20260809000000)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (4.2ms)[0m  [1m[35mALTER TABLE "orders" ADD "stripe_checkout_session_id" varchar[0m
+  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "orders" ADD "stripe_payment_intent_id" varchar[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "orders" ADD "paid_at" datetime(6)[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "orders" ADD "shipped_at" datetime(6)[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_orders_on_stripe_checkout_session_id" ON "orders" ("stripe_checkout_session_id")[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_orders_on_stripe_payment_intent_id" ON "orders" ("stripe_payment_intent_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[33mUPDATE orders SET status = CASE status WHEN 'pending' THEN 'new' WHEN 'processing' THEN 'paid' WHEN 'ready' THEN 'paid' WHEN 'completed' THEN 'shipped' ELSE status END[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TEMPORARY TABLE "aorders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'pending' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL, "stripe_checkout_session_id" varchar, "stripe_payment_intent_id" varchar, "paid_at" datetime(6), "shipped_at" datetime(6))[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aorders_on_stripe_payment_intent_id" ON "aorders" ("stripe_payment_intent_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "tindex_aorders_on_stripe_checkout_session_id" ON "aorders" ("stripe_checkout_session_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id_and_created_at" ON "aorders" ("customer_id", "created_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_customer_id" ON "aorders" ("customer_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_status" ON "aorders" ("status")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id_and_created_at" ON "aorders" ("user_id", "created_at")[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "tindex_aorders_on_user_id" ON "aorders" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "aorders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id","stripe_checkout_session_id","stripe_payment_intent_id","paid_at","shipped_at")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id","stripe_checkout_session_id","stripe_payment_intent_id","paid_at","shipped_at" FROM "orders"[0m
+  [1m[35m (1.5ms)[0m  [1m[35mDROP TABLE "orders"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "orders" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "status" varchar DEFAULT 'new' NOT NULL, "delivery_method" varchar NOT NULL, "subtotal" decimal(10,2) DEFAULT 0.0 NOT NULL, "gst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "pst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "hst_amount" decimal(10,2) DEFAULT 0.0 NOT NULL, "delivery_fee" decimal(10,2) DEFAULT 0.0 NOT NULL, "total" decimal(10,2) DEFAULT 0.0 NOT NULL, "recipient_name" varchar NOT NULL, "phone" varchar, "address" varchar, "city" varchar, "postal_code" varchar, "province_name" varchar NOT NULL, "gst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "pst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "hst_rate" decimal(6,5) DEFAULT 0.0 NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, "customer_id" integer NOT NULL, "stripe_checkout_session_id" varchar, "stripe_payment_intent_id" varchar, "paid_at" datetime(6), "shipped_at" datetime(6), CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_3dad120da9"
+FOREIGN KEY ("customer_id")
+  REFERENCES "customers" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id" ON "orders" ("user_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_user_id_and_created_at" ON "orders" ("user_id", "created_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_status" ON "orders" ("status")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id" ON "orders" ("customer_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE INDEX "index_orders_on_customer_id_and_created_at" ON "orders" ("customer_id", "created_at")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_orders_on_stripe_checkout_session_id" ON "orders" ("stripe_checkout_session_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_orders_on_stripe_payment_intent_id" ON "orders" ("stripe_payment_intent_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[32mINSERT INTO "orders" ("id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id","stripe_checkout_session_id","stripe_payment_intent_id","paid_at","shipped_at")
+                     SELECT "id","user_id","status","delivery_method","subtotal","gst_amount","pst_amount","hst_amount","delivery_fee","total","recipient_name","phone","address","city","postal_code","province_name","gst_rate","pst_rate","hst_rate","created_at","updated_at","customer_id","stripe_checkout_session_id","stripe_payment_intent_id","paid_at","shipped_at" FROM "aorders"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE "aorders"[0m
+  [1m[35m (0.0ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260809000000') RETURNING "version"[0m
+  [1m[36mTRANSACTION (10.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m

@@ -18,7 +18,7 @@
             </div>
             <div class="order-history-meta">
               <span><%= order.created_at.in_time_zone.to_fs(:long) %></span>
-              <strong><%= order.status.humanize %></strong>
+              <strong><%= order.status_label %></strong>
             </div>
           </header>
 

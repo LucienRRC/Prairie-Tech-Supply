@@ -80,7 +80,7 @@ class CustomerOrderHistoryTest < ActionDispatch::IntegrationTest
   def create_order(customer, product, quantity:, subtotal:, gst:, pst:, total:)
     order = Order.create!(
       customer: customer,
-      status: :completed,
+      status: :shipped,
       delivery_method: :in_store_pickup,
       subtotal: subtotal,
       gst_amount: gst,

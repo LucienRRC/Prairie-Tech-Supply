@@ -1,6 +1,7 @@
 require "test_helper"
 
 class CheckoutsControllerTest < ActionDispatch::IntegrationTest
+  include StripeCheckoutTestHelper
   setup do
     @manitoba = Province.create!(
       name: "Manitoba",
@@ -54,7 +55,7 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference ["Customer.count", "Order.count"], 1 do
       assert_difference "OrderItem.count", 2 do
-        post checkout_path, params: {
+        submit_checkout(
           customer: {
             first_name: "Jamie",
             last_name: "Prairie",
@@ -65,13 +66,15 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
             postal_code: "R3B 2B9",
             province_id: @manitoba.id
           }
-        }
+        )
       end
     end
 
     order = Order.order(:id).last
     customer = Customer.order(:id).last
-    assert_redirected_to order_path(order)
+    assert_redirected_to stripe_checkout_url(order)
+    assert order.new_order?
+    assert_equal "cs_test_order_#{order.id}", order.stripe_checkout_session_id
     assert_equal customer, order.customer
     assert_nil order.user
     assert_equal "jamie@example.com", customer.email
@@ -85,7 +88,7 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 6, @keyboard.reload.stock_quantity
     assert_equal 5, @mouse.reload.stock_quantity
 
-    follow_redirect!
+    get order_path(order)
     assert_response :success
     assert_select "h1", text: "Invoice ##{order.id.to_s.rjust(6, '0')}"
     assert_select ".invoice-table tbody tr", count: 2
@@ -100,17 +103,18 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
   test "uses Ontario HST and accepts province without street address" do
     post add_cart_item_path(@mouse), params: { quantity: 1 }
 
-    post checkout_path, params: {
+    submit_checkout(
       customer: {
         first_name: "Alex",
         last_name: "Ontario",
         email: "alex.ontario@example.com",
         province_id: @ontario.id
       }
-    }
+    )
 
     order = Order.order(:id).last
-    assert_redirected_to order_path(order)
+    assert_redirected_to stripe_checkout_url(order)
+    assert order.new_order?
     assert_equal @ontario, order.customer.province
     assert_nil order.customer.address
     assert_equal "in_store_pickup", order.delivery_method
@@ -119,7 +123,7 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_equal BigDecimal("5.20"), order.hst_amount
     assert_equal BigDecimal("45.20"), order.total
 
-    follow_redirect!
+    get order_path(order)
     assert_select ".invoice-totals", text: /HST \(13%\).*\$5\.20/m
     assert_select ".invoice-totals", text: /GST/, count: 0
     assert_select ".invoice-totals", text: /Provincial sales tax/, count: 0
@@ -129,14 +133,14 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     @manitoba.update!(gst_rate: 0.06, pst_rate: 0.08)
     post add_cart_item_path(@mouse), params: { quantity: 1 }
 
-    post checkout_path, params: {
+    submit_checkout(
       customer: {
         first_name: "Updated",
         last_name: "Taxes",
         email: "updated.taxes@example.com",
         province_id: @manitoba.id
       }
-    }
+    )
 
     order = Order.order(:id).last
     assert_equal BigDecimal("0.06"), order.gst_rate
@@ -155,14 +159,14 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
   test "product price changes do not affect an existing order or invoice" do
     post add_cart_item_path(@keyboard), params: { quantity: 2 }
 
-    post checkout_path, params: {
+    submit_checkout(
       customer: {
         first_name: "Price",
         last_name: "Snapshot",
         email: "price.snapshot@example.com",
         province_id: @manitoba.id
       }
-    }
+    )
 
     order = Order.order(:id).last
     item = order.order_items.find_by!(product: @keyboard)

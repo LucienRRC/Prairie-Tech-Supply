@@ -7,6 +7,7 @@ class CheckoutsController < ApplicationController
   end
 
   def create
+    order = nil
     attributes = customer_params.to_h.symbolize_keys
     attributes[:email] = current_customer.email if customer_signed_in?
     processor = CheckoutProcessor.new(
@@ -16,12 +17,19 @@ class CheckoutsController < ApplicationController
     )
     order = processor.call
 
+    stripe_session = StripeCheckoutSession.create(
+      order: order,
+      success_url: "#{payment_success_url(order)}?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: payment_cancel_url(order)
+    )
+    order.update!(stripe_checkout_session_id: stripe_session.id)
+
     session[:customer_id] = processor.customer.id
     session[:cart] = {}
     completed_order_ids = Array(session[:completed_order_ids]).map(&:to_i)
     session[:completed_order_ids] = (completed_order_ids << order.id).uniq.last(10)
 
-    redirect_to order_path(order), notice: "Your order was created successfully."
+    redirect_to stripe_session.url, allow_other_host: true
   rescue ActiveRecord::RecordInvalid => error
     @customer = error.record.is_a?(Customer) ? error.record : processor.customer
     @customer ||= Customer.new(customer_params)
@@ -32,6 +40,12 @@ class CheckoutsController < ApplicationController
     redirect_to cart_path, alert: "Your cart is empty."
   rescue CheckoutProcessor::UnavailableProductError => error
     redirect_to cart_path, alert: error.message
+  rescue StripeCheckoutSession::ConfigurationError, Stripe::StripeError => error
+    order&.cancel_and_release_inventory!
+    @customer = processor&.customer || Customer.new(customer_params)
+    load_cart_preview
+    flash.now[:alert] = "Payment service is unavailable: #{error.message}"
+    render :new, status: :service_unavailable
   end
 
   private

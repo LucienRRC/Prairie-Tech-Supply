@@ -1,6 +1,7 @@
 require "test_helper"
 
 class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
+  include StripeCheckoutTestHelper
   setup do
     @province = Province.create!(
       name: "Authentication Manitoba",
@@ -184,7 +185,7 @@ class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
     assert_select "input[name='customer[email]'][value='account.checkout@example.com'][readonly]"
     assert_select "input[name='customer[address]'][value='12 Old Address']"
 
-    post checkout_path, params: {
+    submit_checkout(
       customer: {
         first_name: "Checkout",
         last_name: "Customer",
@@ -194,10 +195,11 @@ class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
         postal_code: "R3C 3B3",
         province_id: @province.id
       }
-    }
+    )
 
     order = Order.order(:id).last
-    assert_redirected_to order_path(order)
+    assert_redirected_to stripe_checkout_url(order)
+    assert order.new_order?
     assert_equal customer, order.customer
     assert_equal "account.checkout@example.com", customer.reload.email
     assert_equal "99 New Address", customer.address

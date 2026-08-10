@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   patch "/cart/items/:product_id", to: "carts#update", as: :update_cart_item
   delete "/cart/items/:product_id", to: "carts#destroy", as: :remove_cart_item
   resource :checkout, only: [:new, :create]
+  get "/payments/:order_id/success", to: "payments#success", as: :payment_success
+  get "/payments/:order_id/cancel", to: "payments#cancel", as: :payment_cancel
+  post "/stripe/webhook", to: "stripe_webhooks#create", as: :stripe_webhook
   resources :orders, only: [:index, :show]
   get "/about", to: "site_pages#show", defaults: { slug: "about" }, as: :about
   get "/contact", to: "site_pages#show", defaults: { slug: "contact" }, as: :contact
