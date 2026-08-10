@@ -103,9 +103,10 @@ ActiveAdmin.register Product do
       f.input :active
       current_image = f.object.image.attached? ? url_for(f.object.image) : image_path("computer-technology.jpg")
       f.input :image, as: :file,
+        input_html: { accept: Product::IMAGE_CONTENT_TYPES.join(",") },
         hint: safe_join([
           image_tag(current_image, class: "admin-product-preview", alt: "Current product image"),
-          content_tag(:span, "Upload a JPG, PNG, or WebP image to replace the current image.", class: "admin-file-hint")
+          content_tag(:span, "Upload a JPG, PNG, or WebP image up to 5 MB to replace the current image.", class: "admin-file-hint")
         ])
     end
     f.actions

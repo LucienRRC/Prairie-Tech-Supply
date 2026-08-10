@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  IMAGE_CONTENT_TYPES = %w[image/jpeg image/png image/webp].freeze
+  MAX_IMAGE_SIZE = 5.megabytes
+
   belongs_to :category
   has_many :cart_items, dependent: :destroy
   has_many :order_items, dependent: :restrict_with_error
@@ -30,6 +33,7 @@ class Product < ApplicationRecord
     numericality: { greater_than_or_equal_to: 0, less_than: :price },
     allow_nil: true
   validates :stock_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validate :acceptable_image
 
   def on_sale?
     sale_price.present? && sale_price < price
@@ -45,5 +49,19 @@ class Product < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[category image_attachment image_blob]
+  end
+
+  private
+
+  def acceptable_image
+    return unless image.attached?
+
+    unless IMAGE_CONTENT_TYPES.include?(image.blob.content_type)
+      errors.add(:image, "must be a JPG, PNG, or WebP file")
+    end
+
+    if image.blob.byte_size > MAX_IMAGE_SIZE
+      errors.add(:image, "must be smaller than 5 MB")
+    end
   end
 end

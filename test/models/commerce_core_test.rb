@@ -13,6 +13,14 @@ class CommerceCoreTest < ActiveSupport::TestCase
 
     assert category.valid?
     assert product.valid?
+
+    product.image.attach(
+      io: StringIO.new("This is not an image"),
+      filename: "notes.txt",
+      content_type: "text/plain"
+    )
+    assert_not product.valid?
+    assert_includes product.errors[:image], "must be a JPG, PNG, or WebP file"
   end
 
   test "cart item quantity must be positive" do

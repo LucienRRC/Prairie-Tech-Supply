@@ -52,6 +52,24 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     get edit_admin_product_path(@product)
     assert_response :success
     assert_select "img.admin-product-preview"
+    assert_select "form[enctype='multipart/form-data']"
+    assert_select "input[type='file'][name='product[image]'][accept='image/jpeg,image/png,image/webp']"
+
+    previous_blob_id = @product.image.blob.id
+    upload = Rack::Test::UploadedFile.new(
+      Rails.root.join("app/assets/images/computer-technology.jpg"),
+      "image/jpeg"
+    )
+    assert_difference "ActiveStorage::Blob.count", 1 do
+      patch admin_product_path(@product), params: { product: { image: upload } }
+    end
+    assert_redirected_to admin_product_path(@product)
+    assert @product.reload.image.attached?
+    assert_not_equal previous_blob_id, @product.image.blob.id
+
+    get product_path(@product)
+    assert_response :success
+    assert_select ".detail-image img[src*='/rails/active_storage/']"
 
     get admin_site_pages_path
     assert_response :success

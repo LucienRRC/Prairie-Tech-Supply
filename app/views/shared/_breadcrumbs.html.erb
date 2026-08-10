@@ -1,0 +1,16 @@
+<% items = breadcrumb_items %>
+<% if items.any? %>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol class="container">
+      <% items.each_with_index do |item, index| %>
+        <li>
+          <% if item[:path].present? && index < items.length - 1 %>
+            <%= link_to item[:label], item[:path] %>
+          <% else %>
+            <span aria-current="<%= "page" if index == items.length - 1 %>"><%= item[:label] %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+  </nav>
+<% end %>

@@ -32,6 +32,9 @@ class StorefrontTest < ActionDispatch::IntegrationTest
   test "lists and shows active products" do
     get products_url
     assert_response :success
+    assert_select "nav.breadcrumbs[aria-label='Breadcrumb'] ol li", count: 2
+    assert_select "nav.breadcrumbs a[href='#{root_path}']", text: "Home"
+    assert_select "nav.breadcrumbs [aria-current='page']", text: "Products"
     assert_select "h3", text: @paginated_products.first.name
     assert_select "article.product-card", count: 6
     assert_select "nav.pagination"
@@ -46,6 +49,10 @@ class StorefrontTest < ActionDispatch::IntegrationTest
     get product_url(@product)
     assert_response :success
     assert_select "h1", text: @product.name
+    assert_select "nav.breadcrumbs ol li", count: 4
+    assert_select "nav.breadcrumbs a[href='#{categories_path}']", text: "Categories"
+    assert_select "nav.breadcrumbs a[href='#{category_path(@category)}']", text: @category.name
+    assert_select "nav.breadcrumbs [aria-current='page']", text: @product.name
   end
 
   test "shows editable public pages" do
@@ -241,12 +248,17 @@ class StorefrontTest < ActionDispatch::IntegrationTest
     get categories_url
     assert_response :success
     assert_select "h1", text: "Categories"
+    assert_select "nav.breadcrumbs ol li", count: 2
+    assert_select "nav.breadcrumbs [aria-current='page']", text: "Categories"
     assert_select "a[href='#{category_path(@category)}']", text: /Browse #{@category.name}/
     assert_select "a[href='#{category_path(office_category)}']", text: /Browse #{office_category.name}/
 
     get category_url(@category)
     assert_response :success
     assert_select "h1", text: @category.name
+    assert_select "nav.breadcrumbs ol li", count: 3
+    assert_select "nav.breadcrumbs a[href='#{categories_path}']", text: "Categories"
+    assert_select "nav.breadcrumbs [aria-current='page']", text: @category.name
     assert_select "form.product-search", count: 0
     assert_select "article.product-card", count: 6
     assert_select "h3", text: office_product.name, count: 0
