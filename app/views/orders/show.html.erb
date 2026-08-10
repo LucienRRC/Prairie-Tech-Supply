@@ -40,11 +40,11 @@
         <tbody>
           <% @order.order_items.each do |item| %>
             <tr>
-              <td><%= item.product_name %></td>
-              <td><%= item.sku %></td>
-              <td><%= item.quantity %></td>
-              <td><%= number_to_currency(item.unit_price) %></td>
-              <td><%= number_to_currency(item.line_total) %></td>
+              <td data-label="Product"><%= item.product_name %></td>
+              <td data-label="SKU"><%= item.sku %></td>
+              <td data-label="Quantity"><%= item.quantity %></td>
+              <td data-label="Unit price"><%= number_to_currency(item.unit_price) %></td>
+              <td data-label="Line total"><%= number_to_currency(item.line_total) %></td>
             </tr>
           <% end %>
         </tbody>

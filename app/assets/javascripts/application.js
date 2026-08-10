@@ -1,7 +1,44 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const cart = document.querySelector("[data-session-cart]");
-  if (!cart) return;
+const initializeNavigation = () => {
+  const toggle = document.querySelector(".nav-toggle");
+  const navigation = document.querySelector("#site-navigation");
+  if (!toggle || !navigation || toggle.dataset.initialized === "true") return;
 
+  toggle.dataset.initialized = "true";
+  document.body.classList.add("nav-ready");
+
+  const setOpen = (open) => {
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close main navigation" : "Open main navigation");
+    navigation.classList.toggle("is-open", open);
+  };
+
+  toggle.addEventListener("click", () => {
+    setOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  navigation.addEventListener("click", (event) => {
+    if (event.target.closest("a, button") && window.matchMedia("(max-width: 900px)").matches) {
+      setOpen(false);
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+
+  window.matchMedia("(min-width: 901px)").addEventListener("change", (event) => {
+    if (event.matches) setOpen(false);
+  });
+};
+
+const initializeCart = () => {
+  const cart = document.querySelector("[data-session-cart]");
+  if (!cart || cart.dataset.initialized === "true") return;
+
+  cart.dataset.initialized = "true";
   const currency = new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: "CAD"
@@ -48,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("input", () => {
       window.clearTimeout(saveTimer);
       renderTotals();
-      status.textContent = "Saving…";
+      status.textContent = "Saving...";
 
       saveTimer = window.setTimeout(async () => {
         try {
@@ -77,4 +114,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 350);
     });
   });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  initializeNavigation();
+  initializeCart();
+});
+
+document.addEventListener("turbo:load", () => {
+  initializeNavigation();
+  initializeCart();
 });
