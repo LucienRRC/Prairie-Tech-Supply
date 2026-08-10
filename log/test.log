@@ -44606,3 +44606,157 @@ Processing by CheckoutsController#new as HTML
   Rendered layout layouts/application.html.erb (Duration: 28.4ms | GC: 0.2ms)
 Completed 200 OK in 47ms (Views: 34.4ms | ActiveRecord: 0.2ms (3 queries, 1 cached) | GC: 0.2ms)
   [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+-------------------------------------------------------------------------------------------------------
+ResponsiveStorefrontTest: test_mobile_invoice_cells_include_labels_when_the_table_becomes_stacked_cards
+-------------------------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvince Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."name" = ? LIMIT ?[0m  [["name", "Responsive Manitoba"], ["LIMIT", 1]]
+  [1m[36mProvince Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."abbreviation" = ? LIMIT ?[0m  [["abbreviation", "RM"], ["LIMIT", 1]]
+  [1m[36mProvince Create (0.3ms)[0m  [1m[32mINSERT INTO "provinces" ("name", "abbreviation", "gst_rate", "pst_rate", "hst_rate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Manitoba"], ["abbreviation", "RM"], ["gst_rate", 0.05], ["pst_rate", 0.07], ["hst_rate", 0.0], ["created_at", "2026-08-10 01:14:37.967983"], ["updated_at", "2026-08-10 01:14:37.967983"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.8ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."username") = LOWER(?) LIMIT ?[0m  [["username", "mobile_customer"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER(?) LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("province_id", "first_name", "last_name", "email", "phone", "address", "city", "postal_code", "created_at", "updated_at", "username", "encrypted_password", "account_registered") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["province_id", 1], ["first_name", "Mobile"], ["last_name", "Customer"], ["email", "[FILTERED]"], ["phone", nil], ["address", nil], ["city", nil], ["postal_code", nil], ["created_at", "2026-08-10 01:14:37.998497"], ["updated_at", "2026-08-10 01:14:37.998497"], ["username", "mobile_customer"], ["encrypted_password", "[FILTERED]"], ["account_registered", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Responsive Products"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.2ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Products"], ["description", nil], ["created_at", "2026-08-10 01:14:38.010547"], ["updated_at", "2026-08-10 01:14:38.010547"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "RESPONSIVE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at", "sale_price") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Responsive Test Laptop"], ["description", "A product used to verify the responsive storefront structure."], ["brand", "Prairie Tech"], ["sku", "RESPONSIVE-001"], ["price", 100.0], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-08-10 01:14:38.020074"], ["updated_at", "2026-08-10 01:14:38.020074"], ["sale_price", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOrder Create (0.9ms)[0m  [1m[32mINSERT INTO "orders" ("user_id", "status", "delivery_method", "subtotal", "gst_amount", "pst_amount", "hst_amount", "delivery_fee", "total", "recipient_name", "phone", "address", "city", "postal_code", "province_name", "gst_rate", "pst_rate", "hst_rate", "created_at", "updated_at", "customer_id", "stripe_checkout_session_id", "stripe_payment_intent_id", "paid_at", "shipped_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["user_id", nil], ["status", "paid"], ["delivery_method", "shipping"], ["subtotal", 200.0], ["gst_amount", 10.0], ["pst_amount", 14.0], ["hst_amount", 0.0], ["delivery_fee", 0.0], ["total", 224.0], ["recipient_name", "Mobile Customer"], ["phone", nil], ["address", nil], ["city", nil], ["postal_code", nil], ["province_name", "Responsive Manitoba"], ["gst_rate", 0.05], ["pst_rate", 0.07], ["hst_rate", 0.0], ["created_at", "2026-08-10 01:14:38.057387"], ["updated_at", "2026-08-10 01:14:38.057387"], ["customer_id", 1], ["stripe_checkout_session_id", nil], ["stripe_payment_intent_id", nil], ["paid_at", "2026-08-10 01:14:38.032856"], ["shipped_at", nil]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mOrderItem Create (1.1ms)[0m  [1m[32mINSERT INTO "order_items" ("order_id", "product_id", "product_name", "sku", "quantity", "unit_price", "line_total", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["order_id", 1], ["product_id", 1], ["product_name", "Responsive Test Laptop"], ["sku", "RESPONSIVE-001"], ["quantity", 2], ["unit_price", 100.0], ["line_total", 200.0], ["created_at", "2026-08-10 01:14:38.078678"], ["updated_at", "2026-08-10 01:14:38.078678"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/orders/1" for 127.0.0.1 at 2026-08-09 20:14:38 -0500
+Processing by OrdersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mOrder Load (0.4ms)[0m  [1m[34mSELECT "orders".* FROM "orders" WHERE "orders"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = ?[0m  [["id", 1]]
+  [1m[36mOrderItem Load (0.4ms)[0m  [1m[34mSELECT "order_items".* FROM "order_items" WHERE "order_items"."order_id" = ?[0m  [["order_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering orders/show.html.erb within layouts/application
+  Rendered orders/show.html.erb within layouts/application (Duration: 26.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 376.2ms | GC: 0.3ms)
+Completed 200 OK in 470ms (Views: 402.7ms | ActiveRecord: 1.0ms (3 queries, 0 cached) | GC: 0.3ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+------------------------------------------------------------------------------------------------
+ResponsiveStorefrontTest: test_stylesheet_defines_tablet_mobile_and_narrow-phone_reconfiguration
+------------------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvince Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."name" = ? LIMIT ?[0m  [["name", "Responsive Manitoba"], ["LIMIT", 1]]
+  [1m[36mProvince Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."abbreviation" = ? LIMIT ?[0m  [["abbreviation", "RM"], ["LIMIT", 1]]
+  [1m[36mProvince Create (0.2ms)[0m  [1m[32mINSERT INTO "provinces" ("name", "abbreviation", "gst_rate", "pst_rate", "hst_rate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Manitoba"], ["abbreviation", "RM"], ["gst_rate", 0.05], ["pst_rate", 0.07], ["hst_rate", 0.0], ["created_at", "2026-08-10 01:14:38.648731"], ["updated_at", "2026-08-10 01:14:38.648731"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."username") = LOWER(?) LIMIT ?[0m  [["username", "mobile_customer"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (1.4ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER(?) LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("province_id", "first_name", "last_name", "email", "phone", "address", "city", "postal_code", "created_at", "updated_at", "username", "encrypted_password", "account_registered") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["province_id", 1], ["first_name", "Mobile"], ["last_name", "Customer"], ["email", "[FILTERED]"], ["phone", nil], ["address", nil], ["city", nil], ["postal_code", nil], ["created_at", "2026-08-10 01:14:38.659519"], ["updated_at", "2026-08-10 01:14:38.659519"], ["username", "mobile_customer"], ["encrypted_password", "[FILTERED]"], ["account_registered", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Responsive Products"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Products"], ["description", nil], ["created_at", "2026-08-10 01:14:38.662977"], ["updated_at", "2026-08-10 01:14:38.662977"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "RESPONSIVE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (1.0ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at", "sale_price") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Responsive Test Laptop"], ["description", "A product used to verify the responsive storefront structure."], ["brand", "Prairie Tech"], ["sku", "RESPONSIVE-001"], ["price", 100.0], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-08-10 01:14:38.666989"], ["updated_at", "2026-08-10 01:14:38.666989"], ["sale_price", nil]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------------
+ResponsiveStorefrontTest: test_cart_and_checkout_retain_usable_mobile_form_controls
+-----------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvince Exists? (1.8ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."name" = ? LIMIT ?[0m  [["name", "Responsive Manitoba"], ["LIMIT", 1]]
+  [1m[36mProvince Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."abbreviation" = ? LIMIT ?[0m  [["abbreviation", "RM"], ["LIMIT", 1]]
+  [1m[36mProvince Create (0.2ms)[0m  [1m[32mINSERT INTO "provinces" ("name", "abbreviation", "gst_rate", "pst_rate", "hst_rate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Manitoba"], ["abbreviation", "RM"], ["gst_rate", 0.05], ["pst_rate", 0.07], ["hst_rate", 0.0], ["created_at", "2026-08-10 01:14:38.678637"], ["updated_at", "2026-08-10 01:14:38.678637"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (1.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."username") = LOWER(?) LIMIT ?[0m  [["username", "mobile_customer"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER(?) LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("province_id", "first_name", "last_name", "email", "phone", "address", "city", "postal_code", "created_at", "updated_at", "username", "encrypted_password", "account_registered") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["province_id", 1], ["first_name", "Mobile"], ["last_name", "Customer"], ["email", "[FILTERED]"], ["phone", nil], ["address", nil], ["city", nil], ["postal_code", nil], ["created_at", "2026-08-10 01:14:38.686423"], ["updated_at", "2026-08-10 01:14:38.686423"], ["username", "mobile_customer"], ["encrypted_password", "[FILTERED]"], ["account_registered", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Responsive Products"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.3ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Products"], ["description", nil], ["created_at", "2026-08-10 01:14:38.692931"], ["updated_at", "2026-08-10 01:14:38.692931"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "RESPONSIVE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at", "sale_price") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Responsive Test Laptop"], ["description", "A product used to verify the responsive storefront structure."], ["brand", "Prairie Tech"], ["sku", "RESPONSIVE-001"], ["price", 100.0], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-08-10 01:14:38.698620"], ["updated_at", "2026-08-10 01:14:38.698620"], ["sale_price", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/cart/items/1" for 127.0.0.1 at 2026-08-09 20:14:38 -0500
+Processing by CartsController#add as HTML
+  Parameters: {"quantity"=>"2", "product_id"=>"1"}
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."id" = ? LIMIT ?[0m  [["active", 1], ["id", 1], ["LIMIT", 1]]
+Redirected to http://www.example.com/cart
+Completed 302 Found in 14ms (ActiveRecord: 0.2ms (1 query, 0 cached) | GC: 0.0ms)
+Started GET "/cart" for 127.0.0.1 at 2026-08-09 20:14:38 -0500
+Processing by CartsController#show as HTML
+  [1m[36mProduct Load (0.1ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."id" = ?[0m  [["active", 1], ["id", 1]]
+  [1m[36mCategory Load (0.1ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.2ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering carts/show.html.erb within layouts/application
+  Rendered carts/show.html.erb within layouts/application (Duration: 2.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.0ms)
+Completed 200 OK in 103ms (Views: 12.3ms | ActiveRecord: 1.2ms (3 queries, 0 cached) | GC: 0.0ms)
+Started GET "/checkout/new" for 127.0.0.1 at 2026-08-09 20:14:38 -0500
+Processing by CheckoutsController#new as HTML
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" IS NULL LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mCACHE Product Load (0.0ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."id" = ?[0m  [["active", 1], ["id", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering checkouts/new.html.erb within layouts/application
+  [1m[36mProvince Load (0.6ms)[0m  [1m[34mSELECT "provinces".* FROM "provinces" ORDER BY "provinces"."name" ASC[0m
+  Rendered checkouts/new.html.erb within layouts/application (Duration: 25.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.1ms | GC: 0.0ms)
+Completed 200 OK in 46ms (Views: 35.5ms | ActiveRecord: 0.7ms (3 queries, 1 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+-----------------------------------------------------------------------------------------------------
+ResponsiveStorefrontTest: test_layout_provides_an_accessible_collapsible_navigation_for_small_screens
+-----------------------------------------------------------------------------------------------------
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProvince Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."name" = ? LIMIT ?[0m  [["name", "Responsive Manitoba"], ["LIMIT", 1]]
+  [1m[36mProvince Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "provinces" WHERE "provinces"."abbreviation" = ? LIMIT ?[0m  [["abbreviation", "RM"], ["LIMIT", 1]]
+  [1m[36mProvince Create (0.2ms)[0m  [1m[32mINSERT INTO "provinces" ("name", "abbreviation", "gst_rate", "pst_rate", "hst_rate", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Manitoba"], ["abbreviation", "RM"], ["gst_rate", 0.05], ["pst_rate", 0.07], ["hst_rate", 0.0], ["created_at", "2026-08-10 01:14:38.918953"], ["updated_at", "2026-08-10 01:14:38.918953"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = ? LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."username") = LOWER(?) LIMIT ?[0m  [["username", "mobile_customer"], ["LIMIT", 1]]
+  [1m[36mCustomer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE LOWER("customers"."email") = LOWER(?) LIMIT ?[0m  [["email", "[FILTERED]"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("province_id", "first_name", "last_name", "email", "phone", "address", "city", "postal_code", "created_at", "updated_at", "username", "encrypted_password", "account_registered") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["province_id", 1], ["first_name", "Mobile"], ["last_name", "Customer"], ["email", "[FILTERED]"], ["phone", nil], ["address", nil], ["city", nil], ["postal_code", nil], ["created_at", "2026-08-10 01:14:38.925060"], ["updated_at", "2026-08-10 01:14:38.925060"], ["username", "mobile_customer"], ["encrypted_password", "[FILTERED]"], ["account_registered", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCategory Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "categories" WHERE LOWER("categories"."name") = LOWER(?) LIMIT ?[0m  [["name", "Responsive Products"], ["LIMIT", 1]]
+  [1m[36mCategory Create (0.1ms)[0m  [1m[32mINSERT INTO "categories" ("name", "description", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Responsive Products"], ["description", nil], ["created_at", "2026-08-10 01:14:38.928247"], ["updated_at", "2026-08-10 01:14:38.928247"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mProduct Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "products" WHERE LOWER("products"."sku") = LOWER(?) LIMIT ?[0m  [["sku", "RESPONSIVE-001"], ["LIMIT", 1]]
+  [1m[36mProduct Create (0.2ms)[0m  [1m[32mINSERT INTO "products" ("category_id", "name", "description", "brand", "sku", "price", "stock_quantity", "active", "created_at", "updated_at", "sale_price") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["category_id", 1], ["name", "Responsive Test Laptop"], ["description", "A product used to verify the responsive storefront structure."], ["brand", "Prairie Tech"], ["sku", "RESPONSIVE-001"], ["price", 100.0], ["stock_quantity", 5], ["active", 1], ["created_at", "2026-08-10 01:14:38.930424"], ["updated_at", "2026-08-10 01:14:38.930424"], ["sale_price", nil]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/" for 127.0.0.1 at 2026-08-09 20:14:38 -0500
+Processing by HomeController#index as HTML
+  [1m[36mProduct Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) AS "count_all", "products"."category_id" AS "products_category_id" FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) AND "products"."category_id" IN (SELECT DISTINCT "categories"."id" FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? AND (stock_quantity > 0) ORDER BY "categories"."name" ASC LIMIT ?) GROUP BY "products"."category_id"[0m  [["active", 1], ["active", 1], ["LIMIT", 6]]
+  Rendering layout layouts/application.html.erb
+  Rendering home/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT DISTINCT "categories".* FROM "categories" INNER JOIN "products" ON "products"."category_id" = "categories"."id" WHERE "products"."active" = ? AND (stock_quantity > 0) ORDER BY "categories"."name" ASC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  [1m[36mProduct Load (0.2ms)[0m  [1m[34mSELECT "products".* FROM "products" WHERE "products"."active" = ? AND (stock_quantity > 0) ORDER BY "products"."updated_at" DESC LIMIT ?[0m  [["active", 1], ["LIMIT", 6]]
+  [1m[36mCategory Load (0.0ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = ?[0m  [["id", 1]]
+  [1m[36mActiveStorage::Attachment Load (0.0ms)[0m  [1m[34mSELECT "active_storage_attachments".* FROM "active_storage_attachments" WHERE "active_storage_attachments"."record_type" = ? AND "active_storage_attachments"."name" = ? AND "active_storage_attachments"."record_id" = ?[0m  [["record_type", "Product"], ["name", "image"], ["record_id", 1]]
+  Rendered collection of products/_product_card.html.erb [1 times] (Duration: 3.4ms | GC: 0.0ms)
+  Rendered home/index.html.erb within layouts/application (Duration: 10.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.7ms | GC: 0.0ms)
+Completed 200 OK in 33ms (Views: 19.2ms | ActiveRecord: 1.0ms (5 queries, 0 cached) | GC: 0.0ms)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mrollback transaction[0m

@@ -35,7 +35,8 @@ a:hover { text-decoration: underline; }
 .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] .nav-toggle-icon span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-.admin-link { padding: 8px 14px; border-radius: 8px; color: white; background: var(--ink); }
+.site-nav .admin-link { padding: 8px 14px; border-radius: 8px; color: white; background: var(--ink); }
+.site-nav .admin-link:hover { color: white; background: var(--brand); text-decoration: none; }
 .signup-link { padding: 7px 12px; border: 1px solid var(--brand); border-radius: 8px; color: var(--brand); }
 .signup-link:hover { color: white; background: var(--brand); text-decoration: none; }
 .nav-form { display: inline-flex; margin: 0; }
@@ -250,7 +251,9 @@ nav.pagination .disabled { opacity: .45; }
   .nav-ready .site-nav:not(.is-open) { display: none; }
   .site-nav a, .site-nav .nav-button { min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: 8px; color: #26344e; }
   .site-nav a:hover, .site-nav .nav-button:hover { color: var(--brand); background: var(--pale); text-decoration: none; }
-  .site-nav .admin-link, .site-nav .signup-link { color: #26344e; border: 0; background: transparent; }
+  .site-nav .signup-link { color: #26344e; border: 0; background: transparent; }
+  .site-nav .admin-link { justify-content: center; margin-top: 4px; color: white; background: var(--ink); }
+  .site-nav .admin-link:hover { color: white; background: var(--brand); }
   .nav-form { width: 100%; }
   .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
   .cart-summary, .checkout-review { position: static; }
