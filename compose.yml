@@ -1,0 +1,27 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: prairie-tech-supply:local
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: production
+      RAILS_SERVE_STATIC_FILES: "true"
+      DATABASE_PATH: /rails/storage/production.sqlite3
+      STORAGE_PATH: /rails/storage
+      FORCE_SSL: "false"
+      STRIPE_CHECKOUT_ENABLED: "false"
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-docker-local-prairie-tech-supply-secret-key-base}
+    volumes:
+      - prairie_tech_storage:/rails/storage
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://127.0.0.1:3000/up"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+
+volumes:
+  prairie_tech_storage:

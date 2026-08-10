@@ -68,17 +68,15 @@ end
 product_image_path = Rails.root.join("app/assets/images/computer-technology.jpg")
 raise "Missing default product image: #{product_image_path}" unless product_image_path.exist?
 
-products_with_images = Product.with_attached_image.to_a
-old_blobs = products_with_images.filter_map { |product| product.image.blob if product.image.attached? }.uniq
-products_with_images.each { |product| product.image.detach if product.image.attached? }
-old_blobs.each(&:purge)
-
-shared_product_image = ActiveStorage::Blob.create_and_upload!(
-  io: File.open(product_image_path, "rb"),
-  filename: product_image_path.basename.to_s,
-  content_type: Marcel::MimeType.for(product_image_path)
-)
-Product.find_each { |product| product.image.attach(shared_product_image) }
+products_without_images = Product.with_attached_image.select { |product| !product.image.attached? }
+if products_without_images.any?
+  shared_product_image = ActiveStorage::Blob.create_and_upload!(
+    io: File.open(product_image_path, "rb"),
+    filename: product_image_path.basename.to_s,
+    content_type: Marcel::MimeType.for(product_image_path)
+  )
+  products_without_images.each { |product| product.image.attach(shared_product_image) }
+end
 
 SitePage.find_or_initialize_by(slug: "about").update!(
   title: "About Prairie Tech Supply",
