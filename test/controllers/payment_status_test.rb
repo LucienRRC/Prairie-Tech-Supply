@@ -153,6 +153,12 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
     get admin_order_path(@order)
     assert_response :success
     assert_select "h3", text: "Order Status Management"
+    assert_select "form[action='#{update_status_admin_order_path(@order)}']"
+    assert_select "select[name='order[status]']" do
+      assert_select "option[value='new_order']"
+      assert_select "option[value='paid']"
+      assert_select "option[value='shipped']"
+    end
     assert_select "a[href='#{sync_payment_status_admin_order_path(@order)}']", text: "Check Stripe payment"
     assert_select "a", text: "Mark as shipped", count: 0
 
@@ -176,6 +182,17 @@ class PaymentStatusTest < ActionDispatch::IntegrationTest
     get admin_order_path(@order)
     assert_response :success
     assert_select "a", text: "Mark as shipped", count: 0
+
+    patch update_status_admin_order_path(@order), params: { order: { status: "new_order" } }
+    assert_redirected_to admin_order_path(@order)
+    assert @order.reload.new_order?
+    assert_nil @order.shipped_at
+    assert_nil @order.paid_at
+
+    patch update_status_admin_order_path(@order), params: { order: { status: "paid" } }
+    assert @order.reload.paid?
+    assert_not_nil @order.paid_at
+    assert_nil @order.shipped_at
   end
 
   test "Stripe checkout sends products taxes and order metadata in Canadian dollars" do

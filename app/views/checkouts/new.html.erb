@@ -69,8 +69,13 @@
         </div>
       </div>
 
-      <%= form.submit "Continue to secure card payment", class: "checkout-submit" %>
-      <p class="form-note">Card details are collected securely by Stripe and are never stored on this website.</p>
+      <% if Rails.application.config.x.stripe.checkout_enabled %>
+        <%= form.submit "Continue to secure card payment", class: "checkout-submit" %>
+        <p class="form-note">Card details are collected securely by Stripe and are never stored on this website.</p>
+      <% else %>
+        <%= form.submit "Place order and view invoice", class: "checkout-submit" %>
+        <p class="form-note">Your order will be created as New. Store staff can update its status after reviewing it.</p>
+      <% end %>
     <% end %>
   </div>
 

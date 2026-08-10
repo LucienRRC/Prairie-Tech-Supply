@@ -35,6 +35,14 @@ ActiveAdmin.register Order do
     redirect_to admin_order_path(resource), alert: "Stripe payment was not confirmed: #{error.message}"
   end
 
+  member_action :update_status, method: :patch do
+    resource.change_status_by_admin!(params.require(:order).permit(:status)[:status])
+    redirect_to admin_order_path(resource), notice: "Order status was updated to #{resource.status_label}."
+  rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => error
+    message = error.respond_to?(:record) ? error.record.errors.full_messages.to_sentence : error.message
+    redirect_to admin_order_path(resource), alert: message
+  end
+
   action_item :mark_shipped, only: :show, if: proc { resource.paid? } do
     link_to "Mark as shipped",
       mark_shipped_admin_order_path(resource),
@@ -95,8 +103,23 @@ ActiveAdmin.register Order do
           status_tag order.status_label
         end
 
+        active_admin_form_for order,
+          url: update_status_admin_order_path(order),
+          method: :patch do |form|
+          form.inputs do
+            form.input :status,
+              as: :select,
+              collection: [["New", "new_order"], ["Paid", "paid"], ["Shipped", "shipped"]],
+              include_blank: false,
+              selected: order.status
+          end
+          form.actions do
+            form.action :submit, label: "Update order status"
+          end
+        end
+
         if order.new_order?
-          para "This order remains unpaid until Stripe confirms the card payment."
+          para "This order is awaiting manual review or payment confirmation."
           if order.stripe_checkout_session_id.present?
             text_node link_to(
               "Check Stripe payment",
@@ -107,11 +130,9 @@ ActiveAdmin.register Order do
                 turbo_confirm: "Check this order's current payment status with Stripe?"
               }
             )
-          else
-            para "No Stripe Checkout Session is associated with this order."
           end
         elsif order.paid?
-          para "Stripe has confirmed payment. Mark the order as shipped after it leaves the store."
+          para "Payment is recorded. Mark the order as shipped after it leaves the store."
           text_node link_to(
             "Mark as shipped",
             mark_shipped_admin_order_path(order),

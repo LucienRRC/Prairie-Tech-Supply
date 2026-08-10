@@ -6,6 +6,8 @@ require "minitest/mock"
 module StripeCheckoutTestHelper
   def submit_checkout(params = nil, **keywords)
     params ||= keywords
+    previous_checkout_setting = Rails.application.config.x.stripe.checkout_enabled
+    Rails.application.config.x.stripe.checkout_enabled = true
     fake_creator = lambda do |order:, **|
       Stripe::Checkout::Session.construct_from(
         id: "cs_test_order_#{order.id}",
@@ -16,6 +18,8 @@ module StripeCheckoutTestHelper
     StripeCheckoutSession.stub(:create, fake_creator) do
       post checkout_path, params: params
     end
+  ensure
+    Rails.application.config.x.stripe.checkout_enabled = previous_checkout_setting
   end
 
   def stripe_checkout_url(order)

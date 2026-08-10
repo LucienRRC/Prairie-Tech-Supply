@@ -60,7 +60,7 @@ class ResponsiveStorefrontTest < ActionDispatch::IntegrationTest
     assert_select ".checkout-layout .checkout-form-panel"
     assert_select ".checkout-layout aside.checkout-review"
     assert_select "select[name='customer[province_id]'][required]"
-    assert_select "input.checkout-submit[value='Continue to secure card payment']"
+    assert_select "input.checkout-submit[value='Place order and view invoice']"
   end
 
   test "mobile invoice cells include labels when the table becomes stacked cards" do

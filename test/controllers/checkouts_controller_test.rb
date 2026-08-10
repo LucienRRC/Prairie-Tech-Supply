@@ -55,7 +55,7 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference ["Customer.count", "Order.count"], 1 do
       assert_difference "OrderItem.count", 2 do
-        submit_checkout(
+        post checkout_path, params: {
           customer: {
             first_name: "Jamie",
             last_name: "Prairie",
@@ -66,15 +66,15 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
             postal_code: "R3B 2B9",
             province_id: @manitoba.id
           }
-        )
+        }
       end
     end
 
     order = Order.order(:id).last
     customer = Customer.order(:id).last
-    assert_redirected_to stripe_checkout_url(order)
+    assert_redirected_to order_path(order)
     assert order.new_order?
-    assert_equal "cs_test_order_#{order.id}", order.stripe_checkout_session_id
+    assert_nil order.stripe_checkout_session_id
     assert_equal customer, order.customer
     assert_nil order.user
     assert_equal "jamie@example.com", customer.email

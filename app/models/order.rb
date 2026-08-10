@@ -30,6 +30,29 @@ class Order < ApplicationRecord
     end
   end
 
+  def change_status_by_admin!(requested_status)
+    requested_status = requested_status.to_s
+    allowed_statuses = %w[new_order paid shipped]
+    unless allowed_statuses.include?(requested_status)
+      errors.add(:status, "is not available for manual updates")
+      raise ActiveRecord::RecordInvalid, self
+    end
+
+    with_lock do
+      now = Time.current
+      timestamps = case requested_status
+      when "new_order"
+        { paid_at: nil, shipped_at: nil }
+      when "paid"
+        { paid_at: paid_at || now, shipped_at: nil }
+      when "shipped"
+        { paid_at: paid_at || now, shipped_at: shipped_at || now }
+      end
+
+      update!({ status: requested_status }.merge(timestamps))
+    end
+  end
+
   def cancel_and_release_inventory!
     with_lock do
       return unless new_order?

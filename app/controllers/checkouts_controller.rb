@@ -17,19 +17,19 @@ class CheckoutsController < ApplicationController
     )
     order = processor.call
 
-    stripe_session = StripeCheckoutSession.create(
-      order: order,
-      success_url: "#{payment_success_url(order)}?session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: payment_cancel_url(order)
-    )
-    order.update!(stripe_checkout_session_id: stripe_session.id)
-
-    session[:customer_id] = processor.customer.id
-    session[:cart] = {}
-    completed_order_ids = Array(session[:completed_order_ids]).map(&:to_i)
-    session[:completed_order_ids] = (completed_order_ids << order.id).uniq.last(10)
-
-    redirect_to stripe_session.url, allow_other_host: true
+    if stripe_checkout_enabled?
+      stripe_session = StripeCheckoutSession.create(
+        order: order,
+        success_url: "#{payment_success_url(order)}?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: payment_cancel_url(order)
+      )
+      order.update!(stripe_checkout_session_id: stripe_session.id)
+      complete_checkout_session(order, processor.customer)
+      redirect_to stripe_session.url, allow_other_host: true
+    else
+      complete_checkout_session(order, processor.customer)
+      redirect_to order_path(order), notice: "Your order was placed successfully."
+    end
   rescue ActiveRecord::RecordInvalid => error
     @customer = error.record.is_a?(Customer) ? error.record : processor.customer
     @customer ||= Customer.new(customer_params)
@@ -71,5 +71,16 @@ class CheckoutsController < ApplicationController
     params.require(:customer).permit(
       :first_name, :last_name, :email, :phone, :address, :city, :postal_code, :province_id
     )
+  end
+
+  def stripe_checkout_enabled?
+    Rails.application.config.x.stripe.checkout_enabled
+  end
+
+  def complete_checkout_session(order, customer)
+    session[:customer_id] = customer.id
+    session[:cart] = {}
+    completed_order_ids = Array(session[:completed_order_ids]).map(&:to_i)
+    session[:completed_order_ids] = (completed_order_ids << order.id).uniq.last(10)
   end
 end
