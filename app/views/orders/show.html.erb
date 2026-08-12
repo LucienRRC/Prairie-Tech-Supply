@@ -1,8 +1,8 @@
 <section class="page-hero invoice-hero">
   <div class="container">
-    <p class="eyebrow">ORDER STATUS: <%= @order.status_label.upcase %></p>
+    <p class="eyebrow">ORDER INVOICE</p>
     <h1>Invoice #<%= @order.id.to_s.rjust(6, "0") %></h1>
-    <p>Created <%= @order.created_at.in_time_zone.to_fs(:long) %></p>
+    <p>Created <%= @order.created_at.in_time_zone.to_fs(:long) %> <span class="status-badge status-<%= @order.status %>"><%= @order.status_label %></span></p>
   </div>
 </section>
 
@@ -12,6 +12,7 @@
       <div>
         <h2>Prairie Tech Supply</h2>
         <p>Winnipeg, Manitoba</p>
+        <p class="invoice-reference">Official customer invoice</p>
       </div>
       <div class="invoice-customer">
         <strong>Customer</strong>
