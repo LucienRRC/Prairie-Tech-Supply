@@ -7,7 +7,7 @@ class AdminUser < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          authentication_keys: [:username]
 
-  normalizes :username, with: ->(username) { username.strip.downcase }
+  normalizes :username, :email, with: ->(value) { value.strip.downcase }
 
   validates :username,
     presence: true,
@@ -16,6 +16,12 @@ class AdminUser < ApplicationRecord
     format: {
       with: USERNAME_FORMAT,
       message: "may only contain letters, numbers, dots, underscores, and hyphens"
+    }
+  validates :email,
+    length: { maximum: 254 },
+    format: {
+      with: DataFormats::EMAIL,
+      message: "must be a complete email address, such as name@example.com"
     }
 
   def self.ransackable_attributes(_auth_object = nil)

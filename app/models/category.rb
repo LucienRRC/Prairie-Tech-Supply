@@ -1,7 +1,7 @@
 class Category < ApplicationRecord
   has_many :products, dependent: :restrict_with_error
 
-  normalizes :name, with: ->(name) { name.strip }
+  normalizes :name, :description, with: ->(value) { value.strip }
 
   validates :name,
     presence: true,

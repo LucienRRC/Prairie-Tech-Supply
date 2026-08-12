@@ -1,7 +1,13 @@
 class SitePage < ApplicationRecord
   EDITABLE_SLUGS = %w[about contact].freeze
 
-  validates :slug, presence: true, inclusion: { in: EDITABLE_SLUGS }, uniqueness: true
+  normalizes :slug, with: ->(slug) { slug.strip.downcase }
+  normalizes :title, with: ->(title) { title.strip }
+
+  validates :slug,
+    presence: true,
+    inclusion: { in: EDITABLE_SLUGS },
+    uniqueness: { case_sensitive: false }
   validates :title, :body, presence: true
   validates :title, length: { maximum: 120 }
   validates :body, length: { maximum: 20_000 }

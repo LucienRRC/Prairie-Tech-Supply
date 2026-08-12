@@ -8,7 +8,8 @@ class Province < ApplicationRecord
   validates :name, :abbreviation, presence: true, uniqueness: { case_sensitive: false }
   validates :name, length: { maximum: 80 }
   validates :abbreviation,
-    format: { with: /\A[A-Z]{2}\z/, message: "must be exactly two letters" }
+    length: { is: 2 },
+    format: { with: /\A[A-Z]{2}\z/, message: "must contain two uppercase letters" }
   validates :gst_rate, :pst_rate, :hst_rate,
     numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1 }
   validate :hst_is_not_combined_with_separate_taxes

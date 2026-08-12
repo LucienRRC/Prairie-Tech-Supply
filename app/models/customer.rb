@@ -1,9 +1,4 @@
 class Customer < ApplicationRecord
-  NAME_FORMAT = /\A[\p{L}][\p{L}\p{M}'’ .-]*\z/
-  EMAIL_FORMAT = /\A[^@\s]+@(?:[a-z0-9-]+\.)+[a-z]{2,63}\z/i
-  PHONE_FORMAT = /\A(?:\+?1[ .-]?)?(?:\(\d{3}\)|\d{3})[ .-]?\d{3}[ .-]?\d{4}\z/
-  CANADIAN_POSTAL_CODE_FORMAT = /\A[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d\z/i
-
   devise :database_authenticatable,
     :registerable,
     :validatable,
@@ -22,7 +17,7 @@ class Customer < ApplicationRecord
   validates :first_name, :last_name, presence: true
   validates :first_name, :last_name,
     length: { maximum: 60 },
-    format: { with: NAME_FORMAT, message: "may only contain letters and common name punctuation" }
+    format: { with: DataFormats::NAME, message: "may only contain letters and common name punctuation" }
   validates :username, presence: true, if: :account_registered?
   validates :username,
     uniqueness: { case_sensitive: false },
@@ -35,17 +30,21 @@ class Customer < ApplicationRecord
   validates :email,
     presence: true,
     uniqueness: { case_sensitive: false },
+    length: { maximum: 254 },
     format: {
-      with: EMAIL_FORMAT,
+      with: DataFormats::EMAIL,
       message: "must be a complete email address, such as name@example.com"
     }
   validates :phone,
-    format: { with: PHONE_FORMAT, message: "must be a valid North American phone number" },
+    length: { maximum: 25 },
+    format: { with: DataFormats::PHONE, message: "must be a valid North American phone number" },
     allow_blank: true
   validates :postal_code,
-    format: { with: CANADIAN_POSTAL_CODE_FORMAT, message: "must be a valid Canadian postal code" },
+    length: { maximum: 7 },
+    format: { with: DataFormats::CANADIAN_POSTAL_CODE, message: "must be a valid Canadian postal code" },
     allow_blank: true
   validates :address, :city, length: { maximum: 120 }, allow_blank: true
+  validates :account_registered, inclusion: { in: [true, false] }
 
   def password_required?
     account_registered? && super

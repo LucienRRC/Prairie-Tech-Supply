@@ -1,7 +1,6 @@
 class Product < ApplicationRecord
   IMAGE_CONTENT_TYPES = %w[image/jpeg image/png image/webp].freeze
   MAX_IMAGE_SIZE = 5.megabytes
-  SKU_FORMAT = /\A[A-Z0-9]+(?:-[A-Z0-9]+)*\z/
 
   belongs_to :category
   has_many :cart_items, dependent: :destroy
@@ -37,14 +36,15 @@ class Product < ApplicationRecord
     uniqueness: { case_sensitive: false },
     length: { maximum: 60 },
     format: {
-      with: SKU_FORMAT,
+      with: DataFormats::SKU,
       message: "must contain only letters, numbers, and single hyphens"
     }
-  validates :price, numericality: { greater_than: 0 }
+  validates :price, numericality: { greater_than: 0, less_than_or_equal_to: 99_999_999.99 }
   validates :sale_price,
-    numericality: { greater_than: 0, less_than: :price },
+    numericality: { greater_than: 0, less_than: :price, less_than_or_equal_to: 99_999_999.99 },
     allow_nil: true
-  validates :stock_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :stock_quantity,
+    numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 2_147_483_647 }
   validates :active, inclusion: { in: [true, false] }
   validate :acceptable_image
 

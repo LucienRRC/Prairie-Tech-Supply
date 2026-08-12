@@ -13,9 +13,35 @@ class Order < ApplicationRecord
     shipping: "shipping"
   }, validate: true
 
+  normalizes :recipient_name, :address, :city, :province_name, with: ->(value) { value.strip }
+  normalizes :phone, with: ->(phone) { phone.strip }
+  normalizes :postal_code, with: ->(postal_code) { postal_code.strip.upcase }
+
   validates :recipient_name, :province_name, presence: true
+  validates :recipient_name, :province_name, length: { maximum: 120 }
+  validates :phone,
+    length: { maximum: 25 },
+    format: { with: DataFormats::PHONE, message: "must be a valid North American phone number" },
+    allow_blank: true
+  validates :postal_code,
+    length: { maximum: 7 },
+    format: { with: DataFormats::CANADIAN_POSTAL_CODE, message: "must be a valid Canadian postal code" },
+    allow_blank: true
+  validates :address, :city, length: { maximum: 120 }, allow_blank: true
   validates :subtotal, :gst_amount, :pst_amount, :hst_amount, :delivery_fee, :total,
-    numericality: { greater_than_or_equal_to: 0 }
+    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 99_999_999.99 }
+  validates :gst_rate, :pst_rate, :hst_rate,
+    numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 1 }
+  validates :stripe_checkout_session_id,
+    uniqueness: true,
+    format: { with: DataFormats::STRIPE_CHECKOUT_SESSION_ID },
+    allow_blank: true
+  validates :stripe_payment_intent_id,
+    uniqueness: true,
+    format: { with: DataFormats::STRIPE_PAYMENT_INTENT_ID },
+    allow_blank: true
+  validate :total_matches_order_components
+  validate :hst_is_not_combined_with_separate_taxes
 
   def status_label
     new_order? ? "New" : status.humanize
@@ -72,5 +98,22 @@ class Order < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[customer order_items]
+  end
+
+  private
+
+  def total_matches_order_components
+    amounts = [subtotal, gst_amount, pst_amount, hst_amount, delivery_fee, total]
+    return if amounts.any?(&:nil?)
+    return if errors.attribute_names.intersect?(%i[subtotal gst_amount pst_amount hst_amount delivery_fee total])
+
+    expected_total = amounts.first(5).sum(&:to_d).round(2)
+    errors.add(:total, "must equal subtotal, taxes, and delivery fee") unless total.to_d == expected_total
+  end
+
+  def hst_is_not_combined_with_separate_taxes
+    return unless hst_rate.to_d.positive? && (gst_rate.to_d.positive? || pst_rate.to_d.positive?)
+
+    errors.add(:hst_rate, "cannot be combined with GST or PST")
   end
 end
