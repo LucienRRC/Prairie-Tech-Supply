@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   IMAGE_CONTENT_TYPES = %w[image/jpeg image/png image/webp].freeze
   MAX_IMAGE_SIZE = 5.megabytes
+  SKU_FORMAT = /\A[A-Z0-9]+(?:-[A-Z0-9]+)*\z/
 
   belongs_to :category
   has_many :cart_items, dependent: :destroy
@@ -26,13 +27,25 @@ class Product < ApplicationRecord
     )
   end
 
-  validates :name, :sku, presence: true
-  validates :sku, uniqueness: { case_sensitive: false }
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  normalizes :name, :brand, with: ->(value) { value.strip }
+  normalizes :sku, with: ->(sku) { sku.strip.upcase }
+
+  validates :name, :description, :sku, presence: true
+  validates :name, :brand, length: { maximum: 120 }, allow_blank: true
+  validates :description, length: { maximum: 5_000 }
+  validates :sku,
+    uniqueness: { case_sensitive: false },
+    length: { maximum: 60 },
+    format: {
+      with: SKU_FORMAT,
+      message: "must contain only letters, numbers, and single hyphens"
+    }
+  validates :price, numericality: { greater_than: 0 }
   validates :sale_price,
-    numericality: { greater_than_or_equal_to: 0, less_than: :price },
+    numericality: { greater_than: 0, less_than: :price },
     allow_nil: true
   validates :stock_quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :active, inclusion: { in: [true, false] }
   validate :acceptable_image
 
   def on_sale?

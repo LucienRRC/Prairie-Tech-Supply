@@ -168,6 +168,7 @@ class CustomerAuthenticationTest < ActionDispatch::IntegrationTest
     product = Product.create!(
       category: category,
       name: "Account Checkout Product",
+      description: "A product used to verify checkout with a registered customer.",
       sku: "ACCOUNT-CHECKOUT-001",
       price: 50,
       stock_quantity: 4,

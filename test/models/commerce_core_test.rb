@@ -6,6 +6,7 @@ class CommerceCoreTest < ActiveSupport::TestCase
     product = Product.new(
       category: category,
       name: "Mechanical Keyboard",
+      description: "A durable mechanical keyboard for everyday work and gaming.",
       sku: "KEY-001",
       price: 89.99,
       stock_quantity: 10
@@ -35,6 +36,7 @@ class CommerceCoreTest < ActiveSupport::TestCase
     product = Product.new(
       category: category,
       name: "Sale Product",
+      description: "A complete sale product used to verify price validation.",
       sku: "SALE-VALIDATION-001",
       price: 100,
       sale_price: 100,
