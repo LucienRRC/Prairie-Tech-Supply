@@ -1,10 +1,7 @@
-<section class="page-hero">
-  <div class="container">
-    <p class="eyebrow">CUSTOMER ACCOUNT</p>
-    <h1>Order history</h1>
-    <p>Review every product, tax amount, and grand total from your past orders.</p>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "CUSTOMER ACCOUNT",
+  title: "Order history",
+  description: "Review every product, tax amount, and grand total from your past orders." %>
 
 <section class="container section">
   <% if @orders.any? %>
@@ -52,10 +49,11 @@
       <div class="pagination-wrap"><%= paginate @orders %></div>
     <% end %>
   <% else %>
-    <div class="empty-products">
-      <h2>No past orders</h2>
-      <p>Your completed checkouts will appear here.</p>
-      <%= link_to "Browse products", products_path, class: "catalogue-link" %>
-    </div>
+    <%= render "shared/empty_state",
+      title: "No past orders",
+      description: "Your completed checkouts will appear here.",
+      link_text: "Browse products",
+      link_path: products_path,
+      link_class: "catalogue-link" %>
   <% end %>
 </section>

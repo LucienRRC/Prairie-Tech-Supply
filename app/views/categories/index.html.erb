@@ -1,10 +1,8 @@
-<section class="page-hero category-hero">
-  <div class="container">
-    <p class="eyebrow">SHOP BY DEPARTMENT</p>
-    <h1>Categories</h1>
-    <p>Browse every available product in a department without running a keyword search.</p>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "SHOP BY DEPARTMENT",
+  title: "Categories",
+  description: "Browse every available product in a department without running a keyword search.",
+  hero_class: "category-hero" %>
 
 <section class="container section">
   <div class="category-grid">
@@ -21,9 +19,8 @@
   </div>
 
   <% if @categories.empty? %>
-    <div class="empty-products">
-      <h2>No categories available</h2>
-      <p>Categories will appear here when active products are added.</p>
-    </div>
+    <%= render "shared/empty_state",
+      title: "No categories available",
+      description: "Categories will appear here when active products are added." %>
   <% end %>
 </section>

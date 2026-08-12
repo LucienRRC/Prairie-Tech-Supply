@@ -1,0 +1,9 @@
+<% empty_classes = ["empty-products", local_assigns[:empty_class]].compact.join(" ") %>
+
+<div class="<%= empty_classes %>">
+  <h2><%= title %></h2>
+  <p><%= description %></p>
+  <% if local_assigns[:link_path].present? %>
+    <%= link_to link_text, link_path, class: local_assigns[:link_class] %>
+  <% end %>
+</div>

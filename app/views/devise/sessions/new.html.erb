@@ -1,10 +1,9 @@
-<section class="page-hero auth-hero">
-  <div class="container narrow">
-    <p class="eyebrow">WELCOME BACK</p>
-    <h1>Customer login</h1>
-    <p>Log in with your username and password.</p>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "WELCOME BACK",
+  title: "Customer login",
+  description: "Log in with your username and password.",
+  hero_class: "auth-hero",
+  container_class: "narrow" %>
 
 <section class="container auth-narrow section">
   <div class="auth-panel">
