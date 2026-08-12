@@ -17,10 +17,25 @@
     <%= javascript_include_tag "application", defer: true %>
   </head>
 
-  <body>
+  <body class="storefront <%= controller_path.tr('/', '-') %>-page <%= action_name %>-page">
+    <%= link_to "Skip to main content", "#main-content", class: "skip-link" %>
+
+    <div class="announcement-bar">
+      <div class="container announcement-content">
+        <span>Serving Winnipeg with local pickup and delivery</span>
+        <span class="announcement-trust">Secure checkout &middot; Canadian tax calculated by province</span>
+      </div>
+    </div>
+
     <header class="site-header">
       <div class="container nav-wrap">
-        <%= link_to "Prairie Tech Supply", root_path, class: "brand" %>
+        <%= link_to root_path, class: "brand", aria: { label: "Prairie Tech Supply home" } do %>
+          <span class="brand-mark" aria-hidden="true">PT</span>
+          <span class="brand-copy">
+            <strong>Prairie Tech</strong>
+            <small>Supply</small>
+          </span>
+        <% end %>
         <button type="button"
           class="nav-toggle"
           aria-controls="site-navigation"
@@ -30,25 +45,26 @@
           <span class="nav-toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
         </button>
         <nav id="site-navigation" class="site-nav" aria-label="Main navigation">
-          <%= link_to "Products", products_path %>
-          <%= link_to "Categories", categories_path %>
-          <%= link_to "About", about_path %>
-          <%= link_to "Contact", contact_path %>
-          <%= link_to cart_path, class: "cart-link" do %>
+          <%= storefront_nav_link "Products", products_path, section: :products %>
+          <%= storefront_nav_link "Categories", categories_path, section: :categories %>
+          <%= storefront_nav_link "About", about_path, section: :about %>
+          <%= storefront_nav_link "Contact", contact_path, section: :contact %>
+          <%= link_to cart_path,
+            class: class_names("nav-link", "cart-link", "is-active": controller_path.in?(["carts", "checkouts"])),
+            aria: (controller_path.in?(["carts", "checkouts"]) ? { current: "page" } : {}) do %>
             Cart <span class="cart-count"><%= cart_item_count %></span>
           <% end %>
           <% if customer_signed_in? %>
-            <%= link_to "Orders", orders_path %>
-            <%= link_to "Account", edit_customer_registration_path %>
+            <%= storefront_nav_link "Orders", orders_path, section: :orders %>
+            <%= storefront_nav_link "Account", edit_customer_registration_path, section: :account %>
             <%= button_to "Log out", destroy_customer_session_path,
               method: :delete,
               class: "nav-button",
               form: { class: "nav-form" } %>
           <% else %>
-            <%= link_to "Log in", new_customer_session_path %>
+            <%= storefront_nav_link "Log in", new_customer_session_path, section: :account %>
             <%= link_to "Sign up", new_customer_registration_path, class: "signup-link" %>
           <% end %>
-          <%= link_to "Admin", admin_root_path, class: "admin-link" %>
         </nav>
       </div>
     </header>
@@ -58,10 +74,47 @@
     <% if notice.present? %><p class="flash notice"><%= notice %></p><% end %>
     <% if alert.present? %><p class="flash alert"><%= alert %></p><% end %>
 
-    <main><%= yield %></main>
+    <main id="main-content" tabindex="-1"><%= yield %></main>
 
     <footer class="site-footer">
-      <div class="container">Prairie Tech Supply &middot; Winnipeg, Manitoba</div>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-heading">
+            <span class="brand-mark" aria-hidden="true">PT</span>
+            <strong>Prairie Tech Supply</strong>
+          </div>
+          <p>Reliable electronics, straightforward pricing, and local support for Winnipeg.</p>
+          <span class="footer-location">Winnipeg, Manitoba &middot; Canada</span>
+        </div>
+
+        <nav class="footer-links" aria-label="Shop links">
+          <strong>Shop</strong>
+          <%= link_to "All products", products_path %>
+          <%= link_to "Categories", categories_path %>
+          <%= link_to "Shopping cart", cart_path %>
+        </nav>
+
+        <nav class="footer-links" aria-label="Customer links">
+          <strong>Customer</strong>
+          <% if customer_signed_in? %>
+            <%= link_to "Order history", orders_path %>
+            <%= link_to "Account details", edit_customer_registration_path %>
+          <% else %>
+            <%= link_to "Log in", new_customer_session_path %>
+            <%= link_to "Create account", new_customer_registration_path %>
+          <% end %>
+        </nav>
+
+        <nav class="footer-links" aria-label="Company links">
+          <strong>Company</strong>
+          <%= link_to "About us", about_path %>
+          <%= link_to "Contact", contact_path %>
+        </nav>
+      </div>
+      <div class="container footer-bottom">
+        <span>&copy; <%= Time.current.year %> Prairie Tech Supply</span>
+        <span>Secure checkout &middot; Prices in CAD</span>
+      </div>
     </footer>
   </body>
 </html>
