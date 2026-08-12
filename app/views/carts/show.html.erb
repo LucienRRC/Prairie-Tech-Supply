@@ -1,10 +1,7 @@
-<section class="page-hero">
-  <div class="container">
-    <p class="eyebrow">YOUR SESSION CART</p>
-    <h1>Shopping cart</h1>
-    <p>Your selected products remain in this browser session while you continue shopping.</p>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "YOUR SESSION CART",
+  title: "Shopping cart",
+  description: "Your selected products remain in this browser session while you continue shopping." %>
 
 <section class="container section">
   <% if @cart_items.any? %>
@@ -56,10 +53,12 @@
       </aside>
     </div>
   <% else %>
-    <div class="empty-products empty-cart">
-      <h2>Your cart is empty</h2>
-      <p>Add products to your cart to see them here.</p>
-      <%= link_to "Browse products", products_path, class: "catalogue-link" %>
-    </div>
+    <%= render "shared/empty_state",
+      title: "Your cart is empty",
+      description: "Add products to your cart to see them here.",
+      link_text: "Browse products",
+      link_path: products_path,
+      link_class: "catalogue-link",
+      empty_class: "empty-cart" %>
   <% end %>
 </section>

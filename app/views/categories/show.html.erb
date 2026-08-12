@@ -1,10 +1,9 @@
-<section class="page-hero category-hero">
-  <div class="container">
-    <p class="eyebrow"><%= link_to "ALL CATEGORIES", categories_path %></p>
-    <h1><%= @category.name %></h1>
-    <p><%= @category.description.presence || "Browse all available products in #{@category.name}." %></p>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "ALL CATEGORIES",
+  eyebrow_path: categories_path,
+  title: @category.name,
+  description: @category.description.presence || "Browse all available products in #{@category.name}.",
+  hero_class: "category-hero" %>
 
 <section class="container section">
   <div class="category-toolbar">
@@ -12,16 +11,14 @@
     <%= link_to "Back to categories", categories_path %>
   </div>
 
-  <div class="product-grid">
-    <%= render partial: "products/product_card", collection: @products, as: :product %>
-  </div>
+  <%= render "shared/product_grid", products: @products %>
 
   <% if @products.empty? %>
-    <div class="empty-products">
-      <h2>No available products</h2>
-      <p>This category does not currently contain active products.</p>
-      <%= link_to "Browse other categories", categories_path %>
-    </div>
+    <%= render "shared/empty_state",
+      title: "No available products",
+      description: "This category does not currently contain active products.",
+      link_text: "Browse other categories",
+      link_path: categories_path %>
   <% elsif @products.total_pages > 1 %>
     <div class="pagination-wrap">
       <%= paginate @products %>

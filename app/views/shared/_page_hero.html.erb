@@ -1,0 +1,18 @@
+<% hero_classes = ["page-hero", local_assigns[:hero_class]].compact.join(" ") %>
+<% content_classes = ["container", local_assigns[:container_class]].compact.join(" ") %>
+
+<section class="<%= hero_classes %>">
+  <div class="<%= content_classes %>">
+    <p class="eyebrow">
+      <% if local_assigns[:eyebrow_path].present? %>
+        <%= link_to eyebrow, eyebrow_path %>
+      <% else %>
+        <%= eyebrow %>
+      <% end %>
+    </p>
+    <h1><%= title %></h1>
+    <% if local_assigns[:description].present? %>
+      <p><%= description %></p>
+    <% end %>
+  </div>
+</section>

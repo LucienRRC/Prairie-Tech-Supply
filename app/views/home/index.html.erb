@@ -37,9 +37,7 @@
     </div>
     <%= link_to "View all products", products_path %>
   </div>
-  <div class="product-grid">
-    <%= render partial: "products/product_card", collection: @products, as: :product %>
-  </div>
+  <%= render "shared/product_grid", products: @products %>
   <div class="home-products-action">
     <%= link_to "Browse the full product catalogue", products_path, class: "catalogue-link" %>
   </div>

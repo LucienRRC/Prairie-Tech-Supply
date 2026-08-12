@@ -1,9 +1,7 @@
-<section class="page-hero">
-  <div class="container narrow">
-    <p class="eyebrow">PRAIRIE TECH SUPPLY</p>
-    <h1><%= @site_page.title %></h1>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "PRAIRIE TECH SUPPLY",
+  title: @site_page.title,
+  container_class: "narrow" %>
 
 <section class="container narrow section page-copy">
   <article class="prose content-card">

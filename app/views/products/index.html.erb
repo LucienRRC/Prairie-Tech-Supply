@@ -1,10 +1,7 @@
-<section class="page-hero">
-  <div class="container">
-    <p class="eyebrow">PRAIRIE TECH INVENTORY</p>
-    <h1>Products</h1>
-    <p>Electronics selected for work, study, gaming, and connected homes.</p>
-  </div>
-</section>
+<%= render "shared/page_hero",
+  eyebrow: "PRAIRIE TECH INVENTORY",
+  title: "Products",
+  description: "Electronics selected for work, study, gaming, and connected homes." %>
 
 <section class="container section">
   <form action="<%= products_path %>" method="get" class="product-search" role="search">
@@ -53,16 +50,15 @@
     </p>
   <% end %>
 
-  <div class="product-grid">
-    <%= render partial: "product_card", collection: @products, as: :product %>
-  </div>
+  <%= render "shared/product_grid", products: @products %>
 
   <% if @products.empty? %>
-    <div class="empty-products">
-      <h2>No products found</h2>
-      <p>Try another keyword, category, or product filter.</p>
-      <%= link_to "View all products", products_path, class: "text-link" %>
-    </div>
+    <%= render "shared/empty_state",
+      title: "No products found",
+      description: "Try another keyword, category, or product filter.",
+      link_text: "View all products",
+      link_path: products_path,
+      link_class: "text-link" %>
   <% elsif @products.total_pages > 1 %>
     <div class="pagination-wrap">
       <%= paginate @products %>
