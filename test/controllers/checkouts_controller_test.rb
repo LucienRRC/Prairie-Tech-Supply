@@ -50,8 +50,16 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_select "form.checkout-form[action='#{checkout_path}']"
     assert_select "select[name='customer[province_id]']"
     assert_select "option[value='#{@manitoba.id}']", text: "Manitoba"
+    assert_select "select[data-checkout-province] option[value='#{@manitoba.id}'][data-gst-rate='0.05'][data-pst-rate='0.07'][data-hst-rate='0.0']"
+    assert_select "select[data-checkout-province] option[value='#{@ontario.id}'][data-gst-rate='0.0'][data-pst-rate='0.0'][data-hst-rate='0.13']"
     assert_select ".checkout-review-item", count: 2
+    assert_select "[data-checkout-review][data-subtotal='200.0']"
     assert_select ".checkout-review-total", text: /Subtotal before tax.*\$200\.00/
+    assert_select "[data-checkout-tax-breakdown][hidden]"
+    assert_select "[data-tax-row='gst'][hidden] [data-tax-amount='gst']", text: "$0.00"
+    assert_select "[data-tax-row='pst'][hidden] [data-tax-amount='pst']", text: "$0.00"
+    assert_select "[data-tax-row='hst'][hidden] [data-tax-amount='hst']", text: "$0.00"
+    assert_select "[data-checkout-total]", text: "$200.00"
 
     assert_difference ["Customer.count", "Order.count"], 1 do
       assert_difference "OrderItem.count", 2 do

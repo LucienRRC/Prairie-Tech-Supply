@@ -233,6 +233,11 @@ nav.pagination .disabled { opacity: .45; }
 .checkout-review-item div { display: grid; gap: 3px; }
 .checkout-review-item span, .checkout-review > p { color: var(--muted); font-size: .84rem; }
 .checkout-review-total { display: flex; justify-content: space-between; gap: 18px; padding-top: 18px; font-size: 1.08rem; }
+.checkout-tax-breakdown { display: grid; gap: 10px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+.checkout-tax-breakdown > div { display: flex; justify-content: space-between; gap: 18px; color: var(--muted); }
+.checkout-tax-breakdown small { font-size: inherit; }
+.checkout-tax-breakdown .checkout-estimated-total { margin-top: 4px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--ink); font-size: 1.12rem; }
+.checkout-tax-breakdown .checkout-estimated-total strong { color: var(--brand-dark); font-size: 1.24rem; }
 .invoice-hero { padding-block: 54px; }
 .invoice { padding: 36px; }
 .invoice-header { display: flex; justify-content: space-between; gap: 32px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }

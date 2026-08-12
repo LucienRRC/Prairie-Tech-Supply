@@ -55,9 +55,17 @@
       <div class="checkout-fields">
         <div>
           <%= form.label :province_id, "Province or territory" %>
-          <%= form.collection_select :province_id, @provinces, :id, :name,
+          <% province_options = @provinces.map { |province|
+            [province.name, province.id, {
+              "data-gst-rate": province.gst_rate,
+              "data-pst-rate": province.pst_rate,
+              "data-hst-rate": province.hst_rate
+            }]
+          } %>
+          <%= form.select :province_id,
+            options_for_select(province_options, @customer.province_id),
             { prompt: "Select a province or territory" },
-            { required: true, autocomplete: "address-level1" } %>
+            { required: true, autocomplete: "address-level1", data: { checkout_province: true } } %>
         </div>
         <div>
           <%= form.label :address, "Street address (optional)" %>
@@ -86,7 +94,7 @@
     <% end %>
   </div>
 
-  <aside class="checkout-review">
+  <aside class="checkout-review" data-checkout-review data-subtotal="<%= @subtotal %>">
     <h2>Order review</h2>
     <% @checkout_items.each do |item| %>
       <div class="checkout-review-item">
@@ -97,11 +105,29 @@
         <strong><%= number_to_currency(item[:line_total]) %></strong>
       </div>
     <% end %>
-    <div class="checkout-review-total">
+    <div class="checkout-review-total checkout-subtotal">
       <span>Subtotal before tax</span>
-      <strong><%= number_to_currency(@subtotal) %></strong>
+      <strong data-checkout-subtotal><%= number_to_currency(@subtotal) %></strong>
     </div>
-    <p>GST/PST/HST is calculated after you choose a province.</p>
+    <div class="checkout-tax-breakdown" data-checkout-tax-breakdown hidden>
+      <div data-tax-row="gst" hidden>
+        <span>GST <small data-tax-rate="gst"></small></span>
+        <strong data-tax-amount="gst">$0.00</strong>
+      </div>
+      <div data-tax-row="pst" hidden>
+        <span>PST <small data-tax-rate="pst"></small></span>
+        <strong data-tax-amount="pst">$0.00</strong>
+      </div>
+      <div data-tax-row="hst" hidden>
+        <span>HST <small data-tax-rate="hst"></small></span>
+        <strong data-tax-amount="hst">$0.00</strong>
+      </div>
+      <div class="checkout-estimated-total">
+        <span>Estimated total</span>
+        <strong data-checkout-total><%= number_to_currency(@subtotal) %></strong>
+      </div>
+    </div>
+    <p data-tax-prompt>Choose a province or territory to preview GST, PST, HST, and the estimated total.</p>
     <div class="checkout-security">
       <strong>Your order is protected</strong>
       <span>Address details are used only to complete and fulfill your order.</span>

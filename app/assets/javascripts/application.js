@@ -116,12 +116,59 @@ const initializeCart = () => {
   });
 };
 
+const initializeCheckoutTaxPreview = () => {
+  const review = document.querySelector("[data-checkout-review]");
+  const provinceSelect = document.querySelector("[data-checkout-province]");
+  if (!review || !provinceSelect || review.dataset.initialized === "true") return;
+
+  review.dataset.initialized = "true";
+  const subtotal = Number(review.dataset.subtotal);
+  const breakdown = review.querySelector("[data-checkout-tax-breakdown]");
+  const prompt = review.querySelector("[data-tax-prompt]");
+  const totalOutput = review.querySelector("[data-checkout-total]");
+  const currency = new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD"
+  });
+
+  const roundedAmount = (amount) => Math.round((amount + Number.EPSILON) * 100) / 100;
+  const formattedRate = (rate) => `${Number((rate * 100).toFixed(3))}%`;
+
+  const renderTaxPreview = () => {
+    const option = provinceSelect.selectedOptions[0];
+    const hasProvince = Boolean(option?.value);
+
+    breakdown.hidden = !hasProvince;
+    prompt.hidden = hasProvince;
+    if (!hasProvince) return;
+
+    let taxTotal = 0;
+    ["gst", "pst", "hst"].forEach((taxName) => {
+      const rate = Number(option.dataset[`${taxName}Rate`] || 0);
+      const amount = roundedAmount(subtotal * rate);
+      const row = review.querySelector(`[data-tax-row="${taxName}"]`);
+
+      row.hidden = rate <= 0;
+      review.querySelector(`[data-tax-rate="${taxName}"]`).textContent = `(${formattedRate(rate)})`;
+      review.querySelector(`[data-tax-amount="${taxName}"]`).textContent = currency.format(amount);
+      taxTotal += amount;
+    });
+
+    totalOutput.textContent = currency.format(roundedAmount(subtotal + taxTotal));
+  };
+
+  provinceSelect.addEventListener("change", renderTaxPreview);
+  renderTaxPreview();
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   initializeNavigation();
   initializeCart();
+  initializeCheckoutTaxPreview();
 });
 
 document.addEventListener("turbo:load", () => {
   initializeNavigation();
   initializeCart();
+  initializeCheckoutTaxPreview();
 });
