@@ -1,4 +1,30 @@
 module ApplicationHelper
+  def storefront_nav_link(label, path, section: nil)
+    section ||= path
+    active = case section
+    when :products
+      controller_path == "products"
+    when :categories
+      controller_path == "categories"
+    when :about
+      controller_path == "site_pages" && params[:slug] == "about"
+    when :contact
+      controller_path == "site_pages" && params[:slug] == "contact"
+    when :cart
+      controller_path.in?(["carts", "checkouts"])
+    when :orders
+      controller_path == "orders"
+    when :account
+      controller_path.start_with?("devise/")
+    else
+      current_page?(path)
+    end
+
+    link_to label, path,
+      class: class_names("nav-link", "is-active": active),
+      aria: (active ? { current: "page" } : {})
+  end
+
   def breadcrumb_items
     items = [{ label: "Home", path: root_path }]
 

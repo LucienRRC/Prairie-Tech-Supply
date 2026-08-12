@@ -3,6 +3,11 @@
     <p class="eyebrow">SECURE CHECKOUT</p>
     <h1>Customer details</h1>
     <p>Choose your province so the invoice uses the correct Canadian sales taxes.</p>
+    <ol class="checkout-steps" aria-label="Checkout progress">
+      <li class="is-complete"><span>1</span>Cart</li>
+      <li class="is-current" aria-current="step"><span>2</span>Details</li>
+      <li><span>3</span>Invoice</li>
+    </ol>
   </div>
 </section>
 
@@ -95,5 +100,9 @@
       <strong><%= number_to_currency(@subtotal) %></strong>
     </div>
     <p>GST/PST/HST is calculated after you choose a province.</p>
+    <div class="checkout-security">
+      <strong>Your order is protected</strong>
+      <span>Address details are used only to complete and fulfill your order.</span>
+    </div>
   </aside>
 </section>
