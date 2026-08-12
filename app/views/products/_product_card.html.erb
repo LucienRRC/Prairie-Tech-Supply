@@ -21,7 +21,10 @@
       <span><%= product.stock_quantity.positive? ? "In stock" : "Out of stock" %></span>
     </div>
     <%= form_with url: add_cart_item_path(product), method: :post, class: "card-cart-form" do %>
-      <%= hidden_field_tag :quantity, 1 %>
+      <%= tag.input type: "hidden",
+        name: "quantity",
+        id: "product_#{product.id}_quantity",
+        value: 1 %>
       <%= submit_tag "Add to cart", class: "add-cart-button" %>
     <% end %>
   </div>

@@ -1,3 +1,4 @@
+<h2 class="visually-hidden"><%= local_assigns.fetch(:heading, "Available products") %></h2>
 <div class="product-grid">
   <%= render partial: "products/product_card", collection: products, as: :product %>
 </div>
