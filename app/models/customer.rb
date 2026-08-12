@@ -1,5 +1,6 @@
 class Customer < ApplicationRecord
   NAME_FORMAT = /\A[\p{L}][\p{L}\p{M}'’ .-]*\z/
+  EMAIL_FORMAT = /\A[^@\s]+@(?:[a-z0-9-]+\.)+[a-z]{2,63}\z/i
   PHONE_FORMAT = /\A(?:\+?1[ .-]?)?(?:\(\d{3}\)|\d{3})[ .-]?\d{3}[ .-]?\d{4}\z/
   CANADIAN_POSTAL_CODE_FORMAT = /\A[ABCEGHJ-NPRSTVXY]\d[ABCEGHJ-NPRSTV-Z][ -]?\d[ABCEGHJ-NPRSTV-Z]\d\z/i
 
@@ -34,7 +35,10 @@ class Customer < ApplicationRecord
   validates :email,
     presence: true,
     uniqueness: { case_sensitive: false },
-    format: { with: URI::MailTo::EMAIL_REGEXP }
+    format: {
+      with: EMAIL_FORMAT,
+      message: "must be a complete email address, such as name@example.com"
+    }
   validates :phone,
     format: { with: PHONE_FORMAT, message: "must be a valid North American phone number" },
     allow_blank: true

@@ -26,14 +26,15 @@ class DataValidationTest < ActiveSupport::TestCase
       province: province,
       first_name: "123",
       last_name: "Customer",
-      email: "not-an-email",
+      email: "customer@example",
       phone: "12345",
       postal_code: "INVALID"
     )
 
     assert_not customer.valid?
     assert_includes customer.errors[:first_name], "may only contain letters and common name punctuation"
-    assert_includes customer.errors[:email], "is invalid"
+    assert_includes customer.errors[:email],
+      "must be a complete email address, such as name@example.com"
     assert_includes customer.errors[:phone], "must be a valid North American phone number"
     assert_includes customer.errors[:postal_code], "must be a valid Canadian postal code"
   end

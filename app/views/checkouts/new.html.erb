@@ -42,6 +42,8 @@
           <%= form.email_field :email,
             required: true,
             autocomplete: "email",
+            pattern: "[^\\s@]+@[^\\s@]+\\.[A-Za-z]{2,63}",
+            title: "Enter a complete email address, such as name@example.com",
             readonly: customer_signed_in? %>
         </div>
         <div>

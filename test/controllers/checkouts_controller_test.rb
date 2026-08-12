@@ -195,9 +195,9 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference ["Customer.count", "Order.count", "OrderItem.count"] do
       post checkout_path, params: {
         customer: {
-          first_name: "",
+          first_name: "Jamie",
           last_name: "Invalid",
-          email: "not-an-email",
+          email: "jamie@example",
           province_id: @manitoba.id
         }
       }
@@ -205,6 +205,7 @@ class CheckoutsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert_select ".form-errors"
+    assert_select ".form-errors", text: /Email must be a complete email address/
     assert_select ".checkout-review-item", count: 1
 
     get cart_path
