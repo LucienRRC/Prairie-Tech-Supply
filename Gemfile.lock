@@ -300,8 +300,8 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    sqlite3 (2.9.5-x64-mingw-ucrt)
-    sqlite3 (2.9.5-x86_64-linux-gnu)
+    sqlite3 (2.9.6-x64-mingw-ucrt)
+    sqlite3 (2.9.6-x86_64-linux-gnu)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
@@ -466,8 +466,8 @@ CHECKSUMS
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   sprockets (4.2.2) sha256=761e5a49f1c288704763f73139763564c845a8f856d52fba013458f8af1b59b1
   sprockets-rails (3.5.2) sha256=a9e88e6ce9f8c912d349aa5401509165ec42326baf9e942a85de4b76dbc4119e
-  sqlite3 (2.9.5-x64-mingw-ucrt) sha256=b00d5697994ee8589b6096694a2130aa5567db64373baca55ea98c9bf958f46a
-  sqlite3 (2.9.5-x86_64-linux-gnu) sha256=233dbcb6714148dd23bc5aeb33e8efd6eac974969564ddd5794c23d5f52b231e
+  sqlite3 (2.9.6-x64-mingw-ucrt) sha256=1f2b88f417fd0a8c1d5ef19c7e817d8b9c61bee6e33b6b36255fb6e40148e6f8
+  sqlite3 (2.9.6-x86_64-linux-gnu) sha256=613188ce02f614126ddbc38c5e217ccffd6306d0dcd9adca9764547aa890a634
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
   stringio (3.2.0) sha256=c37cb2e58b4ffbd33fe5cd948c05934af997b36e0b6ca6fdf43afa234cf222e1
   stripe (19.4.0) sha256=848807275094285e102aa2c9eeff38f4d5a5e2a293027bf5a2fea8cda38f7cc5
